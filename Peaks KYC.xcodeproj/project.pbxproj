@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1A9452CC2E2AD141002B4A1B /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 1A9452CB2E2AD141002B4A1B /* Yams */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		1AF893302E2AB95B008342BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9452CC2E2AD141002B4A1B /* Yams in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = "Peaks KYC";
 			packageProductDependencies = (
+				1A9452CB2E2AD141002B4A1B /* Yams */,
 			);
 			productName = "Peaks KYC";
 			productReference = 1AF893222E2AB959008342BB /* Peaks KYC.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 1AF893192E2AB959008342BB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1AF893232E2AB959008342BB /* Products */;
 			projectDirPath = "";
@@ -572,6 +581,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A9452CB2E2AD141002B4A1B /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1AF8931A2E2AB959008342BB /* Project object */;
 }
