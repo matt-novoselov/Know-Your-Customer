@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Netherlands.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

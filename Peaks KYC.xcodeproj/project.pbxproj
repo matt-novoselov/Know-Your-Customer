@@ -34,7 +34,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1AF893242E2AB959008342BB /* Peaks KYC */ = {
+		1A47911C2E2B0C920026C1DE /* Peaks KYC */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Peaks KYC";
 			sourceTree = "<group>";
@@ -80,10 +80,10 @@
 		1AF893192E2AB959008342BB = {
 			isa = PBXGroup;
 			children = (
-				1AF893242E2AB959008342BB /* Peaks KYC */,
 				1AF893322E2AB95B008342BB /* Peaks KYCTests */,
 				1AF8933C2E2AB95B008342BB /* Peaks KYCUITests */,
 				1AF893232E2AB959008342BB /* Products */,
+				1A47911C2E2B0C920026C1DE /* Peaks KYC */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,7 +113,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				1AF893242E2AB959008342BB /* Peaks KYC */,
+				1A47911C2E2B0C920026C1DE /* Peaks KYC */,
 			);
 			name = "Peaks KYC";
 			packageProductDependencies = (
@@ -409,6 +409,7 @@
 				DEVELOPMENT_TEAM = GXDG2KXXXC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Peaks-KYC-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Peaks KYC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -444,6 +445,7 @@
 				DEVELOPMENT_TEAM = GXDG2KXXXC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Peaks-KYC-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Peaks KYC";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
