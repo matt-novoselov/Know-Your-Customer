@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppIconView: View {
     @State private var size: CGSize = .zero
-    
+
     var body: some View {
         if let appIcon = UIApplication.shared.appIcon {
             Image(uiImage: appIcon)

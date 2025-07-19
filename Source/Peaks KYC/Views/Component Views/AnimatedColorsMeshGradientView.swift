@@ -11,7 +11,7 @@ struct AnimatedColorsMeshGradientView: View {
   private let colors: [Color] = [
     .brand, .white, .brand,
     .white, .brand, .white,
-    .white, .white, .white,
+    .white, .white, .white
   ]
 
   private let points: [SIMD2<Float>] = [

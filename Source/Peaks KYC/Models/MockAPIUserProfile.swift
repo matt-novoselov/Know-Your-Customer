@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: - Model
 
 /// Represents the user profile data we fetch for NL clients.

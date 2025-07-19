@@ -9,14 +9,14 @@ import SwiftUI
 
 enum ButtonVariant {
     case normal, accent
-    
+
     var background: Color {
         switch self {
         case .normal: return .black
         case .accent: return .brand
         }
     }
-    
+
     var foreground: Color {
         switch self {
         case .normal: return .white
