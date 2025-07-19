@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-enum ButtonVariant {
-    case normal, accent
+enum CapsuleButtonVariant {
+    case normal, brand
 
     var background: Color {
         switch self {
-        case .normal: return .black
-        case .accent: return .brand
+        case .normal: return .primary
+        case .brand: return .brand
         }
     }
 
     var foreground: Color {
         switch self {
         case .normal: return .white
-        case .accent: return .black
+        case .brand: return .primary
         }
     }
 }

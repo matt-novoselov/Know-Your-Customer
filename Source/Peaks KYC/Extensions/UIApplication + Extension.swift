@@ -14,8 +14,8 @@ extension UIApplication {
               let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
               let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
               let iconName = iconFiles.first else {
-                  return nil
-              }
+            return nil
+        }
         return UIImage(named: iconName)
     }
 }

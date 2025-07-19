@@ -7,10 +7,9 @@
 
 import Foundation
 
-// MARK: - Model
 
 /// Represents the user profile data we fetch for NL clients.
-struct MockAPIUserProfile: Codable {
+struct MockAPIUserProfile: Decodable {
     let firstName: String
     let lastName: String
     let birthDate: Date

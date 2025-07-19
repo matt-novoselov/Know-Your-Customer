@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppIconView: View {
     @State private var size: CGSize = .zero
-
+    
     var body: some View {
         if let appIcon = UIApplication.shared.appIcon {
             Image(uiImage: appIcon)
@@ -17,13 +17,13 @@ struct AppIconView: View {
                 .scaledToFit()
                 .clipShape(.rect(cornerRadius: size.width / 9 * 2))
                 .onGeometryChange(for: CGSize.self) { geometry in
-                                return geometry.size
-                            } action: { newValue in
-                                size = newValue
-                            }
-
+                    return geometry.size
+                } action: { newValue in
+                    size = newValue
+                }
+            
         } else {
-            ProgressView()
+            Image(systemName: "xmark.app")
         }
     }
 }

@@ -17,7 +17,7 @@ enum Country: CaseIterable {
     case netherlands
     case germany
     case usa
-
+    
     var data: CountryData {
         switch self {
         case .netherlands:

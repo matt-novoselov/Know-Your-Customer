@@ -8,13 +8,13 @@
 import SwiftUI
 
 extension Font {
-    /// Custom “Dazzed” font from bundle
+    /// Custom “Dazzed” font from bundle using text styles
     /// - Parameters:
-    ///   - size: point size
+    ///   - style: UIFont.TextStyle like .body, .title1, etc.
     ///   - weight: font weight (uses UIFont.Weight)
     ///   - width: font width trait (0 = normal, negative = condensed, positive = expanded)
     static func dazzed(
-        size: CGFloat,
+        style: UIFont.TextStyle,
         weight: UIFont.Weight = .regular,
         width: CGFloat = 0
     ) -> Font {
@@ -23,10 +23,11 @@ extension Font {
             .width: width
         ]
         let descriptor = UIFontDescriptor(fontAttributes: [
-            .family: "Dazzed-TRIAL", // your font’s family name
+            .family: "Dazzed-TRIAL",
             .traits: traits
         ])
-        let uiFont = UIFont(descriptor: descriptor, size: size)
+        let pointSize = UIFont.preferredFont(forTextStyle: style).pointSize
+        let uiFont = UIFont(descriptor: descriptor, size: pointSize)
         return Font(uiFont)
     }
 }
