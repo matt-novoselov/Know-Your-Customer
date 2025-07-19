@@ -5,7 +5,6 @@
 //  Created by Matt Novoselov on 19/07/25.
 //
 
-
 import SwiftUI
 
 // Structure creating a custom textFieldStyle
@@ -13,7 +12,7 @@ struct PeaksTextFieldStyle: TextFieldStyle {
     @FocusState private var isFocused: Bool
     @Binding var text: String
     var isValid: Bool
-    
+
     func _body(configuration: TextField<Self._Label>) -> some View {
         let empty = text.isEmpty
         let fg: Color = {
@@ -23,7 +22,7 @@ struct PeaksTextFieldStyle: TextFieldStyle {
                 return isFocused || !empty ? .black : .secondary
             }
         }()
-        
+
         let isFieldFocused: Bool = {
             if !isValid || isFocused {
                 return true
@@ -31,7 +30,7 @@ struct PeaksTextFieldStyle: TextFieldStyle {
                 return false
             }
         }()
-        
+
         configuration
             .overlay(alignment: .trailing) {
                 if !empty && isFocused {

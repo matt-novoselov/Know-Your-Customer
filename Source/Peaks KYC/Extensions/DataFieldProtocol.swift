@@ -13,7 +13,6 @@ protocol DataFieldProtocol: View {
   @ViewBuilder func inputField() -> InputField
 }
 
-
 extension DataFieldProtocol where Self: View {
     var isValid: Bool { false }
   var body: some View {

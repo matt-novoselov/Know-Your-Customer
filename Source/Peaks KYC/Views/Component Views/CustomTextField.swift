@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-
 struct MyTextField: DataFieldProtocol {
     @State private var text = ""
     let fieldConfig: FieldConfig
-    
+
     func inputField() -> some View {
         TextField(
             fieldConfig.label,
@@ -25,7 +24,7 @@ struct MyTextField: DataFieldProtocol {
 
 struct FieldWrapper: View {
     let fieldConfig: FieldConfig
-    
+
     @ViewBuilder
     var body: some View {
         switch fieldConfig.type {
@@ -39,24 +38,23 @@ struct FieldWrapper: View {
 
     import Yams
 
-
 struct FieldFormView: View {
     let configs: [FieldConfig]
     @Binding var path: NavigationPath
-    
+
     var body: some View {
         ScrollView {
-            Group{
+            Group {
                 ForEach(configs, id: \.id) { cfg in
                     FieldWrapper(fieldConfig: cfg)
                         .padding(.vertical, 5)
                 }
-                
+
                 Spacer()
                     .frame(height: 100)
-                
-                Button("Continue"){
-                    
+
+                Button("Continue") {
+
                 }
                 .buttonStyle(PeaksButtonStyle())
                 .disabled(true)

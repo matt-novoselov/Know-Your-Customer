@@ -11,7 +11,7 @@ import Yams
 struct CountryPickerField: View {
     @Binding var selectedCountry: Country
     @State private var isPresented = false
-    
+
     var body: some View {
         Button {
             isPresented = true
@@ -22,9 +22,9 @@ struct CountryPickerField: View {
                     .scaledToFit()
                     .frame(width: 32)
                 Text(selectedCountry.data.name)
-                
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.down")
                     .rotationEffect(.degrees(isPresented ? 180 : 0))
                     .animation(.spring(duration: 0.3), value: isPresented)
@@ -32,11 +32,11 @@ struct CountryPickerField: View {
         }
         .focusStroke(isFocused: isPresented)
         .dynamicSizedSheet(isPresented: $isPresented) {
-            VStack(spacing: 20){
+            VStack(spacing: 20) {
                 Text("Select region")
                     .font(.dazzed(size: 28, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 ForEach(Country.allCases, id: \.self) { country in
                     Button(action: {
                         selectedCountry = country
@@ -48,7 +48,7 @@ struct CountryPickerField: View {
                                 .scaledToFit()
                                 .frame(width: 32)
                             Text(country.data.name)
-                            
+
                             Spacer()
                         }
                         .focusStroke(isFocused: selectedCountry == country, cornerRadius: 23)
@@ -58,27 +58,27 @@ struct CountryPickerField: View {
             .padding()
             .padding(.top)
         }
-        
+
     }
 }
 
 struct CountrySelectionView: View {
     @State private var path = NavigationPath()
     @State private var selectedCountry: Country = .netherlands
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
                 CountryPickerField(selectedCountry: $selectedCountry)
-                
+
                 Spacer()
-                
+
                 Button("Continue") {
                     path.append(Route.status)
                 }
                 .buttonStyle(PeaksButtonStyle())
             }
-            
+
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .status:
@@ -87,34 +87,32 @@ struct CountrySelectionView: View {
                     FieldFormView(configs: [], path: $path)
                 }
             }
-            
+
             .withHeader("Choose your country")
-            
+
             .padding()
         }
     }
 }
 
-
 enum Route: Hashable { case status, fields }
-
 
 struct StatusScreenView: View {
     @Binding var path: NavigationPath
     let selectedCountry: Country
     @State var config: ConfigModel?
-    
+
     var body: some View {
         if let config {
-            VStack{
+            VStack {
                 FieldCompletionStateView(isComplete: true, text: "Select your country")
-                
+
                 ForEach(config.fields, id: \.id) { field in
                     FieldCompletionStateView(isComplete: false, text: "Fill in \(field.label.lowercased())")
                 }
-                
+
                 Spacer()
-                
+
                 Button("Continue to the next step") { path.append(Route.fields) }
                     .buttonStyle(PeaksButtonStyle())
             }
@@ -140,20 +138,18 @@ func loadKYCConfig(for fileName: String) throws -> ConfigModel {
 
 struct DatePickerField: DataFieldProtocol {
     var fieldConfig: FieldConfig
-    
-    @State private var date: Date? = nil
+
+    @State private var date: Date?
     @State private var isPresented = false
-    
+
     private var dateFormatter: DateFormatter {
         let fmt = DateFormatter()
         fmt.dateStyle = .medium
         return fmt
     }
-    
+
     func inputField() -> some View {
-        
-        
-        
+
         Button {
             isPresented = true
         } label: {
@@ -168,9 +164,7 @@ struct DatePickerField: DataFieldProtocol {
         .dynamicSizedSheet(isPresented: $isPresented) {
             DatePickerSheet(fieldLabel: fieldConfig.label, selectedDate: $date)
         }
-        
-        
-        
+
     }
 }
 
@@ -179,15 +173,15 @@ struct DatePickerSheet: View {
     @Binding var selectedDate: Date?
     @Environment(\ .dismiss) private var dismiss
     @State private var tempDate: Date = Date()
-    
+
     var body: some View {
-        
+
         VStack {
-            ZStack{
+            ZStack {
                 Text(fieldLabel)
                     .font(.dazzed(size: 28, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Button("Done") {
                     selectedDate = tempDate
                     dismiss()
@@ -195,8 +189,7 @@ struct DatePickerSheet: View {
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
-            
+
             DatePicker(
                 "Select your \(fieldLabel.lowercased())",
                 selection: $tempDate,
@@ -209,10 +202,9 @@ struct DatePickerSheet: View {
         .onAppear {
             tempDate = selectedDate ?? Date()
         }
-        
+
     }
 }
-
 
 #Preview{
     let config: FieldConfig = .init(id: "birth_date", label: "Birth Date", required: true, type: .date, validation: nil)
@@ -220,15 +212,11 @@ struct DatePickerSheet: View {
         .padding()
 }
 
-
-
-
-
 struct DynamicSizedSheet<SheetContent: View>: ViewModifier {
     @Binding var isPresented: Bool
     @State private var contentHeight: CGFloat = 400
     let sheetContent: () -> SheetContent
-    
+
     func body(content: Content) -> some View {
         content
             .sheet(isPresented: $isPresented) {
@@ -256,23 +244,23 @@ extension View {
 struct HeaderModifier: ViewModifier {
     let title: String
     @Environment(\.dismiss) private var dismiss
-    
+
     func body(content: Content) -> some View {
         VStack {
-            VStack(alignment: .leading, spacing: 15){
-                Button("Back", systemImage: "chevron.left"){
+            VStack(alignment: .leading, spacing: 15) {
+                Button("Back", systemImage: "chevron.left") {
                     dismiss()
                 }
                 .labelStyle(.iconOnly)
                 .fontWeight(.semibold)
                 .imageScale(.large)
-                
+
                 Text(title)
                     .font(.dazzed(size: 32, weight: .heavy))
                     .multilineTextAlignment(.leading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             content
                 .padding(.top)
         }
