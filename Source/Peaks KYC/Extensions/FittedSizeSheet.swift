@@ -1,0 +1,37 @@
+//
+//  FittedSizeSheet.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 19/07/25.
+//
+
+import SwiftUI
+
+struct FittedSizeSheet<SheetContent: View>: ViewModifier {
+    @Binding var isPresented: Bool
+    @State private var contentHeight: CGFloat = 400
+    let sheetContent: () -> SheetContent
+    
+    func body(content: Content) -> some View {
+        content
+            .sheet(isPresented: $isPresented) {
+                sheetContent()
+                    .onGeometryChange(for: CGSize.self) { geometry in
+                        return geometry.size
+                    } action: { newValue in
+                        contentHeight = newValue.height
+                    }
+                    .presentationDetents([.height(contentHeight)])
+                    .presentationDragIndicator(.visible)
+            }
+    }
+}
+
+extension View {
+    func fittedSizeSheet<Content: View>(
+        isPresented: Binding<Bool>,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
+        modifier(FittedSizeSheet(isPresented: isPresented, sheetContent: content))
+    }
+}

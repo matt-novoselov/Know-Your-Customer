@@ -1,0 +1,194 @@
+country: DEBUG
+fields:
+  # ------ TEXT FIELDS (2⁴ = 16 combos) ------
+  - id: text_required_only
+    label: Text Required Only
+    type: text
+    required: true
+
+  - id: text_optional_only
+    label: Text Optional Only
+    type: text
+    required: false
+
+  - id: text_required_regex_only
+    label: Text Required Regex Only
+    type: text
+    required: true
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+
+  - id: text_optional_regex_only
+    label: Text Optional Regex Only
+    type: text
+    required: false
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+
+  - id: text_required_min_length_only
+    label: Text Required Min Length Only
+    type: text
+    required: true
+    validation:
+      min_length: 5
+
+  - id: text_optional_min_length_only
+    label: Text Optional Min Length Only
+    type: text
+    required: false
+    validation:
+      min_length: 5
+
+  - id: text_required_max_length_only
+    label: Text Required Max Length Only
+    type: text
+    required: true
+    validation:
+      max_length: 10
+
+  - id: text_optional_max_length_only
+    label: Text Optional Max Length Only
+    type: text
+    required: false
+    validation:
+      max_length: 10
+
+  - id: text_required_regex_min_length
+    label: Text Required + Regex + MinLength
+    type: text
+    required: true
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      min_length: 5
+
+  - id: text_optional_regex_min_length
+    label: Text Optional + Regex + MinLength
+    type: text
+    required: false
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      min_length: 5
+
+  - id: text_required_regex_max_length
+    label: Text Required + Regex + MaxLength
+    type: text
+    required: true
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      max_length: 10
+
+  - id: text_optional_regex_max_length
+    label: Text Optional + Regex + MaxLength
+    type: text
+    required: false
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      max_length: 10
+
+  - id: text_required_min_max_length
+    label: Text Required + MinLength + MaxLength
+    type: text
+    required: true
+    validation:
+      min_length: 5
+      max_length: 10
+
+  - id: text_optional_min_max_length
+    label: Text Optional + MinLength + MaxLength
+    type: text
+    required: false
+    validation:
+      min_length: 5
+      max_length: 10
+
+  - id: text_required_regex_min_max_length
+    label: Text Required + Regex + Min + Max
+    type: text
+    required: true
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      min_length: 5
+      max_length: 10
+
+  - id: text_optional_regex_min_max_length
+    label: Text Optional + Regex + Min + Max
+    type: text
+    required: false
+    validation:
+      regex: '^[A-Za-z]+$'
+      message: 'Must match alphabetic characters only'
+      min_length: 5
+      max_length: 10
+
+  # ------ NUMBER FIELDS (2³ = 8 combos) ------
+  - id: number_required_only
+    label: Number Required Only
+    type: number
+    required: true
+
+  - id: number_optional_only
+    label: Number Optional Only
+    type: number
+    required: false
+
+  - id: number_required_min_only
+    label: Number Required + MinValue
+    type: number
+    required: true
+    validation:
+      min_value: 1
+
+  - id: number_optional_min_only
+    label: Number Optional + MinValue
+    type: number
+    required: false
+    validation:
+      min_value: 1
+
+  - id: number_required_max_only
+    label: Number Required + MaxValue
+    type: number
+    required: true
+    validation:
+      max_value: 100
+
+  - id: number_optional_max_only
+    label: Number Optional + MaxValue
+    type: number
+    required: false
+    validation:
+      max_value: 100
+
+  - id: number_required_min_max
+    label: Number Required + Min + Max
+    type: number
+    required: true
+    validation:
+      min_value: 1
+      max_value: 100
+
+  - id: number_optional_min_max
+    label: Number Optional + Min + Max
+    type: number
+    required: false
+    validation:
+      min_value: 1
+      max_value: 100
+
+  # ------ DATE FIELDS (2 combos) ------
+  - id: date_required
+    label: Date Required
+    type: date
+    required: true
+
+  - id: date_optional
+    label: Date Optional
+    type: date
+    required: false

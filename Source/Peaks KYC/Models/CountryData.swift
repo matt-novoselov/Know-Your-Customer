@@ -7,17 +7,24 @@
 
 import SwiftUI
 
+#if targetEnvironment(simulator)
+fileprivate let isDebugging = true
+#else
+fileprivate let isDebugging = false
+#endif
+
 struct CountryData {
     let name: String
     let flag: Image
     let yamlFileName: String
 }
 
-enum Country: CaseIterable {
+enum Country {
     case netherlands
     case germany
     case usa
-    
+    case debug
+
     var data: CountryData {
         switch self {
         case .netherlands:
@@ -38,6 +45,22 @@ enum Country: CaseIterable {
                 flag: Image(.usaFlag),
                 yamlFileName: "US.yaml"
             )
+        case .debug:
+            return CountryData(
+                name: "Debug",
+                flag: Image(systemName: "ladybug"),
+                yamlFileName: "DEBUG.yaml"
+            )
         }
+    }
+}
+
+extension Country: CaseIterable {
+    static var allCases: [Country] {
+        var base: [Country] = [.netherlands, .germany, .usa]
+        if isDebugging {
+            base.append(.debug)
+        }
+        return base
     }
 }
