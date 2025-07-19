@@ -9,11 +9,25 @@ import SwiftUI
 
 struct FieldsOverviewView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-#warning("selected config")
-    @State private var config: ConfigModel?
     
     var body: some View {
-        if let config {
+        Group {
+            if let config = signUpViewModel.selectedConfig {
+                ListView(config: config)
+            } else {
+                ProgressView()
+            }
+        }
+        .task {
+            await signUpViewModel.loadConfig()
+        }
+    }
+
+    private struct ListView: View {
+        @Environment(SignUpViewModel.self) private var signUpViewModel
+        let config: ConfigModel
+        
+        var body: some View {
             ScrollView {
                 VStack{
                     FieldCompletionStateView(isComplete: true, text: "Select your country")
@@ -34,12 +48,6 @@ struct FieldsOverviewView: View {
                 .buttonStyle(.capsule)
                 .padding()
             }
-        } else {
-            ProgressView()
-                .task {
-                    let selectedYAMLFileName = signUpViewModel.selectedCountry.data.yamlFileName
-                    config = try? loadKYCConfig(for: selectedYAMLFileName)
-                }
         }
     }
 }

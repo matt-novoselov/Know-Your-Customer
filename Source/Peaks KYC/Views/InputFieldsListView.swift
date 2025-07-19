@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct InputFieldsListView: View {
-    let configs: [FieldConfig]
+    @Environment(SignUpViewModel.self) private var signUpViewModel
     
     var body: some View {
         ScrollView {
             Group {
-                ForEach(configs, id: \.id) { cfg in
-                    UniversalFieldView(fieldConfig: cfg)
-                        .padding(.vertical, 5)
+                if let configs = signUpViewModel.selectedConfig?.fields {
+                    ForEach(configs, id: \.id) { cfg in
+                        UniversalFieldView(fieldConfig: cfg)
+                            .padding(.vertical, 5)
+                    }
                 }
+                
+                Text(signUpViewModel.selectedConfig?.country ?? "N/A")
                 
                 Spacer()
                     .frame(height: 100)

@@ -14,4 +14,12 @@ class SignUpViewModel {
     var isNCPresented = false
     var selectedCountry: Country = .netherlands
     var path = NavigationPath()
+    var selectedConfig: ConfigModel?
+    
+    private let configurationLoader = ConfigurationLoaderService()
+    public func loadConfig() async {
+        let selectedFileName = selectedCountry.data.yamlFileName
+        let configData = try? configurationLoader.loadConfig(from: selectedFileName)
+        selectedConfig = configData
+    }
 }
