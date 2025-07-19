@@ -12,9 +12,6 @@ struct WelcomeScreenView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Spacer()
-                .frame(height: 50)
-            
             HStack {
                 AppIconView()
                     .frame(height: 44)
@@ -24,20 +21,24 @@ struct WelcomeScreenView: View {
             }
             
             Text("Verification Made Simple")
-                .font(.dazzed(style: .headline, weight: .semibold))
-            
-            Spacer()
-            
-            Button("I am new to Peaks") { signUpViewModel.isNCPresented.toggle() }
-                .buttonStyle(.capsule(.brand))
-            
-            Button("I already have an account") {}
-                .buttonStyle(.capsule)
-                .disabled(true)
+                .font(.dazzed(size: 18.5, weight: .medium))
         }
-        .padding()
+        .padding(.top, 100)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background {
             AnimatedColorsMeshGradientView()
+        }
+        .bottomGradientOverlay(color: .white, height: 400)
+        .overlay(alignment: .bottom){
+            VStack {
+                Button("I am new to Peaks") { signUpViewModel.isNCPresented.toggle() }
+                    .buttonStyle(.capsule(.brand))
+                
+                Button("I already have an account") {}
+                    .buttonStyle(.capsule)
+                    .disabled(true)
+            }
+            .padding()
         }
     }
 }

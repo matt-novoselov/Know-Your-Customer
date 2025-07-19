@@ -92,7 +92,7 @@ struct CountrySelectionView: View {
                 case .overview:
                     FieldsOverviewView()
                 case .fieldsList:
-                    InputFieldsListView(configs: [])
+                    InputFieldsListView()
                 }
             }
             

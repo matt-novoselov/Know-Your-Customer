@@ -31,3 +31,27 @@ extension Font {
         return Font(uiFont)
     }
 }
+
+extension Font {
+    /// Custom “Dazzed” font by numeric size
+    /// - Parameters:
+    ///   - size: exact point size
+    ///   - weight: font weight (uses UIFont.Weight)
+    ///   - width: font width trait (0 = normal, negative = condensed, positive = expanded)
+    static func dazzed(
+        size: CGFloat,
+        weight: UIFont.Weight = .regular,
+        width: CGFloat = 0
+    ) -> Font {
+        let traits: [UIFontDescriptor.TraitKey: Any] = [
+            .weight: weight,
+            .width:  width
+        ]
+        let descriptor = UIFontDescriptor(fontAttributes: [
+            .family: "Dazzed-TRIAL",
+            .traits: traits
+        ])
+        let uiFont = UIFont(descriptor: descriptor, size: size)
+        return Font(uiFont)
+    }
+}

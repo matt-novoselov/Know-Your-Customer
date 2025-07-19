@@ -9,11 +9,11 @@ import SwiftUI
 
 struct AnimatedColorsMeshGradientView: View {
     private let colors: [Color] = [
-        .brand.mix(with: .white, by: 0.5), .brand.mix(with: .white, by: 0.5), .brand.mix(with: .white, by: 0.5),
-        .brand, .brand, .purple.mix(with: .white, by: 0.7),
-        .brand, .pink.mix(with: .white, by: 0.5), .brand,
-        .purple, .brand, .brand,
         .brand, .brand, .brand,
+        .purple.mix(with: .white, by: 0.4), .brand, .purple.mix(with: .white, by: 0.4),
+        .purple, .pink.mix(with: .white, by: 0.1), .purple.mix(with: .white, by: 0.4),
+        .brand, .pink.mix(with: .white, by: 0.3), .pink.mix(with: .white, by: 0.3),
+        .pink, .pink, .brand
     ]
     
     private let points: [SIMD2<Float>] = [
@@ -37,14 +37,7 @@ extension AnimatedColorsMeshGradientView {
                 smoothsColors: true
             )
         }
-        .opacity(0.8)
-        .overlay{
-            LinearGradient(
-                gradient: Gradient(colors: [.clear, .white]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        }
+        .opacity(0.3)
         .ignoresSafeArea()
     }
 }
