@@ -5,6 +5,8 @@
 //  Created by Matt Novoselov on 19/07/25.
 //
 
+#warning("Make Header handle off screen scroll")
+
 import SwiftUI
 
 struct NavigationHeaderModifier: ViewModifier {
