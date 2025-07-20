@@ -45,7 +45,7 @@ extension Font {
     ) -> Font {
         let traits: [UIFontDescriptor.TraitKey: Any] = [
             .weight: weight,
-            .width:  width
+            .width: width
         ]
         let descriptor = UIFontDescriptor(fontAttributes: [
             .family: "Dazzed-TRIAL",

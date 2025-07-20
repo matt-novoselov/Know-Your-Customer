@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FieldsOverviewView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         Group {
             if let config = signUpViewModel.selectedConfig {
@@ -26,12 +26,12 @@ struct FieldsOverviewView: View {
     private struct ListView: View {
         @Environment(SignUpViewModel.self) private var signUpViewModel
         let config: ConfigModel
-        
+
         var body: some View {
             ScrollView {
-                VStack{
+                VStack {
                     FieldCompletionStateView(isComplete: true, text: "Select your country")
-                    
+
                     ForEach(config.fields, id: \.id) { field in
                         FieldCompletionStateView(isComplete: false, text: "Fill in \(field.label)")
                     }
@@ -40,7 +40,7 @@ struct FieldsOverviewView: View {
                 .padding()
             }
             .bottomGradientOverlay()
-            .safeAreaInset(edge: .bottom){
+            .safeAreaInset(edge: .bottom) {
                 Button("Continue to the next step") {
                     signUpViewModel.navigate(to: .fieldsList)
                 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct BottomGradientOverlay: ViewModifier {
     let color: Color
     let height: CGFloat
-    
+
     func body(content: Content) -> some View {
         content
             .overlay(

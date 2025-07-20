@@ -10,7 +10,7 @@ import SwiftUI
 struct TextInputField: InputFieldRepresentable {
     @Binding var text: String
     let fieldConfig: FieldConfig
-    
+
     func inputFieldView() -> some View {
         TextField(
             fieldConfig.label,

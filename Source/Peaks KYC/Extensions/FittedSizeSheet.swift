@@ -12,7 +12,7 @@ struct FittedSizeSheet<SheetContent: View>: ViewModifier {
     @State private var contentHeight: CGFloat = 400
     let sheetContent: () -> SheetContent
     let isDragIndicatorVisible: Bool
-    
+
     func body(content: Content) -> some View {
         content
             .sheet(isPresented: $isPresented) {

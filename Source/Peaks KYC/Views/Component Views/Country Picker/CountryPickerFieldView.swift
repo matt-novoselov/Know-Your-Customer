@@ -10,7 +10,7 @@ import SwiftUI
 struct CountryPickerFieldView: View {
     @Binding var selectedCountry: Country
     @State private var isSheetPresented = false
-    
+
     var body: some View {
         DropdownCountryButtonView(
             country: selectedCountry,
@@ -27,7 +27,7 @@ struct CountryPickerFieldView: View {
 extension CountryPickerFieldView {
     private struct CountryLabelView: View {
         var country: Country
-        
+
         var body: some View {
             HStack {
                 country.data.flag
@@ -35,7 +35,7 @@ extension CountryPickerFieldView {
                     .scaledToFit()
                     .frame(width: 32)
                     .cornerRadius(3)
-                
+
                 Text(country.data.name)
             }
         }
@@ -48,11 +48,11 @@ extension CountryPickerFieldView {
         var selectedCountry: Country
         var country: Country
         var action: () -> Void = {}
-        
+
         var isInFocus: Bool {
             selectedCountry == country
         }
-        
+
         var body: some View {
             Button(action: action) {
                 CountryLabelView(country: country)
@@ -69,12 +69,12 @@ extension CountryPickerFieldView {
         var country: Country
         var action: () -> Void = {}
         var isInFocus: Bool
-        
+
         var body: some View {
             Button(action: action) {
                 CountryLabelView(country: country)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .overlay(alignment: .trailing){
+                    .overlay(alignment: .trailing) {
                         Image(systemName: "chevron.down")
                             .rotationEffect(.degrees(isInFocus ? 180 : 0))
                             .animation(.spring(duration: 0.3), value: isInFocus)
@@ -92,7 +92,7 @@ extension CountryPickerFieldView {
             Text("Select region")
                 .font(.dazzed(style: .title1, weight: .bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             ForEach(Country.allCases, id: \.self) { country in
                 CountryButtonView(
                     selectedCountry: selectedCountry,

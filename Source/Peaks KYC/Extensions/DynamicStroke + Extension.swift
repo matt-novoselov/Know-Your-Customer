@@ -9,7 +9,7 @@ import SwiftUI
 
 enum CornerStyle {
     case capsule, roundedRect
-    
+
     var cornerRadius: CGFloat {
         switch self {
         case .capsule:  return .infinity
@@ -17,7 +17,6 @@ enum CornerStyle {
         }
     }
 }
-
 
 struct DynamicStroke: ViewModifier {
     let isFocused: Bool

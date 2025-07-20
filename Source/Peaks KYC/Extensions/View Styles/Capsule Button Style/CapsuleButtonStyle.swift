@@ -19,11 +19,11 @@ struct CapsuleButtonStyle: ButtonStyle {
     init(_ variant: CapsuleButtonVariant = .normal) {
         self.variant = variant
     }
-    
+
     private var backgroundColor: Color {
         return isEnabled ? variant.background : Color(.quaternarySystemFill)
     }
-    
+
     private var foregroundColor: Color {
         return isEnabled ? variant.foreground : Color(.systemGray2)
     }

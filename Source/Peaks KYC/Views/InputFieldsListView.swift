@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         ScrollView {
             Group {
@@ -19,12 +19,12 @@ struct InputFieldsListView: View {
                             .padding(.vertical, 5)
                     }
                 }
-                
+
                 Spacer()
                     .frame(height: 100)
-                
+
                 Button("Continue") {
-                    
+
                 }
                 .buttonStyle(.capsule)
                 .disabled(true)

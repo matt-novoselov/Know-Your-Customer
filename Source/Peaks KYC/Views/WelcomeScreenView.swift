@@ -9,17 +9,17 @@ import SwiftUI
 
 struct WelcomeScreenView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         VStack(spacing: 10) {
             HStack {
                 AppIconView()
                     .frame(height: 44)
-                
+
                 Text("Peaks KYC")
                     .font(.dazzed(style: .largeTitle, weight: .black))
             }
-            
+
             Text("Verification Made Simple")
                 .font(.dazzed(size: 18.5, weight: .medium))
         }
@@ -29,11 +29,11 @@ struct WelcomeScreenView: View {
             AnimatedColorsMeshGradientView()
         }
         .bottomGradientOverlay(color: .white, height: 400)
-        .overlay(alignment: .bottom){
+        .overlay(alignment: .bottom) {
             VStack {
                 Button("I am new to Peaks") { signUpViewModel.isNCPresented.toggle() }
                     .buttonStyle(.capsule(.brand))
-                
+
                 Button("I already have an account") {}
                     .buttonStyle(.capsule)
                     .disabled(true)

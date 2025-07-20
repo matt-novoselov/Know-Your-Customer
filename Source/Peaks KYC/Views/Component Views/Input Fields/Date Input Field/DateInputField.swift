@@ -10,31 +10,31 @@ import SwiftUI
 struct DateInputField: InputFieldRepresentable {
     @Binding var date: Date?
     var fieldConfig: FieldConfig
-    
+
     @State private var isPresented = false
-    
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }
-    
+
     private var textLabel: String {
         guard let date else {
             return "Select your \(fieldConfig.label)"
         }
-        
+
         return dateFormatter.string(from: date)
     }
-    
+
     private var textForegroundColor: Color {
         guard date != nil else {
             return .secondary
         }
-        
+
         return .primary
     }
-    
+
     func inputFieldView() -> some View {
         Button {
             isPresented.toggle()

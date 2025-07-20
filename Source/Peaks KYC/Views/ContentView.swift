@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
-        
+
         WelcomeScreenView()
             .fullScreenCover(isPresented: $signUpViewModel.isNCPresented) {
                 SignUpNavigationController()

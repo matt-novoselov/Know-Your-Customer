@@ -8,7 +8,6 @@
 import SwiftUI
 import Foundation
 
-
 // Define your service protocol
 protocol MockAPIConformable {
     func fetchUserProfile(from url: String) async throws -> MockAPIUserProfile

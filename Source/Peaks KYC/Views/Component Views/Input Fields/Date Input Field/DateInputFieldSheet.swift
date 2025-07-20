@@ -12,14 +12,14 @@ struct DateInputFieldSheet: View {
     let fieldLabel: String
     @Binding var selectedDate: Date?
     @State private var tempDate: Date = Date()
-    
+
     var body: some View {
         VStack {
             ZStack {
                 Text(fieldLabel)
                     .font(.dazzed(style: .title1, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Button("Done") {
                     selectedDate = tempDate
                     dismiss()
@@ -28,7 +28,7 @@ struct DateInputFieldSheet: View {
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
+
             DatePicker(
                 "Select your \(fieldLabel)",
                 selection: $tempDate,
