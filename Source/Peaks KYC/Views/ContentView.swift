@@ -15,7 +15,7 @@ struct ContentView: View {
         
         WelcomeScreenView()
             .fullScreenCover(isPresented: $signUpViewModel.isNCPresented) {
-                CountrySelectionView()
+                SignUpNavigationController()
             }
     }
 }

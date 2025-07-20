@@ -14,7 +14,7 @@ protocol InputFieldRepresentable: View {
 }
 
 extension InputFieldRepresentable where Self: View {
-    var isValid: Bool { false }
+    var isValid: Bool { true }
     
     private var labelText: Text {
         var text = Text(fieldConfig.label)

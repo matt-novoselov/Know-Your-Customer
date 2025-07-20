@@ -11,6 +11,7 @@ struct FittedSizeSheet<SheetContent: View>: ViewModifier {
     @Binding var isPresented: Bool
     @State private var contentHeight: CGFloat = 400
     let sheetContent: () -> SheetContent
+    let isDragIndicatorVisible: Bool
     
     func body(content: Content) -> some View {
         content
@@ -22,7 +23,7 @@ struct FittedSizeSheet<SheetContent: View>: ViewModifier {
                         contentHeight = newValue.height
                     }
                     .presentationDetents([.height(contentHeight)])
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(isDragIndicatorVisible ? .visible : .hidden)
             }
     }
 }
@@ -30,8 +31,9 @@ struct FittedSizeSheet<SheetContent: View>: ViewModifier {
 extension View {
     func fittedSizeSheet<Content: View>(
         isPresented: Binding<Bool>,
+        isDragIndicatorVisible: Bool = true,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
-        modifier(FittedSizeSheet(isPresented: isPresented, sheetContent: content))
+        modifier(FittedSizeSheet(isPresented: isPresented, sheetContent: content, isDragIndicatorVisible: isDragIndicatorVisible))
     }
 }

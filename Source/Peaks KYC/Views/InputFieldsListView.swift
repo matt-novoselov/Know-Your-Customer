@@ -20,8 +20,6 @@ struct InputFieldsListView: View {
                     }
                 }
                 
-                Text(signUpViewModel.selectedConfig?.country ?? "N/A")
-                
                 Spacer()
                     .frame(height: 100)
                 
