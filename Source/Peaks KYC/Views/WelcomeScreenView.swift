@@ -17,11 +17,11 @@ struct WelcomeScreenView: View {
                     .frame(height: 44)
 
                 Text("Peaks KYC")
-                    .font(.dazzed(style: .largeTitle, weight: .black))
+                    .font(.dazzed(style: .extraLargeTitle, weight: .black))
             }
 
             Text("Verification Made Simple")
-                .font(.dazzed(size: 18.5, weight: .medium))
+                .font(.dazzed(size: 19, weight: .medium))
         }
         .padding(.top, 100)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -34,7 +34,7 @@ struct WelcomeScreenView: View {
                 Button("I am new to Peaks") { signUpViewModel.isNCPresented.toggle() }
                     .buttonStyle(.capsule(.brand))
 
-                Button("I already have an account") {}
+                Button("Login") {}
                     .buttonStyle(.capsule)
                     .disabled(true)
             }
