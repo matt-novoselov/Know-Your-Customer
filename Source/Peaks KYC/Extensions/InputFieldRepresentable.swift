@@ -15,6 +15,7 @@ protocol InputFieldRepresentable: View {
 
 extension InputFieldRepresentable where Self: View {
     var isValid: Bool { true }
+    var isReadOnly: Bool { false }
 
     private var labelText: Text {
         var text = Text(fieldConfig.label)
@@ -26,7 +27,7 @@ extension InputFieldRepresentable where Self: View {
 
     private var isValidationWarningVisible: Bool {
         guard fieldConfig.required else { return false }
-        return isValid
+        return !isValid
     }
 
     var body: some View {
@@ -35,6 +36,7 @@ extension InputFieldRepresentable where Self: View {
                 .font(.headline)
 
             inputFieldView()
+                .disabled(isReadOnly)
 
             Label(fieldConfig.validation?.message ?? "N/A", systemImage: "exclamationmark.circle.fill")
                 .foregroundStyle(.red)
