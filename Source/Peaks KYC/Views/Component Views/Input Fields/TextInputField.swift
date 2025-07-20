@@ -10,6 +10,7 @@ import SwiftUI
 struct TextInputField: InputFieldRepresentable {
     @Binding var text: String
     let fieldConfig: FieldConfig
+    @State var validationError: String? = nil
 
     func inputFieldView() -> some View {
         TextField(
@@ -18,6 +19,9 @@ struct TextInputField: InputFieldRepresentable {
             prompt: Text("Enter \(fieldConfig.label)")
         )
         .keyboardType(.default)
-        .textFieldStyle((.capsule(text: $text, isValid: isValid)))
+        .textFieldStyle((.capsule(text: $text, isValid: !isValidationWarningVisible)))
+        .onSubmit {
+            self.validationError = self.validateInput(text)
+        }
     }
 }

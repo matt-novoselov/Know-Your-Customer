@@ -27,105 +27,105 @@ fields:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
 
-  - id: text_required_min_length_only
+  - id: text_required_minLength_only
     label: Text Required Min Length Only
     type: text
     required: true
     validation:
-      min_length: 5
+      minLength: 5
 
-  - id: text_optional_min_length_only
+  - id: text_optional_minLength_only
     label: Text Optional Min Length Only
     type: text
     required: false
     validation:
-      min_length: 5
+      minLength: 5
 
-  - id: text_required_max_length_only
+  - id: text_required_maxLength_only
     label: Text Required Max Length Only
     type: text
     required: true
     validation:
-      max_length: 10
+      maxLength: 10
 
-  - id: text_optional_max_length_only
+  - id: text_optional_maxLength_only
     label: Text Optional Max Length Only
     type: text
     required: false
     validation:
-      max_length: 10
+      maxLength: 10
 
-  - id: text_required_regex_min_length
+  - id: text_required_regex_minLength
     label: Text Required + Regex + MinLength
     type: text
     required: true
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      min_length: 5
+      minLength: 5
 
-  - id: text_optional_regex_min_length
+  - id: text_optional_regex_minLength
     label: Text Optional + Regex + MinLength
     type: text
     required: false
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      min_length: 5
+      minLength: 5
 
-  - id: text_required_regex_max_length
+  - id: text_required_regex_maxLength
     label: Text Required + Regex + MaxLength
     type: text
     required: true
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      max_length: 10
+      maxLength: 10
 
-  - id: text_optional_regex_max_length
+  - id: text_optional_regex_maxLength
     label: Text Optional + Regex + MaxLength
     type: text
     required: false
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      max_length: 10
+      maxLength: 10
 
-  - id: text_required_min_max_length
+  - id: text_required_min_maxLength
     label: Text Required + MinLength + MaxLength
     type: text
     required: true
     validation:
-      min_length: 5
-      max_length: 10
+      minLength: 5
+      maxLength: 10
 
-  - id: text_optional_min_max_length
+  - id: text_optional_min_maxLength
     label: Text Optional + MinLength + MaxLength
     type: text
     required: false
     validation:
-      min_length: 5
-      max_length: 10
+      minLength: 5
+      maxLength: 10
 
-  - id: text_required_regex_min_max_length
+  - id: text_required_regex_min_maxLength
     label: Text Required + Regex + Min + Max
     type: text
     required: true
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      min_length: 5
-      max_length: 10
+      minLength: 5
+      maxLength: 10
 
-  - id: text_optional_regex_min_max_length
+  - id: text_optional_regex_min_maxLength
     label: Text Optional + Regex + Min + Max
     type: text
     required: false
     validation:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
-      min_length: 5
-      max_length: 10
+      minLength: 5
+      maxLength: 10
 
   # ------ NUMBER FIELDS (2³ = 8 combos) ------
   - id: number_required_only
@@ -143,44 +143,44 @@ fields:
     type: number
     required: true
     validation:
-      min_value: 1
+      minValue: 1
 
   - id: number_optional_min_only
     label: Number Optional + MinValue
     type: number
     required: false
     validation:
-      min_value: 1
+      minValue: 1
 
   - id: number_required_max_only
     label: Number Required + MaxValue
     type: number
     required: true
     validation:
-      max_value: 100
+      maxValue: 100
 
   - id: number_optional_max_only
     label: Number Optional + MaxValue
     type: number
     required: false
     validation:
-      max_value: 100
+      maxValue: 100
 
   - id: number_required_min_max
     label: Number Required + Min + Max
     type: number
     required: true
     validation:
-      min_value: 1
-      max_value: 100
+      minValue: 1
+      maxValue: 100
 
   - id: number_optional_min_max
     label: Number Optional + Min + Max
     type: number
     required: false
     validation:
-      min_value: 1
-      max_value: 100
+      minValue: 1
+      maxValue: 100
 
   # ------ DATE FIELDS (2 combos) ------
   - id: date_required
