@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-#warning("Remove constants, make fields savable")
 
 struct UniversalFieldView: View {
+    @Environment(SignUpViewModel.self) private var signUpViewModel
     let fieldConfig: FieldConfig
 
     @ViewBuilder
     var body: some View {
         switch fieldConfig.type {
         case .text, .number:
-            TextInputField(text: .constant(""), fieldConfig: fieldConfig)
+            TextInputField(text: signUpViewModel.binding(for: fieldConfig, default: ""), fieldConfig: fieldConfig)
         case .date:
-            DateInputField(date: .constant(nil), fieldConfig: fieldConfig)
+            DateInputField(date: signUpViewModel.binding(for: fieldConfig, default: nil), fieldConfig: fieldConfig)
         }
     }
 }
