@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct DateInputField: InputFieldRepresentable {
-    @Binding var date: Date?
-    var fieldConfig: FieldConfig
-
+    @Environment(FormFieldViewModel<Date?>.self) var formFieldViewModel
     @State private var isPresented = false
 
     private var dateFormatter: DateFormatter {
@@ -20,15 +18,15 @@ struct DateInputField: InputFieldRepresentable {
     }
 
     private var textLabel: String {
-        guard let date else {
-            return "Select your \(fieldConfig.label)"
+        guard let date = formFieldViewModel.value else {
+            return "Select your \(formFieldViewModel.config.label)"
         }
 
         return dateFormatter.string(from: date)
     }
 
     private var textForegroundColor: Color {
-        guard date != nil else {
+        guard formFieldViewModel.value != nil else {
             return .secondary
         }
 
@@ -38,6 +36,8 @@ struct DateInputField: InputFieldRepresentable {
     @State var validationError: String? = nil
 
     func inputFieldView() -> some View {
+        @Bindable var formFieldViewModel = formFieldViewModel
+        
         Button {
             isPresented.toggle()
         } label: {
@@ -50,10 +50,10 @@ struct DateInputField: InputFieldRepresentable {
         }
         .dynamicStroke(isFocused: isPresented)
         .fittedSizeSheet(isPresented: $isPresented, isDragIndicatorVisible: false) {
-            DateInputFieldSheet(fieldLabel: fieldConfig.label, selectedDate: $date)
+            DateInputFieldSheet(fieldLabel: formFieldViewModel.config.label, selectedDate: $formFieldViewModel.value)
         }
-        .onChange(of: date) {
-            self.validationError = self.validateInput(date as Any)
+        .onChange(of: formFieldViewModel.value) {
+            formFieldViewModel.validate()
         }
     }
 }

@@ -32,7 +32,7 @@ struct FieldsOverviewView: View {
                 VStack {
                     FieldCompletionStateView(isComplete: true, text: "Select your country")
 
-                    ForEach(config.fields, id: \.id) { field in
+                    ForEach(config.fields) { field in
                         FieldCompletionStateView(isComplete: false, text: "Fill in \(field.label)")
                     }
                 }

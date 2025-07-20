@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct TextInputField: InputFieldRepresentable {
-    @Binding var text: String
-    let fieldConfig: FieldConfig
+    @Environment(FormFieldViewModel<String>.self) var formFieldViewModel
     @State var validationError: String? = nil
 
     func inputFieldView() -> some View {
+        @Bindable var formFieldViewModel = formFieldViewModel
+        
         TextField(
-            fieldConfig.label,
-            text: $text,
-            prompt: Text("Enter \(fieldConfig.label)")
+            formFieldViewModel.config.label,
+            text: $formFieldViewModel.value,
+            prompt: Text("Enter \(formFieldViewModel.config.label)")
         )
         .keyboardType(.default)
-        .textFieldStyle((.capsule(text: $text, isValid: !isValidationWarningVisible)))
+        .textFieldStyle((.capsule(text: $formFieldViewModel.value, isValid: !isValidationWarningVisible)))
         .onSubmit {
-            self.validationError = self.validateInput(text)
+            self.formFieldViewModel.validate()
         }
     }
 }

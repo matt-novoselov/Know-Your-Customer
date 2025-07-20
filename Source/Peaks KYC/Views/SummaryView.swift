@@ -16,14 +16,14 @@ struct SummaryView: View {
         ScrollView {
             Group {
                 if let selectedConfig = signUpViewModel.selectedConfig {
-                    let userFormData = signUpViewModel.getAllStoreValues()
-                    
-                    ForEach(selectedConfig.fields, id: \.id) { field in
-                        let label = field.label
-                        let value = userFormData[field.id, default: "N/A"]
-                        let valueString = String(describing: value)
-                        FieldSummary(label: label, value: valueString)
+                    let entries = signUpViewModel
+                        .formData()
+                        .map { (key: $0.key, value: "\($0.value)") }
+
+                    ForEach(entries, id: \.key) { entry in
+                        FieldSummary(label: entry.key, value: entry.value)
                     }
+
                 }
             }
             .navigationHeader("Collected Information")
