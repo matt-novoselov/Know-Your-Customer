@@ -48,7 +48,7 @@ enum Country {
         case .debug:
             return CountryData(
                 name: "Debug Country",
-                flag: Image(.netherlandsFlag),
+                flag: Image(.pirateFlag),
                 yamlFileName: "DEBUG.yaml"
             )
         }
