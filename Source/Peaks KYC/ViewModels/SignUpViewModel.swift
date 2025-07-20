@@ -14,8 +14,23 @@ class SignUpViewModel {
     var isNCPresented = false
     var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
-
-    #warning("handle per country exceptions??")
+    private let store = UserFormDataStore()
+    
+    func binding<Value>(
+        for field: FieldConfig,
+        default defaultValue: Value
+    ) -> Binding<Value> {
+        Binding<Value>(
+            get: {
+                (self.store.value(for: field.id) as? Value) ?? defaultValue
+            },
+            set: { new in
+                self.store.setValue(new, for: field.id)
+            }
+        )
+    }
+    
+#warning("handle per country exceptions??")
     private let configurationLoader = ConfigurationLoaderService()
     public func loadConfig() async {
         let selectedFileName = selectedCountry.data.yamlFileName
