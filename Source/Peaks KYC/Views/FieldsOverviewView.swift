@@ -42,8 +42,7 @@ struct FieldsOverviewView: View {
             .bottomGradientOverlay()
             .safeAreaInset(edge: .bottom){
                 Button("Continue to the next step") {
-                    let nextDestination = SignUpViewModel.NavigationRoute.fieldsList
-                    signUpViewModel.path.append(nextDestination)
+                    signUpViewModel.navigate(to: .fieldsList)
                 }
                 .buttonStyle(.capsule)
                 .padding()

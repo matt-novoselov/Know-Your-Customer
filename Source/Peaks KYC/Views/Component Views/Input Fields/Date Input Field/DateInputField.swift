@@ -47,7 +47,7 @@ struct DateInputField: InputFieldRepresentable {
             }
         }
         .dynamicStroke(isFocused: isPresented)
-        .fittedSizeSheet(isPresented: $isPresented) {
+        .fittedSizeSheet(isPresented: $isPresented, isDragIndicatorVisible: false) {
             DateInputFieldSheet(fieldLabel: fieldConfig.label, selectedDate: $date)
         }
     }

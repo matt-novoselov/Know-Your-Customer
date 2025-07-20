@@ -7,16 +7,13 @@
 
 import SwiftUI
 
-#warning("Refactor")
-
 struct DateInputFieldSheet: View {
+    @Environment(\ .dismiss) private var dismiss
     let fieldLabel: String
     @Binding var selectedDate: Date?
-    @Environment(\ .dismiss) private var dismiss
     @State private var tempDate: Date = Date()
     
     var body: some View {
-        
         VStack {
             ZStack {
                 Text(fieldLabel)
@@ -27,6 +24,7 @@ struct DateInputFieldSheet: View {
                     selectedDate = tempDate
                     dismiss()
                 }
+                .foregroundStyle(.secondary)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
@@ -39,10 +37,9 @@ struct DateInputFieldSheet: View {
             .datePickerStyle(.graphical)
         }
         .padding()
-        .padding(.top)
+        .padding(.top, 5)
         .onAppear {
             tempDate = selectedDate ?? Date()
         }
-        
     }
 }
