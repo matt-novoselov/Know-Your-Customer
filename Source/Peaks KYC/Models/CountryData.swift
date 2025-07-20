@@ -8,9 +8,9 @@
 import SwiftUI
 
 #if targetEnvironment(simulator)
-fileprivate let isDebugging = true
+private let isDebugging = true
 #else
-fileprivate let isDebugging = false
+private let isDebugging = false
 #endif
 
 struct CountryData {

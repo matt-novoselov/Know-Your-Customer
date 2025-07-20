@@ -9,15 +9,15 @@ import SwiftUI
 
 struct CountryListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
-        
+
         VStack {
             CountryPickerFieldView(selectedCountry: $signUpViewModel.selectedCountry)
-            
+
             Spacer()
-            
+
             Button("Continue") {
                 signUpViewModel.navigate(to: .overview)
             }

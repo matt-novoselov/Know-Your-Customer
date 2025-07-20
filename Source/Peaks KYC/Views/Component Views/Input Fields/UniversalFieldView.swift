@@ -11,7 +11,7 @@ import SwiftUI
 
 struct UniversalFieldView: View {
     let fieldConfig: FieldConfig
-    
+
     @ViewBuilder
     var body: some View {
         switch fieldConfig.type {

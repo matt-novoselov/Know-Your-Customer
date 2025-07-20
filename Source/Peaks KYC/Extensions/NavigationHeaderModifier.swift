@@ -10,7 +10,7 @@ import SwiftUI
 struct NavigationHeaderModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     let title: String
-    
+
     func body(content: Content) -> some View {
         VStack {
             VStack(alignment: .leading, spacing: 15) {
@@ -20,13 +20,13 @@ struct NavigationHeaderModifier: ViewModifier {
                 .labelStyle(.iconOnly)
                 .fontWeight(.semibold)
                 .imageScale(.large)
-                
+
                 Text(title)
                     .font(.dazzed(style: .largeTitle, weight: .heavy))
                     .multilineTextAlignment(.leading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             content
                 .padding(.top)
         }

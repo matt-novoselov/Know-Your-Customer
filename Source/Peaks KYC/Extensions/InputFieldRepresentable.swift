@@ -15,7 +15,7 @@ protocol InputFieldRepresentable: View {
 
 extension InputFieldRepresentable where Self: View {
     var isValid: Bool { true }
-    
+
     private var labelText: Text {
         var text = Text(fieldConfig.label)
         if !fieldConfig.required {
@@ -23,19 +23,19 @@ extension InputFieldRepresentable where Self: View {
         }
         return text
     }
-    
+
     private var isValidationWarningVisible: Bool {
         guard fieldConfig.required else { return false }
         return isValid
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             labelText
                 .font(.headline)
-            
+
             inputFieldView()
-            
+
             Label(fieldConfig.validation?.message ?? "N/A", systemImage: "exclamationmark.circle.fill")
                 .foregroundStyle(.red)
                 .imageScale(.small)

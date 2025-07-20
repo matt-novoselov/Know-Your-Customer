@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Represents the user profile data we fetch for NL clients.
 struct MockAPIUserProfile: Decodable {
     let firstName: String

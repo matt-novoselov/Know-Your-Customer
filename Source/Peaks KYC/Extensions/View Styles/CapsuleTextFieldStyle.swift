@@ -15,18 +15,18 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
     @FocusState private var isFocused: Bool
     @Binding var text: String
     var isValid: Bool
-    
+
     func _body(configuration: TextField<Self._Label>) -> some View {
         let isEmpty = text.isEmpty
-        
+
         var focusColor: Color {
             isValid ? (isFocused || !isEmpty ? .primary : .secondary) : .red
         }
-        
+
         var isFieldFocused: Bool {
             isFocused || !isValid
         }
-        
+
         configuration
             .overlay(alignment: .trailing) {
                 if isFocused && !isEmpty {
@@ -36,10 +36,10 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
             .focused($isFocused)
             .dynamicStroke(isFocused: isFieldFocused, focusColor: focusColor)
     }
-    
+
     private struct ClearButton: View {
         let action: () -> Void
-        
+
         var body: some View {
             Button("Clear text", systemImage: "xmark", action: action)
                 .labelStyle(.iconOnly)

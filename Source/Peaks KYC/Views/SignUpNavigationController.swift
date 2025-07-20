@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SignUpNavigationController: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
-        
+
         NavigationStack(path: $signUpViewModel.path) {
             CountryListView()
                 .signUpNavDestinations()
