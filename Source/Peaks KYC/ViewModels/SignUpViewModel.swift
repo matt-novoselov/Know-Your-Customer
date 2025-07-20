@@ -9,7 +9,7 @@ import SwiftUI
 
 @Observable
 class SignUpViewModel {
-    public enum NavigationRoute: Hashable { case countryList, overview, fieldsList }
+    public enum NavigationRoute: Hashable { case countryList, overview, fieldsList, summary }
 
     var isNCPresented = false
     var selectedCountry: Country = .netherlands
@@ -36,6 +36,27 @@ class SignUpViewModel {
         let selectedFileName = selectedCountry.data.yamlFileName
         let configData = try? configurationLoader.loadConfig(from: selectedFileName)
         selectedConfig = configData
+    }
+
+    #warning("validate forms")
+    public func isFormValid() -> Bool {
+//        guard let fields = selectedConfig?.fields else {
+//            return false
+//        }
+//
+//        for field in fields {
+//            if field.required ?? false {
+//                if store.value(for: field.id) == nil {
+//                    return false
+//                }
+//            }
+//        }
+
+        return true
+    }
+    
+    public func getAllStoreValues() -> [String: Any] {
+        return store.allValues()
     }
 
     public var path = NavigationPath()
