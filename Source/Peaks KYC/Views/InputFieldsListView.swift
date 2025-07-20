@@ -24,10 +24,10 @@ struct InputFieldsListView: View {
                     .frame(height: 100)
 
                 Button("Continue") {
-
+                    signUpViewModel.navigate(to: .summary)
                 }
                 .buttonStyle(.capsule)
-                .disabled(true)
+                .disabled(!signUpViewModel.isFormValid())
             }
             .navigationHeader("Personal Details")
             .padding()

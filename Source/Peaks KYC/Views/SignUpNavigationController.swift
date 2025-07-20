@@ -31,6 +31,8 @@ struct SignUpNavDestinationModifier: ViewModifier {
                     FieldsOverviewView()
                 case .fieldsList:
                     InputFieldsListView()
+                case .summary:
+                    SummaryView()
                 }
             }
     }
