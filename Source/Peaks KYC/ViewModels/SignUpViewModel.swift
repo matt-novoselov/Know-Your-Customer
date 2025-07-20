@@ -15,6 +15,7 @@ class SignUpViewModel {
     var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
 
+    #warning("handle per country exceptions??")
     private let configurationLoader = ConfigurationLoaderService()
     public func loadConfig() async {
         let selectedFileName = selectedCountry.data.yamlFileName

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#warning("Remove constants")
+#warning("Remove constants, make fields savable")
 
 struct UniversalFieldView: View {
     let fieldConfig: FieldConfig
