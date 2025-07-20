@@ -34,6 +34,8 @@ struct DateInputField: InputFieldRepresentable {
 
         return .primary
     }
+    
+    @State var validationError: String? = nil
 
     func inputFieldView() -> some View {
         Button {
@@ -49,6 +51,9 @@ struct DateInputField: InputFieldRepresentable {
         .dynamicStroke(isFocused: isPresented)
         .fittedSizeSheet(isPresented: $isPresented, isDragIndicatorVisible: false) {
             DateInputFieldSheet(fieldLabel: fieldConfig.label, selectedDate: $date)
+        }
+        .onChange(of: date) {
+            self.validationError = self.validateInput(date as Any)
         }
     }
 }

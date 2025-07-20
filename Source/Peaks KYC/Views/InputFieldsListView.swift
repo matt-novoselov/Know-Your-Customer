@@ -24,10 +24,13 @@ struct InputFieldsListView: View {
                     .frame(height: 100)
 
                 Button("Continue") {
-                    signUpViewModel.navigate(to: .summary)
+//                    signUpViewModel.navigate(to: .summary)
+                    let errors = signUpViewModel.validateAllFields()
+                    print(dump(errors))
                 }
                 .buttonStyle(.capsule)
-                .disabled(!signUpViewModel.isFormValid())
+//                .disabled()
+                #warning("Check all fields for requirements and disable")
             }
             .navigationHeader("Personal Details")
             .padding()

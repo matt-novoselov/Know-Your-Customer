@@ -10,11 +10,11 @@ import SwiftUI
 protocol InputFieldRepresentable: View {
     associatedtype InputField: View
     var fieldConfig: FieldConfig { get }
+    var validationError: String? { get set }
     @ViewBuilder func inputFieldView() -> InputField
 }
 
 extension InputFieldRepresentable where Self: View {
-    var isValid: Bool { true }
     var isReadOnly: Bool { false }
 
     private var labelText: Text {
@@ -25,9 +25,14 @@ extension InputFieldRepresentable where Self: View {
         return text
     }
 
-    private var isValidationWarningVisible: Bool {
-        guard fieldConfig.required else { return false }
-        return !isValid
+    var isValidationWarningVisible: Bool {
+        return self.validationError != nil
+    }
+    
+    func validateInput(_ input: Any) -> String? {
+        let service = ValidationService()
+        let error = service.validate(field: fieldConfig, value: input)
+        return error
     }
 
     var body: some View {
@@ -38,11 +43,11 @@ extension InputFieldRepresentable where Self: View {
             inputFieldView()
                 .disabled(isReadOnly)
 
-            Label(fieldConfig.validation?.message ?? "N/A", systemImage: "exclamationmark.circle.fill")
+            Label(self.validationError ?? " ", systemImage: "exclamationmark.circle.fill")
                 .foregroundStyle(.red)
                 .imageScale(.small)
-                .opacity(isValidationWarningVisible ? 0 : 1)
-                .animation(.spring(duration: 0.2), value: self.isValid)
+                .opacity(isValidationWarningVisible ? 1 : 0)
+                .animation(.spring(duration: 0.2), value: self.isValidationWarningVisible)
         }
     }
 }

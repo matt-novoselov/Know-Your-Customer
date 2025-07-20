@@ -30,33 +30,23 @@ class SignUpViewModel {
         )
     }
     
-#warning("handle per country exceptions??")
+    #warning("handle per country exceptions (NL)")
     private let configurationLoader = ConfigurationLoaderService()
     public func loadConfig() async {
         let selectedFileName = selectedCountry.data.yamlFileName
         let configData = try? configurationLoader.loadConfig(from: selectedFileName)
         selectedConfig = configData
     }
-
-    #warning("validate forms")
-    public func isFormValid() -> Bool {
-//        guard let fields = selectedConfig?.fields else {
-//            return false
-//        }
-//
-//        for field in fields {
-//            if field.required ?? false {
-//                if store.value(for: field.id) == nil {
-//                    return false
-//                }
-//            }
-//        }
-
-        return true
-    }
     
     public func getAllStoreValues() -> [String: Any] {
         return store.allValues()
+    }
+    
+    public func validateAllFields() -> [String: String] {
+        let validationService = ValidationService()
+        let allValues = self.getAllStoreValues()
+        guard let configFields = selectedConfig?.fields else { return [:] }
+        return validationService.validate(fields: configFields, values: allValues)
     }
 
     public var path = NavigationPath()
