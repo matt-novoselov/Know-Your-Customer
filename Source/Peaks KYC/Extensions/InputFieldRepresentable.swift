@@ -9,8 +9,8 @@ import SwiftUI
 
 protocol InputFieldRepresentable: View {
     associatedtype InputField: View
-    var fieldConfig: FieldConfig { get }
-    var validationError: String? { get set }
+    associatedtype Value
+    var formFieldViewModel: FormFieldViewModel<Value> { get }
     @ViewBuilder func inputFieldView() -> InputField
 }
 
@@ -18,21 +18,15 @@ extension InputFieldRepresentable where Self: View {
     var isReadOnly: Bool { false }
 
     private var labelText: Text {
-        var text = Text(fieldConfig.label)
-        if !fieldConfig.required {
+        var text = Text(formFieldViewModel.config.label)
+        if !formFieldViewModel.config.required {
             text = text + Text(" (optional)")
         }
         return text
     }
 
     var isValidationWarningVisible: Bool {
-        return self.validationError != nil
-    }
-    
-    func validateInput(_ input: Any) -> String? {
-        let service = ValidationService()
-        let error = service.validate(field: fieldConfig, value: input)
-        return error
+        return self.formFieldViewModel.error != nil
     }
 
     var body: some View {
@@ -43,7 +37,7 @@ extension InputFieldRepresentable where Self: View {
             inputFieldView()
                 .disabled(isReadOnly)
 
-            Label(self.validationError ?? " ", systemImage: "exclamationmark.circle.fill")
+            Label(self.formFieldViewModel.error ?? " ", systemImage: "exclamationmark.circle.fill")
                 .foregroundStyle(.red)
                 .imageScale(.small)
                 .opacity(isValidationWarningVisible ? 1 : 0)

@@ -3,15 +3,19 @@
 struct RequiredFieldValidator: Validator {
     func validate(value: Any?) throws {
         if let stringValue = value as? String, !stringValue.isEmpty {
-            return // Valid
+            return // valid non-empty String
         }
-        
-        if value != nil && !(value is String) {
-            return // Valid for non-string types
+
+        #warning("")
+        if let nonNil = value {
+            let mirror = Mirror(reflecting: nonNil)
+            let isNilOptional = mirror.displayStyle == .optional && mirror.children.isEmpty
+            if !isNilOptional && !(nonNil is String) {
+                return // valid non-nil, non-String
+            }
         }
-        
-        // To make the message generic, we can use a default one.
-        // In a real-world app, this could be localized.
+
         throw ValidationError(message: "This field is required.")
     }
 }
+

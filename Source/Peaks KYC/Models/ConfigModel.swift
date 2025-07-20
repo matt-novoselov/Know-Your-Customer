@@ -12,7 +12,7 @@ struct ConfigModel: Decodable {
     let fields: [FieldConfig]
 }
 
-struct FieldConfig: Decodable {
+struct FieldConfig: Decodable, Identifiable {
     let id: String
     let label: String
     let required: Bool
@@ -22,6 +22,16 @@ struct FieldConfig: Decodable {
 
 enum FieldType: String, Decodable {
     case text, number, date
+
+    /// A default “empty” value for each field type
+    var initialValue: Any {
+        switch self {
+        case .text, .number:
+            return ""
+        case .date:
+            return nil as Date? as Any
+        }
+    }
 }
 
 struct ValidationConfig: Decodable {
