@@ -15,7 +15,6 @@ protocol InputFieldRepresentable: View {
 }
 
 extension InputFieldRepresentable where Self: View {
-    var isReadOnly: Bool { false }
 
     private var labelText: Text {
         var text = Text(formFieldViewModel.config.label)
@@ -35,7 +34,7 @@ extension InputFieldRepresentable where Self: View {
                 .font(.headline)
 
             inputFieldView()
-                .disabled(isReadOnly)
+                .disabled(formFieldViewModel.isReadOnly)
 
             Label(self.formFieldViewModel.error ?? " ", systemImage: "exclamationmark.circle.fill")
                 .foregroundStyle(.red)

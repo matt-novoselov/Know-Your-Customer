@@ -12,7 +12,7 @@ enum CornerStyle {
 
     var cornerRadius: CGFloat {
         switch self {
-        case .capsule:  return .infinity
+        case .capsule:  return .greatestFiniteMagnitude
         case .roundedRect:  return 23
         }
     }
