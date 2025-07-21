@@ -1,11 +1,12 @@
 // In Source/Peaks KYC/Validation/ValueRangeValidator.swift
 
+#warning("header")
 struct ValueRangeValidator: Validator {
-    let minValue: Double?
-    let maxValue: Double?
+    let minValue: Int?
+    let maxValue: Int?
 
     func validate(value: Any?) throws {
-        guard let stringValue = value as? String, let doubleValue = Double(stringValue) else {
+        guard let stringValue = value as? String, let doubleValue = Int(stringValue) else {
             return // Not a number, or empty.
         }
 
