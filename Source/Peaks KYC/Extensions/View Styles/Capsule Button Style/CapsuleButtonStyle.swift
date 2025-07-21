@@ -20,22 +20,17 @@ struct CapsuleButtonStyle: ButtonStyle {
         self.variant = variant
     }
 
-    private var backgroundColor: Color {
-        return isEnabled ? variant.background : Color(.quaternarySystemFill)
-    }
-
-    private var foregroundColor: Color {
-        return isEnabled ? variant.foreground : Color(.systemGray2)
-    }
-
     func makeBody(configuration: Configuration) -> some View {
+        let bgColor = isEnabled ? variant.background : Color(.quaternarySystemFill)
+        let fgColor = isEnabled ? variant.foreground : Color(.systemGray2)
+        
         return configuration.label
             .frame(maxWidth: .infinity)
             .font(.body)
             .fontWeight(.semibold)
             .padding(20)
-            .background(backgroundColor)
-            .foregroundColor(foregroundColor)
+            .background(bgColor)
+            .foregroundColor(fgColor)
             .clipShape(.capsule)
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
             .animation(.spring(), value: configuration.isPressed)

@@ -25,10 +25,10 @@ struct DynamicStroke: ViewModifier {
     let idleColor: Color
     let padding: CGFloat
 
-    private var strokeColor: Color { isFocused ? focusColor : idleColor }
-    private var strokeWidth: Double { isFocused ? 2 : 0.5 }
-
     func body(content: Content) -> some View {
+        let strokeColor = isFocused ? focusColor : idleColor
+        let strokeWidth = isFocused ? 2.0 : 0.5
+        
         content
             .padding(padding)
             .overlay(

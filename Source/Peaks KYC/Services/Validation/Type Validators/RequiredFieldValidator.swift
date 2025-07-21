@@ -5,16 +5,16 @@ struct RequiredFieldValidator: Validator {
         if let stringValue = value as? String, !stringValue.isEmpty {
             return // valid non-empty String
         }
-
-        #warning("")
-        if let nonNil = value {
-            let mirror = Mirror(reflecting: nonNil)
-            let isNilOptional = mirror.displayStyle == .optional && mirror.children.isEmpty
-            if !isNilOptional && !(nonNil is String) {
-                return // valid non-nil, non-String
-            }
+        
+        func isNilOptional(_ any: Any) -> Bool {
+            let mirror = Mirror(reflecting: any)
+            return mirror.displayStyle == .optional && mirror.children.isEmpty
         }
-
+        
+        if let anyValue = value, !(anyValue is String), !isNilOptional(anyValue) {
+            return
+        }
+        
         throw ValidationError(message: "This field is required.")
     }
 }

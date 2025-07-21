@@ -21,7 +21,7 @@ struct BottomGradientOverlay: ViewModifier {
                 )
                 .frame(height: height)
                 .frame(maxHeight: .infinity, alignment: .bottom)
-                .ignoresSafeArea()
+                .ignoresSafeArea(edges: .bottom)
                 .allowsHitTesting(false)
             )
     }

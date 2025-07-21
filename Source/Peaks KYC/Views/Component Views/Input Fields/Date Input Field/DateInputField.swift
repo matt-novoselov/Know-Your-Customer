@@ -8,68 +8,47 @@
 import SwiftUI
 
 struct DateInputField: InputFieldRepresentable {
-    @Environment(FormFieldViewModel<Date?>.self) var formFieldViewModel
-    @State private var isPresented = false
+    @Environment(FieldViewModel<Date?>.self) var viewModel
+    @State private var isFocused = false
     
-    private var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }
-    
-    private var textLabel: String {
-        guard let date = formFieldViewModel.value else {
-            return "Select your \(formFieldViewModel.config.label)"
-        }
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    private var textForegroundColor: Color {
-        guard formFieldViewModel.value != nil else {
-            return .secondary
-        }
-        
-        return .primary
-    }
-    
-    
-    var focusColor: Color {
-        let hasError = formFieldViewModel.error != nil
+    // shared formatter
+    private static let sharedFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        return f
+    }()
 
-        // error state takes precedence
-        if hasError {
-            return .red
-        }
-
-        return .primary
-    }
-
-    
-    var isFieldFocused: Bool {
-        let isValid = formFieldViewModel.error == nil
-        return isPresented || !isValid
-    }
-    
     func inputFieldView() -> some View {
-        @Bindable var formFieldViewModel = formFieldViewModel
+        @Bindable var viewModel = viewModel
         
-        Button {
-            isPresented.toggle()
-        } label: {
+        EmptyView()
+
+        let textLabel: String = {
+            guard let date = viewModel.value else {
+                return "Select your \(viewModel.config.label)"
+            }
+            return Self.sharedFormatter.string(from: date)
+        }()
+        
+        let textColor: Color = (viewModel.value == nil ? .secondary : .primary)
+        
+        Button { isFocused.toggle() } label: {
             HStack {
-                Text(textLabel)
-                    .foregroundColor(textForegroundColor)
+                Text(textLabel).foregroundColor(textColor)
                 Spacer()
                 Image(systemName: "calendar")
             }
         }
-        .dynamicStroke(isFocused: isFieldFocused, focusColor: focusColor)
-        .fittedSizeSheet(isPresented: $isPresented, isDragIndicatorVisible: false) {
-            DateInputFieldSheet(fieldLabel: formFieldViewModel.config.label, selectedDate: $formFieldViewModel.value)
+        .dynamicFormStroke(isFocused: isFocused, isValid: !viewModel.hasErrors)
+        .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
+            DateInputFieldSheet(
+                fieldLabel: viewModel.config.label,
+                selectedDate: $viewModel.value
+            )
         }
-        .onChange(of: formFieldViewModel.value) {
-            formFieldViewModel.validate()
+        .onChange(of: viewModel.value) {
+            viewModel.validate()
         }
     }
+    
 }

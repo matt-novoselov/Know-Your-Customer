@@ -1,5 +1,5 @@
 //
-//  FormFieldViewModel.swift
+//  FieldViewModel.swift
 //  Peaks KYC
 //
 //  Created by Matt Novoselov on 20/07/25.
@@ -8,20 +8,22 @@
 import SwiftUI
 
 // MARK: –– 1. Your protocol
-protocol AnyFormFieldViewModel: Observable, Identifiable {
+protocol AnyFieldViewModel: Observable, Identifiable {
     var config: FieldConfig { get }
     var valueAsAny: Any { get }
     var error: String? { get }
+    var hasErrors: Bool { get }
     var isReadOnly: Bool { get }
     func validate()
 }
 
 
 @Observable
-final class FormFieldViewModel<Value>: AnyFormFieldViewModel {
+final class FieldViewModel<Value>: AnyFieldViewModel {
     let config: FieldConfig
     var value: Value
     var error: String? = nil
+    var hasErrors: Bool { error != nil }
     let isReadOnly: Bool
     
     init(config: FieldConfig, defaultValue: Value? = nil) {
