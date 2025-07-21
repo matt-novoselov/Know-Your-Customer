@@ -1,3 +1,10 @@
+//
+//  Validator.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
+
 import Foundation
 
 /// Represents a validation error with a user-friendly message.

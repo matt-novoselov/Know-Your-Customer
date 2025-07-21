@@ -1,4 +1,9 @@
-// In Source/Peaks KYC/Validation/RegexValidator.swift
+//
+//  RegexValidator.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
 
 import Foundation
 

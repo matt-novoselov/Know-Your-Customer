@@ -1,4 +1,9 @@
-// In Source/Peaks KYC/Validation/ValidatorFactory.swift
+//
+//  ValidatorFactory.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
 
 struct ValidatorFactory {
     static func validators(for config: FieldConfig?) -> [Validator] {
