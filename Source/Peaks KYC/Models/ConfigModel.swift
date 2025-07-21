@@ -38,5 +38,5 @@ struct ValidationConfig: Decodable {
     let regex: String?
     let message: String?
     let minLength, maxLength: Int?
-    let minValue, maxValue: Double?
+    let minValue, maxValue: Int?
 }
