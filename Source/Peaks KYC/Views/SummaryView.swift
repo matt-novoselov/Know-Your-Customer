@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+struct FieldEntry: Identifiable {
+    let id = UUID()
+    let label: String
+    let value: Any
+}
+
 // A view to display the summary of collected user data
 struct SummaryView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
@@ -15,15 +21,10 @@ struct SummaryView: View {
     var body: some View {
         ScrollView {
             Group {
-                if let selectedConfig = signUpViewModel.selectedConfig {
-                    let entries = signUpViewModel
-                        .formData()
-                        .map { (key: $0.key, value: "\($0.value)") }
+                let entries = signUpViewModel.formData()
 
-                    ForEach(entries, id: \.key) { entry in
-                        FieldSummary(label: entry.key, value: entry.value)
-                    }
-
+                ForEach(entries) { entry in
+                    FieldSummary(label: entry.label, value: (String(describing: entry.value)))
                 }
             }
             .navigationHeader("Collected Information")

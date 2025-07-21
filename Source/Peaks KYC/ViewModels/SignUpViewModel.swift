@@ -32,7 +32,7 @@ class SignUpViewModel {
         self.path.append(route)
     }
     
-    var fields: [any AnyFormFieldViewModel] = []
+    var fields: [any AnyFieldViewModel] = []
     var fieldsViews: [AnyView] = []
     
     /// True only when every field is valid
@@ -46,8 +46,8 @@ class SignUpViewModel {
     }
     
     /// Gather up the final JSON payload
-    func formData() -> [String: Any] {
-        Dictionary(uniqueKeysWithValues: fields.map { ($0.config.label, $0.valueAsAny) } )
+    func formData() -> [FieldEntry] {
+        fields.map { FieldEntry(label: $0.config.label, value: $0.valueAsAny) }
     }
     
     private func loadFields() {
@@ -61,22 +61,22 @@ class SignUpViewModel {
 
 
 struct FieldFactory {
-    static func makeFields(from configs: [FieldConfig]) -> ([AnyView],[any AnyFormFieldViewModel]) {
+    static func makeFields(from configs: [FieldConfig]) -> ([AnyView],[any AnyFieldViewModel]) {
         var fieldViews: [AnyView] = []
-        var fieldViewModels: [any AnyFormFieldViewModel] = []
+        var fieldViewModels: [any AnyFieldViewModel] = []
         
         for config in configs {
             switch config.type {
             case .text, .number:
-                let vm = FormFieldViewModel<String>(config: config)
+                let vm = FieldViewModel<String>(config: config)
                 let view = TextInputField().environment(vm)
                 fieldViews.append(AnyView(view))
-                fieldViewModels.append(vm as (any AnyFormFieldViewModel))
+                fieldViewModels.append(vm as (any AnyFieldViewModel))
             case .date:
-                let vm = FormFieldViewModel<Date?>(config: config)
+                let vm = FieldViewModel<Date?>(config: config)
                 let view = DateInputField().environment(vm)
                 fieldViews.append(AnyView(view))
-                fieldViewModels.append(vm as (any AnyFormFieldViewModel))
+                fieldViewModels.append(vm as (any AnyFieldViewModel))
             }
         }
         

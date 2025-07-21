@@ -24,12 +24,12 @@ enum FieldType: String, Decodable {
     case text, number, date
 
     /// A default “empty” value for each field type
-    var initialValue: Any {
+    var initialValue: Any? {
         switch self {
         case .text, .number:
             return ""
         case .date:
-            return nil as Date? as Any
+            return nil
         }
     }
 }
