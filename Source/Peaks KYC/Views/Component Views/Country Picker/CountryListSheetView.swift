@@ -1,0 +1,33 @@
+//
+//  File.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
+
+import SwiftUI
+
+
+// MARK: SheetView
+extension CountryPickerFieldView {
+    var countryListSheetView: some View {
+        VStack(spacing: 20) {
+            Text("Select region")
+                .font(.dazzed(style: .title1, weight: .bold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            ForEach(Country.allCases, id: \.self) { country in
+                CountryButtonView(
+                    selectedCountry: selectedCountry,
+                    country: country,
+                    action: {
+                        selectedCountry = country
+                        isSheetPresented = false
+                    }
+                )
+            }
+        }
+        .padding()
+        .padding(.top)
+    }
+}

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct DateInputFieldSheet: View {
     @Environment(\ .dismiss) private var dismiss
+    @State private var tempDate: Date = Date()
+    
     let fieldLabel: String
     @Binding var selectedDate: Date?
-    @State private var tempDate: Date = Date()
 
     var body: some View {
         VStack {

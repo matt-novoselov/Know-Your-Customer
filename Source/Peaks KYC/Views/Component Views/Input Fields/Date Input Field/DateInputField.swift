@@ -11,7 +11,7 @@ struct DateInputField: InputFieldRepresentable {
     @Environment(FieldViewModel<Date?>.self) var viewModel
     @State private var isFocused = false
     
-    // shared formatter
+    // Shared formatter
     private static let sharedFormatter: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .medium
@@ -21,8 +21,6 @@ struct DateInputField: InputFieldRepresentable {
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
         
-        EmptyView()
-
         let textLabel: String = {
             guard let date = viewModel.value else {
                 return "Select your \(viewModel.config.label)"

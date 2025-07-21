@@ -7,8 +7,9 @@ struct RegexValidator: Validator {
     let errorMessage: String
 
     func validate(value: Any?) throws {
+        // Don't validate empty fields, that's the job of `RequiredFieldValidator`
         guard let stringValue = value as? String, !stringValue.isEmpty else {
-            return // Don't validate empty fields, that's the job of `RequiredFieldValidator`
+            return
         }
         
         if stringValue.range(of: pattern, options: .regularExpression) == nil {

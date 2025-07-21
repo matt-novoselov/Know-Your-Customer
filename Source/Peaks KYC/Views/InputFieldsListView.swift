@@ -9,13 +9,13 @@ import SwiftUI
 
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    private let fieldFactory = FieldFactory()
+    let fieldViews: [AnyView]
     
     var body: some View {
         ScrollView {
             Group {
-                ForEach(Array(signUpViewModel.fieldsViews.enumerated()), id: \.offset) { _, field in
-                    field
+                ForEach(fieldViews.indices, id: \.self) { index in
+                    fieldViews[index]
                         .padding(5)
                 }
                 
@@ -23,12 +23,7 @@ struct InputFieldsListView: View {
                     .frame(height: 100)
                 
                 Button("Continue") {
-                    // 1.
-                    signUpViewModel.validateAll()
-                    
-                    if signUpViewModel.isValid {
-                        signUpViewModel.navigate(to: .summary)
-                    }
+                    signUpViewModel.validateAllFieldsAndSubmit()
                 }
                 .buttonStyle(.capsule)
             }

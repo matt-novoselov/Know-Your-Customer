@@ -28,7 +28,8 @@ extension InputFieldRepresentable where Self: View {
         return VStack(alignment: .leading) {
             labelText
                 .font(.headline)
-
+            
+            #warning("Disable input when read only - visual")
             inputFieldView()
                 .disabled(viewModel.isReadOnly)
 

@@ -6,7 +6,7 @@ struct ValueRangeValidator: Validator {
 
     func validate(value: Any?) throws {
         guard let stringValue = value as? String, let doubleValue = Double(stringValue) else {
-            return // Not a number, or empty. Other validators will handle this.
+            return // Not a number, or empty.
         }
 
         if let minValue = minValue, doubleValue < minValue {
