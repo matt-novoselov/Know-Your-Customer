@@ -24,26 +24,25 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
     var value: Value
     var error: String? = nil
     var hasErrors: Bool { error != nil }
+    var valueAsAny: Any { value }
+    var id: String { config.id }
     let isReadOnly: Bool
     
-    init(config: FieldConfig, defaultValue: Value? = nil) {
+    init(config: FieldConfig, preFilledValue: Value? = nil) {
         self.config = config
         self.value = config.type.initialValue as! Value
         
-        if let defaultValue {
-            self.value = defaultValue
-            self.isReadOnly = true
-        } else {
-            self.isReadOnly = false
+        if let preFilledValue {
+            self.value = preFilledValue
         }
+        
+        self.isReadOnly = preFilledValue != nil
     }
     
+    #warning("Remove init of ValidationService")
     func validate() {
         let service = ValidationService()
         let error = service.validate(field: config, value: value)
         self.error = error
     }
-    
-    var valueAsAny: Any { value }
-    var id: String { config.id }
 }

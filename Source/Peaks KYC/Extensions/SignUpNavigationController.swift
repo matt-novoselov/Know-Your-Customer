@@ -21,6 +21,8 @@ struct SignUpNavigationController: View {
 }
 
 struct SignUpNavDestinationModifier: ViewModifier {
+    @Environment(SignUpViewModel.self) private var signUpViewModel
+    
     func body(content: Content) -> some View {
         content
             .navigationDestination(for: SignUpViewModel.NavigationRoute.self) { route in
@@ -30,9 +32,9 @@ struct SignUpNavDestinationModifier: ViewModifier {
                 case .overview:
                     FieldsOverviewView()
                 case .fieldsList:
-                    InputFieldsListView()
+                    InputFieldsListView(fieldViews: signUpViewModel.getViews())
                 case .summary:
-                    SummaryView()
+                    SummaryView(fields: signUpViewModel.formData())
                 }
             }
     }

@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TextInputField: InputFieldRepresentable {
     @Environment(FieldViewModel<String>.self) var viewModel
-    @State var validationError: String? = nil
     
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
         let isValid = !viewModel.hasErrors
+        let textLabel = Text("Enter \(viewModel.config.label)")
         
         TextField(
             viewModel.config.label,
             text: $viewModel.value,
-            prompt: Text("Enter \(viewModel.config.label)")
+            prompt: textLabel
         )
         .keyboardType(.default)
         .textFieldStyle((.capsule(text: $viewModel.value, isValid: isValid)))

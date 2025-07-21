@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+#warning("Refactor")
 @Observable
 class SignUpViewModel {
     public enum NavigationRoute: Hashable { case countryList, overview, fieldsList, summary }
     
-    var isNCPresented = false
-    var selectedCountry: Country = .netherlands
+    public private(set) var isNCPresented = false
+    public var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
     
 
@@ -32,21 +33,21 @@ class SignUpViewModel {
         self.path.append(route)
     }
     
-    var fields: [any AnyFieldViewModel] = []
-    var fieldsViews: [AnyView] = []
+    private var fields: [any AnyFieldViewModel] = []
+    private var fieldsViews: [AnyView] = []
     
     /// True only when every field is valid
-    var isValid: Bool {
+    private var isValid: Bool {
         fields.allSatisfy { $0.error == nil }
     }
     
     /// Validate all fields at once
-    func validateAll() {
+    public func validateAll() {
         fields.forEach { $0.validate() }
     }
     
     /// Gather up the final JSON payload
-    func formData() -> [FieldEntry] {
+    public func formData() -> [FieldEntry] {
         fields.map { FieldEntry(label: $0.config.label, value: $0.valueAsAny) }
     }
     
@@ -57,9 +58,25 @@ class SignUpViewModel {
         self.fieldsViews = result.0
     }
     
+    public func isNCPresented(_ isPresented: Bool) {
+        self.isNCPresented = isPresented
+    }
+    
+    public func getViews() -> [AnyView] {
+        self.fieldsViews
+    }
+    
+    public func validateAllFieldsAndSubmit() {
+        self.validateAll()
+        
+        if self.isValid {
+            self.navigate(to: .summary)
+        }
+    }
+    
 }
 
-
+#warning("Refactor")
 struct FieldFactory {
     static func makeFields(from configs: [FieldConfig]) -> ([AnyView],[any AnyFieldViewModel]) {
         var fieldViews: [AnyView] = []

@@ -22,20 +22,4 @@ class ValidationService {
         
         return nil // All validators passed
     }
-    
-    /// Validates multiple fields and returns a dictionary of errors.
-    /// - Parameter fields: An array of fields to validate.
-    /// - Returns: A dictionary where the key is the field's `id` and the value is the error message.
-    func validate(fields: [FieldConfig], values: [String: Any]) -> [String: String] {
-        var errors: [String: String] = [:]
-        
-        for field in fields {
-            let value = values[field.id]
-            if let errorMessage = validate(field: field, value: value) {
-                errors[field.id] = errorMessage
-            }
-        }
-        
-        return errors
-    }
 }

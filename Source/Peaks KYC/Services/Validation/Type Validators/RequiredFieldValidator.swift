@@ -3,7 +3,7 @@
 struct RequiredFieldValidator: Validator {
     func validate(value: Any?) throws {
         if let stringValue = value as? String, !stringValue.isEmpty {
-            return // valid non-empty String
+            return
         }
         
         func isNilOptional(_ any: Any) -> Bool {
