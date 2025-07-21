@@ -1,6 +1,10 @@
-// In Source/Peaks KYC/Validation/ValueRangeValidator.swift
+//
+//  ValueRangeValidator.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
 
-#warning("header")
 struct ValueRangeValidator: Validator {
     let minValue: Int?
     let maxValue: Int?

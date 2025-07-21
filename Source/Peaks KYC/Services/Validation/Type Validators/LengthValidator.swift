@@ -1,4 +1,9 @@
-// In Source/Peaks KYC/Validation/LengthValidator.swift
+//
+//  LengthValidator.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
 
 struct LengthValidator: Validator {
     let minLength: Int?
