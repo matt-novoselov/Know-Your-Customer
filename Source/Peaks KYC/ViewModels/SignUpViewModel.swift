@@ -10,7 +10,7 @@ import SwiftUI
 #warning("Refactor")
 @Observable
 class SignUpViewModel {
-    public enum NavigationRoute: Hashable { case countryList, overview, fieldsList, summary }
+    public enum NavigationRoute: Hashable { case countryList, fieldsList, summary }
     
     public private(set) var isNCPresented = false
     public var selectedCountry: Country = .netherlands

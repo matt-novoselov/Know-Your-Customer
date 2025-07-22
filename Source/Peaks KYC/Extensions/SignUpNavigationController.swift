@@ -30,10 +30,8 @@ struct SignUpNavDestinationModifier: ViewModifier {
                     switch route {
                     case .countryList:
                         CountryListView()
-                    case .overview:
-                        FieldsOverviewView()
                     case .fieldsList:
-                        InputFieldsListView(fieldViews: signUpViewModel.getViews())
+                        InputFieldsListView()
                     case .summary:
                         SummaryView(fields: signUpViewModel.getResultEntries())
                     }
