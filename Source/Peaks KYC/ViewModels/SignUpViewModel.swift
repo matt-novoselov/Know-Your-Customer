@@ -66,6 +66,10 @@ class SignUpViewModel {
         self.fieldsViews
     }
     
+    #warning("validate in parallel?")
+    #warning("strip time in Date")
+#warning("UI/Uni tests")
+#warning("clear field animation")
     public func validateAllFieldsAndSubmit() {
         self.validateAll()
         

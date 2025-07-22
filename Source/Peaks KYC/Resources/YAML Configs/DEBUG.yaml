@@ -27,35 +27,35 @@ fields:
       regex: '^[A-Za-z]+$'
       message: 'Must match alphabetic characters only'
 
-  - id: text_required_minLength_only
+  - id: text_required_min_length_only
     label: Text Required Min Length Only
     type: text
     required: true
     validation:
       minLength: 5
 
-  - id: text_optional_minLength_only
+  - id: text_optional_min_length_only
     label: Text Optional Min Length Only
     type: text
     required: false
     validation:
       minLength: 5
 
-  - id: text_required_maxLength_only
+  - id: text_required_max_length_only
     label: Text Required Max Length Only
     type: text
     required: true
     validation:
       maxLength: 10
 
-  - id: text_optional_maxLength_only
+  - id: text_optional_max_length_only
     label: Text Optional Max Length Only
     type: text
     required: false
     validation:
       maxLength: 10
 
-  - id: text_required_regex_minLength
+  - id: text_required_regex_min_length
     label: Text Required + Regex + MinLength
     type: text
     required: true
@@ -64,7 +64,7 @@ fields:
       message: 'Must match alphabetic characters only'
       minLength: 5
 
-  - id: text_optional_regex_minLength
+  - id: text_optional_regex_min_length
     label: Text Optional + Regex + MinLength
     type: text
     required: false
@@ -73,7 +73,7 @@ fields:
       message: 'Must match alphabetic characters only'
       minLength: 5
 
-  - id: text_required_regex_maxLength
+  - id: text_required_regex_max_length
     label: Text Required + Regex + MaxLength
     type: text
     required: true
@@ -82,7 +82,7 @@ fields:
       message: 'Must match alphabetic characters only'
       maxLength: 10
 
-  - id: text_optional_regex_maxLength
+  - id: text_optional_regex_max_length
     label: Text Optional + Regex + MaxLength
     type: text
     required: false
@@ -91,7 +91,7 @@ fields:
       message: 'Must match alphabetic characters only'
       maxLength: 10
 
-  - id: text_required_min_maxLength
+  - id: text_required_min_max_length
     label: Text Required + MinLength + MaxLength
     type: text
     required: true
@@ -99,7 +99,7 @@ fields:
       minLength: 5
       maxLength: 10
 
-  - id: text_optional_min_maxLength
+  - id: text_optional_min_max_length
     label: Text Optional + MinLength + MaxLength
     type: text
     required: false
@@ -107,7 +107,7 @@ fields:
       minLength: 5
       maxLength: 10
 
-  - id: text_required_regex_min_maxLength
+  - id: text_required_regex_min_max_length
     label: Text Required + Regex + Min + Max
     type: text
     required: true
@@ -117,7 +117,7 @@ fields:
       minLength: 5
       maxLength: 10
 
-  - id: text_optional_regex_min_maxLength
+  - id: text_optional_regex_min_max_length
     label: Text Optional + Regex + Min + Max
     type: text
     required: false
