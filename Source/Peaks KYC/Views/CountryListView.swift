@@ -19,7 +19,7 @@ struct CountryListView: View {
             Spacer()
 
             Button("Continue") {
-                signUpViewModel.navigate(to: .overview)
+                signUpViewModel.navigate(to: .fieldsList)
             }
             .buttonStyle(.capsule)
         }

@@ -9,36 +9,54 @@ import SwiftUI
 
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    let fieldViews: [AnyView]
     
     var body: some View {
-        ScrollViewReader { value in
-            ScrollView {
-                Group {
-                    ForEach(fieldViews.indices, id: \.self) { index in
-                        fieldViews[index]
-                            .padding(5)
-                            .id(index)
-                    }
-                    
-                    Spacer()
-                        .frame(height: 100)
-                    
-                    Button("Continue") {
-                        signUpViewModel.validateAll()
-                        
-                        if let errorId = signUpViewModel.getFirstErrorIndex() {
-                            withAnimation {
-                                value.scrollTo(errorId)
-                            }
-                        } else {
-                            signUpViewModel.navigate(to: .summary)
+        Group {
+            if let config = signUpViewModel.selectedConfig {
+                ListView(fieldViews: signUpViewModel.getViews())
+            } else {
+                ProgressView()
+            }
+        }
+        .task {
+            await signUpViewModel.loadConfig()
+        }
+    }
+    
+    #warning("refactor")
+    private struct ListView: View {
+        @Environment(SignUpViewModel.self) private var signUpViewModel
+        let fieldViews: [AnyView]
+        
+        var body: some View {
+            ScrollViewReader { value in
+                ScrollView {
+                    Group {
+                        ForEach(fieldViews.indices, id: \.self) { index in
+                            fieldViews[index]
+                                .padding(5)
+                                .id(index)
                         }
+                        
+                        Spacer()
+                            .frame(height: 100)
+                        
+                        Button("Continue") {
+                            signUpViewModel.validateAll()
+                            
+                            if let errorId = signUpViewModel.getFirstErrorIndex() {
+                                withAnimation {
+                                    value.scrollTo(errorId)
+                                }
+                            } else {
+                                signUpViewModel.navigate(to: .summary)
+                            }
+                        }
+                        .buttonStyle(.capsule)
                     }
-                    .buttonStyle(.capsule)
+                    .navigationHeader("Personal Details")
+                    .padding()
                 }
-                .navigationHeader("Personal Details")
-                .padding()
             }
         }
     }
