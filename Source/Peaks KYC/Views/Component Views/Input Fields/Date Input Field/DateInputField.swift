@@ -22,16 +22,17 @@ struct DateInputField: InputFieldRepresentable {
             }
         }()
         
-        let textColor: Color = (viewModel.value == nil ? .secondary : .primary)
+        let textColor: Color = (viewModel.value == nil ? Color(.placeholderText) : .primary)
         
         Button { isFocused.toggle() } label: {
             HStack {
                 Text(textLabel).foregroundColor(textColor)
                 Spacer()
                 Image(systemName: "calendar")
+                    .foregroundStyle(.secondary)
             }
         }
-        .dynamicFormStroke(isFocused: isFocused, isValid: !viewModel.hasErrors)
+        .dynamicFormStroke(isFocused: isFocused, isValid: !viewModel.hasErrors, padding: 21)
         .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
