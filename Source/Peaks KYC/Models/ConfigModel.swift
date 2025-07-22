@@ -25,12 +25,41 @@ extension FieldConfig {
         case text, number, date
 
         /// A default “empty” value for each field type
-        var initialValue: Any? {
+        var initialValue: StoredValue {
             switch self {
             case .text, .number:
-                return ""
+                return .text("")
             case .date:
-                return nil
+                return .empty
+            }
+        }
+    }
+
+    /// Represents a value for any supported field type.
+    enum StoredValue: CustomStringConvertible {
+        case empty
+        case text(String)
+        case number(String)
+        case date(DateComponents)
+
+        private static let dateFormatter: DateFormatter = {
+            let f = DateFormatter()
+            f.dateStyle = .medium
+            return f
+        }()
+
+        public var description: String {
+            switch self {
+            case .empty:
+                return ""
+            case .text(let string), .number(let string):
+                return string
+            case .date(let components):
+                if let date = Calendar.current.date(from: components) {
+                    return Self.dateFormatter.string(from: date)
+                } else {
+                    return ""
+                }
             }
         }
     }
