@@ -5,7 +5,6 @@
 //  Created by Matt Novoselov on 19/07/25.
 //
 
-#warning("lost focus -> validate")
 #warning("On continue button -> insocate that some firlds are not validated")
 import SwiftUI
 
@@ -16,7 +15,7 @@ struct TextInputField: InputFieldRepresentable {
         @Bindable var viewModel = viewModel
         let isValid = !viewModel.hasErrors
         let textLabel = Text("Enter \(viewModel.config.label)")
-        let keyboardType: UIKeyboardType = viewModel.config.type == .number ? .numbersAndPunctuation : .default
+        let keyboardType: UIKeyboardType = viewModel.config.type == .number ? .numberPad : .default
         
         TextField(
             viewModel.config.label,
@@ -28,5 +27,6 @@ struct TextInputField: InputFieldRepresentable {
         .onSubmit {
             self.viewModel.validate()
         }
+        .onDebouncedChange(of: viewModel.value) { _ in viewModel.validate() }
     }
 }
