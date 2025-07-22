@@ -21,8 +21,8 @@ struct DateInputFieldSheet: View {
                     .font(.dazzed(style: .title1, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Button("Done") {
-                    selectedComponents = tempComponents
+                Button("Clear") {
+                    selectedComponents = nil
                     dismiss()
                 }
                 .foregroundStyle(.secondary)
@@ -45,6 +45,12 @@ struct DateInputFieldSheet: View {
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
+            
+            Button("Save"){
+                selectedComponents = tempComponents
+                dismiss()
+            }
+            .buttonStyle(.capsule)
         }
         .padding()
         .padding(.top, 5)
