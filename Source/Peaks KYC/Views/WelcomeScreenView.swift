@@ -28,7 +28,7 @@ struct WelcomeScreenView: View {
         .background {
             AnimatedMeshGradientView()
         }
-        .bottomGradientOverlay(color: .white, height: 400)
+        .gradientOverlay(height: 400)
         .overlay(alignment: .bottom) {
             VStack {
                 Button("I am new to Peaks") {

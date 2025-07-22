@@ -7,29 +7,41 @@
 
 import SwiftUI
 
-struct BottomGradientOverlay: ViewModifier {
+struct GradientOverlay: ViewModifier {
     let color: Color
     let height: CGFloat
-
+    let edge: Edge  // .bottom or .top
+    
+    init(color: Color = .white, height: CGFloat = 200, edge: Edge = .bottom) {
+        self.color = color
+        self.height = height
+        self.edge = edge
+    }
+    
     func body(content: Content) -> some View {
         content
             .overlay(
                 LinearGradient(
                     gradient: Gradient(colors: [color, .clear]),
-                    startPoint: .bottom,
-                    endPoint: .top
+                    startPoint: edge == .bottom ? .bottom : .top,
+                    endPoint:   edge == .bottom ? .top    : .bottom
                 )
                 .frame(height: height)
-                .frame(maxHeight: .infinity, alignment: .bottom)
-                .ignoresSafeArea(edges: .bottom)
+                .frame(maxHeight: .infinity,
+                       alignment: edge == .bottom ? .bottom : .top)
+                .ignoresSafeArea(edges: .init(edge))
                 .allowsHitTesting(false)
             )
     }
 }
 
 extension View {
-    /// Adds a bottom gradient overlay with customizable color and height.
-    func bottomGradientOverlay(color: Color = .white, height: CGFloat = 200) -> some View {
-        modifier(BottomGradientOverlay(color: color, height: height))
+    /// Adds a top or bottom gradient overlay (bottom by default)
+    func gradientOverlay(
+        color: Color = .white,
+        height: CGFloat = 200,
+        edge: Edge = .bottom
+    ) -> some View {
+        modifier(GradientOverlay(color: color, height: height, edge: edge))
     }
 }
