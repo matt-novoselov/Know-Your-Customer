@@ -25,7 +25,7 @@ struct SummaryView: View {
                     FieldSummary(label: field.label, value: field.value)
                 }
             }
-            .navigationHeader("Collected Information")
+            .navigationHeader("Collected Data")
             .padding()
         }
     }
