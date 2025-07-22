@@ -40,7 +40,7 @@ struct FieldsOverviewView: View {
                 .navigationHeader("This only takes a few steps")
                 .padding()
             }
-            .bottomGradientOverlay()
+            .gradientOverlay()
             .safeAreaInset(edge: .bottom) {
                 Button("Continue to the next step") {
                     signUpViewModel.navigate(to: .fieldsList)

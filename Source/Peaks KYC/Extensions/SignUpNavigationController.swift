@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SignUpNavigationController: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-
+    
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
-
+        
         NavigationStack(path: $signUpViewModel.path) {
             CountryListView()
                 .signUpNavDestinations()
@@ -26,16 +26,19 @@ struct SignUpNavDestinationModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationDestination(for: SignUpViewModel.NavigationRoute.self) { route in
-                switch route {
-                case .countryList:
-                    CountryListView()
-                case .overview:
-                    FieldsOverviewView()
-                case .fieldsList:
-                    InputFieldsListView(fieldViews: signUpViewModel.getViews())
-                case .summary:
-                    SummaryView(fields: signUpViewModel.getResultEntries())
+                Group{
+                    switch route {
+                    case .countryList:
+                        CountryListView()
+                    case .overview:
+                        FieldsOverviewView()
+                    case .fieldsList:
+                        InputFieldsListView(fieldViews: signUpViewModel.getViews())
+                    case .summary:
+                        SummaryView(fields: signUpViewModel.getResultEntries())
+                    }
                 }
+                .gradientOverlay(height: 150, edge: .top)
             }
     }
 }
