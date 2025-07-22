@@ -27,7 +27,7 @@ struct FieldFactory {
         case .text, .number:
             return genericCreator(String.self) { TextInputField() }
         case .date:
-            return genericCreator(Date?.self) { DateInputField() }
+            return genericCreator(DateComponents?.self) { DateInputField() }
         }
     }
     

@@ -16,7 +16,7 @@ class SignUpViewModel {
     public var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
     
-
+    
     private let configurationLoader = ConfigurationLoaderService()
     public func loadConfig() async {
         let selectedFileName = selectedCountry.data.yamlFileName
@@ -66,8 +66,8 @@ class SignUpViewModel {
         self.fieldsViews
     }
     
-    #warning("validate in parallel?")
-    #warning("strip time in Date")
+#warning("validate in parallel?")
+#warning("make default value nil everywhere")
 #warning("UI/Uni tests")
 #warning("clear field animation")
     public func validateAllFieldsAndSubmit() {

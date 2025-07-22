@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DateInputField: InputFieldRepresentable {
-    @Environment(FieldViewModel<Date?>.self) var viewModel
+    @Environment(FieldViewModel<DateComponents?>.self) var viewModel
     @State private var isFocused = false
     
     // Shared formatter
@@ -17,15 +17,16 @@ struct DateInputField: InputFieldRepresentable {
         f.dateStyle = .medium
         return f
     }()
-
+    
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
         
         let textLabel: String = {
-            guard let date = viewModel.value else {
+            if let formatted = Self.sharedFormatter.string(from: viewModel.value) {
+                return formatted
+            } else {
                 return "Select your \(viewModel.config.label)"
             }
-            return Self.sharedFormatter.string(from: date)
         }()
         
         let textColor: Color = (viewModel.value == nil ? .secondary : .primary)
@@ -41,7 +42,7 @@ struct DateInputField: InputFieldRepresentable {
         .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
-                selectedDate: $viewModel.value
+                selectedComponents: $viewModel.value
             )
         }
         .onChange(of: viewModel.value) {
