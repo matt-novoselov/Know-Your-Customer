@@ -79,28 +79,3 @@ class SignUpViewModel {
     }
     
 }
-
-#warning("Refactor")
-struct FieldFactory {
-    static func makeFields(from configs: [FieldConfig]) -> ([AnyView],[any AnyFieldViewModel]) {
-        var fieldViews: [AnyView] = []
-        var fieldViewModels: [any AnyFieldViewModel] = []
-        
-        for config in configs {
-            switch config.type {
-            case .text, .number:
-                let vm = FieldViewModel<String>(config: config)
-                let view = TextInputField().environment(vm)
-                fieldViews.append(AnyView(view))
-                fieldViewModels.append(vm as (any AnyFieldViewModel))
-            case .date:
-                let vm = FieldViewModel<Date?>(config: config)
-                let view = DateInputField().environment(vm)
-                fieldViews.append(AnyView(view))
-                fieldViewModels.append(vm as (any AnyFieldViewModel))
-            }
-        }
-        
-        return (fieldViews, fieldViewModels)
-    }
-}

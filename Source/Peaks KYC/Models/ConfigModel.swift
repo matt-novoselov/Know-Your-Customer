@@ -16,27 +16,31 @@ struct FieldConfig: Decodable, Identifiable {
     let id: String
     let label: String
     let required: Bool
-    let type: FieldType
+    let type: ValueType
     let validation: ValidationConfig?
 }
 
-enum FieldType: String, Decodable {
-    case text, number, date
+extension FieldConfig {
+    enum ValueType: String, Decodable {
+        case text, number, date
 
-    /// A default “empty” value for each field type
-    var initialValue: Any? {
-        switch self {
-        case .text, .number:
-            return ""
-        case .date:
-            return nil
+        /// A default “empty” value for each field type
+        var initialValue: Any? {
+            switch self {
+            case .text, .number:
+                return ""
+            case .date:
+                return nil
+            }
         }
     }
 }
 
-struct ValidationConfig: Decodable {
-    let regex: String?
-    let message: String?
-    let minLength, maxLength: Int?
-    let minValue, maxValue: Int?
+extension FieldConfig {
+    struct ValidationConfig: Decodable {
+        let regex: String?
+        let message: String?
+        let minLength, maxLength: Int?
+        let minValue, maxValue: Int?
+    }
 }
