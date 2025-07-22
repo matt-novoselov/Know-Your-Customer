@@ -8,23 +8,21 @@
 
 import SwiftUI
 
-#warning("FieldEntry")
-struct FieldEntry: Identifiable {
-    let id = UUID()
-    let label: String
-    let value: Any
+struct ResultEntries: Identifiable {
+    var id = UUID()
+    var label: String
+    var value: String
 }
 
-#warning("Make view display N/A, not nil ot EmptyString")
 // A view to display the summary of collected user data
 struct SummaryView: View {
-    let fields:  [FieldEntry]
+    let fields: [ResultEntries]
     
     var body: some View {
         ScrollView {
             Group {
                 ForEach(fields) { field in
-                    FieldSummary(label: field.label, value: (String(describing: field.value)))
+                    FieldSummary(label: field.label, value: field.value)
                 }
             }
             .navigationHeader("Collected Information")

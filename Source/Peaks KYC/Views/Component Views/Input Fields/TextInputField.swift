@@ -16,14 +16,18 @@ struct TextInputField: InputFieldRepresentable {
         let isValid = !viewModel.hasErrors
         let textLabel = Text("Enter \(viewModel.config.label)")
         let keyboardType: UIKeyboardType = viewModel.config.type == .number ? .numberPad : .default
+        let binding = Binding<String>(
+            get: { viewModel.value ?? "" },
+            set: { viewModel.value = $0.isEmpty ? nil : $0 }
+        )
         
         TextField(
             viewModel.config.label,
-            text: $viewModel.value,
+            text: binding,
             prompt: textLabel
         )
         .keyboardType(keyboardType)
-        .textFieldStyle((.capsule(text: $viewModel.value, isValid: isValid)))
+        .textFieldStyle((.capsule(text: binding, isValid: isValid)))
         .onSubmit {
             self.viewModel.validate()
         }

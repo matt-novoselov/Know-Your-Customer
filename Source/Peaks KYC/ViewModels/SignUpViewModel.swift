@@ -47,8 +47,8 @@ class SignUpViewModel {
     }
     
     /// Gather up the final JSON payload
-    public func formData() -> [FieldEntry] {
-        fields.map { FieldEntry(label: $0.config.label, value: $0.valueAsAny) }
+    public func getResultEntries() -> [ResultEntries] {
+        fields.map { ResultEntries(label: $0.config.label, value: $0.displayValue) }
     }
     
     private func loadFields() {
