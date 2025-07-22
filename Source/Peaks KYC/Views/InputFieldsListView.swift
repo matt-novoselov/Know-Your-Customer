@@ -12,23 +12,34 @@ struct InputFieldsListView: View {
     let fieldViews: [AnyView]
     
     var body: some View {
-        ScrollView {
-            Group {
-                ForEach(fieldViews.indices, id: \.self) { index in
-                    fieldViews[index]
-                        .padding(5)
+        ScrollViewReader { value in
+            ScrollView {
+                Group {
+                    ForEach(fieldViews.indices, id: \.self) { index in
+                        fieldViews[index]
+                            .padding(5)
+                            .id(index)
+                    }
+                    
+                    Spacer()
+                        .frame(height: 100)
+                    
+                    Button("Continue") {
+                        signUpViewModel.validateAll()
+                        
+                        if let errorId = signUpViewModel.getFirstErrorIndex() {
+                            withAnimation {
+                                value.scrollTo(errorId)
+                            }
+                        } else {
+                            signUpViewModel.navigate(to: .summary)
+                        }
+                    }
+                    .buttonStyle(.capsule)
                 }
-                
-                Spacer()
-                    .frame(height: 100)
-                
-                Button("Continue") {
-                    signUpViewModel.validateAllFieldsAndSubmit()
-                }
-                .buttonStyle(.capsule)
+                .navigationHeader("Personal Details")
+                .padding()
             }
-            .navigationHeader("Personal Details")
-            .padding()
         }
     }
 }

@@ -5,7 +5,6 @@
 //  Created by Matt Novoselov on 19/07/25.
 //
 
-#warning("On continue button -> insocate that some firlds are not validated")
 import SwiftUI
 
 struct TextInputField: InputFieldRepresentable {

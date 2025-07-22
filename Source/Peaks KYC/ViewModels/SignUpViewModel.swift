@@ -36,11 +36,6 @@ class SignUpViewModel {
     private var fields: [any AnyFieldViewModel] = []
     private var fieldsViews: [AnyView] = []
     
-    /// True only when every field is valid
-    private var isValid: Bool {
-        fields.allSatisfy { $0.error == nil }
-    }
-    
     /// Validate all fields at once
     public func validateAll() {
         fields.forEach { $0.validate() }
@@ -66,15 +61,11 @@ class SignUpViewModel {
         self.fieldsViews
     }
     
-#warning("validate in parallel?")
-#warning("make default value nil everywhere")
-#warning("UI/Uni tests")
-    public func validateAllFieldsAndSubmit() {
-        self.validateAll()
-        
-        if self.isValid {
-            self.navigate(to: .summary)
-        }
+    public func getFirstErrorIndex() -> Int? {
+        let id = fields.firstIndex(where: { $0.error != nil })
+        return id
     }
     
+#warning("validate in parallel?")
+#warning("UI/Uni tests")
 }
