@@ -8,31 +8,36 @@
 import SwiftUI
 
 extension TextFieldStyle where Self == CapsuleTextFieldStyle {
-    static func capsule(text: Binding<String>, isValid: Bool) -> Self { .init(text: text, isValid: isValid) }
+    static func capsule(text: Binding<String>, isValid: Bool) -> Self {
+        .init(text: text, isValid: isValid)
+    }
 }
 
 struct CapsuleTextFieldStyle: TextFieldStyle {
+    @Environment(\.isEnabled) private var isEnabled
     @FocusState private var isFocused: Bool
     @Binding var text: String
     var isValid: Bool
     
     func _body(configuration: TextField<Self._Label>) -> some View {
-        let isClearButtonVisible = isFocused && !text.isEmpty
-        
+        let showClear = isFocused && !text.isEmpty
+        let foregroundColor: Color = isEnabled ? .primary : .secondary
+
         configuration
+            .foregroundStyle(foregroundColor)
             .overlay(alignment: .trailing) {
-                if isClearButtonVisible {
-                    ClearButton { self.text = "" }
+                if showClear {
+                    ClearButton { text = "" }
                 }
             }
             .focused($isFocused)
-            .dynamicFormStroke(isFocused: isFocused, isValid: isValid)
-            .animation(.spring(duration: 0.4), value: isClearButtonVisible)
+            .dynamicFormStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: isValid)
+            .animation(.spring(duration: 0.4), value: showClear)
     }
-    
+
     private struct ClearButton: View {
         let action: () -> Void
-        
+
         var body: some View {
             Button("Clear text", systemImage: "xmark", action: action)
                 .labelStyle(.iconOnly)

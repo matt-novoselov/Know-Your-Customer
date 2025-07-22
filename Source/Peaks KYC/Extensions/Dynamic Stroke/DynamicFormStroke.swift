@@ -10,6 +10,7 @@ import SwiftUI
 extension View {
     func dynamicFormStroke(
         isFocused: Bool,
+        isDisabled: Bool = false,
         isValid: Bool,
         style: CornerStyle = .capsule,
         idleColor: Color = .secondary,
@@ -20,6 +21,7 @@ extension View {
         
         return self.dynamicStroke(
             isFocused: isStrokeFocused,
+            isDisabled: isDisabled,
             style: style,
             focusColor: focusColor,
             idleColor: idleColor,
