@@ -17,18 +17,19 @@ protocol InputFieldRepresentable: View {
 extension InputFieldRepresentable where Self: View {
     var body: some View {
         let labelText: Text = {
-            var t = Text(viewModel.config.label)
+            var text = Text(viewModel.config.label)
             if !viewModel.config.required {
-                t = t + Text(" (optional)")
+                // swiftlint:disable:next shorthand_operator
+                text = text + Text(" (optional)")
             }
-            return t
+            return text
         }()
         let showWarning = viewModel.hasErrors
 
         return VStack(alignment: .leading) {
             labelText
                 .font(.headline)
-            
+
             inputFieldView()
                 .disabled(viewModel.isReadOnly)
 

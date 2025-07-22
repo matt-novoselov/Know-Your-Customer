@@ -18,7 +18,7 @@ extension View {
     ) -> some View {
         let focusColor: Color = isValid ? .primary : .red
         let isStrokeFocused = isFocused || !isValid
-        
+
         return self.dynamicStroke(
             isFocused: isStrokeFocused,
             isDisabled: isDisabled,

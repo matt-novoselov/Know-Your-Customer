@@ -33,12 +33,12 @@ extension FieldConfig.ValueType {
         viewProvider: @escaping () -> V
     ) -> FieldFactory.FieldCreator {
         { config in
-            let vm = FieldViewModel<Value>(config: config)
-            let view = viewProvider().environment(vm)
-            return (AnyView(view), vm)
+            let viewModel = FieldViewModel<Value>(config: config)
+            let view = viewProvider().environment(viewModel)
+            return (AnyView(view), viewModel)
         }
     }
-    
+
     var creator: FieldFactory.FieldCreator {
         switch self {
         case .text, .number:
@@ -48,7 +48,6 @@ extension FieldConfig.ValueType {
         }
     }
 }
-
 
 extension FieldConfig {
     struct ValidationConfig: Decodable {

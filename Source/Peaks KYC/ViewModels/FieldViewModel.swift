@@ -17,12 +17,11 @@ protocol AnyFieldViewModel: Observable, Identifiable {
     func validate()
 }
 
-
 @Observable
 final class FieldViewModel<Value>: AnyFieldViewModel {
     let config: FieldConfig
-    var value: Value? = nil
-    var error: String? = nil
+    var value: Value?
+    var error: String?
     var hasErrors: Bool { error != nil }
     var id: String { config.id }
     let isReadOnly: Bool
@@ -43,24 +42,24 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
             return "\(unwrapped)"
         }
     }
-    
+
     // Shared formatter
     let sharedFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateStyle = .medium
-        return f
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
     }()
-    
+
     init(config: FieldConfig, preFilledValue: Value? = nil) {
         self.config = config
-        
+
         if let preFilledValue {
             self.value = preFilledValue
         }
-        
+
         self.isReadOnly = preFilledValue != nil
     }
-    
+
 #warning("Remove init of ValidationService")
     func validate() {
         let service = ValidationService()

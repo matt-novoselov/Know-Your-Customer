@@ -11,9 +11,9 @@ struct DebounceModifier<Value: Equatable>: ViewModifier {
     let value: Value
     let delay: TimeInterval
     let action: (Value) -> Void
-    
+
     @State private var workItem: DispatchWorkItem?
-    
+
     func body(content: Content) -> some View {
         content
             .onChange(of: value) {

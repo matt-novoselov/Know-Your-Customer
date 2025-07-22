@@ -17,6 +17,7 @@ protocol MockAPIConformable {
 final class NLMockAPIService: MockAPIConformable {
     func fetchUserProfile(from url: String) async throws -> MockAPIUserProfile {
         try await Task.sleep(nanoseconds: 500_000_000)
+        // swiftlint:disable:next non_optional_string_data_conversion
         let json = """
         {
             "firstName": "Jan",

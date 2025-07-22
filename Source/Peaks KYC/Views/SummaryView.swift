@@ -1,4 +1,3 @@
-
 //
 //  SummaryView.swift
 //  Peaks KYC
@@ -17,7 +16,7 @@ struct ResultEntries: Identifiable {
 // A view to display the summary of collected user data
 struct SummaryView: View {
     let fields: [ResultEntries]
-    
+
     var body: some View {
         ScrollView {
             Group {
@@ -29,16 +28,16 @@ struct SummaryView: View {
             .padding()
         }
     }
-    
+
     private struct FieldSummary: View {
         let label: String
         let value: String
-        
+
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(label)
                     .font(.dazzed(style: .title3, weight: .bold))
-                
+
                 Text(value)
                     .font(.dazzed(style: .body, weight: .medium))
                     .foregroundStyle(.secondary)

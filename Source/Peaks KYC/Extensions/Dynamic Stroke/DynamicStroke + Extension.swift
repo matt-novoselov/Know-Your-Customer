@@ -31,14 +31,14 @@ struct DynamicStroke: ViewModifier {
         let backgroundColor = isDisabled ? Color(.quaternarySystemFill) : .clear
         let strokeWidth = isFocused ? 2.0 : 0.5
         let shape = RoundedRectangle(cornerRadius: style.cornerRadius)
-        
+
         content
             .padding(padding)
-            .background{
+            .background {
                 shape
                     .foregroundStyle(backgroundColor)
             }
-            .overlay{
+            .overlay {
                 shape
                     .stroke(strokeColor, lineWidth: strokeWidth)
                     .animation(.spring(response: 0.4), value: isFocused)

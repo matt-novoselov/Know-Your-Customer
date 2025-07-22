@@ -111,6 +111,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1A21D1592E304560001FC089 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1A47911C2E2B0C920026C1DE /* Peaks KYC */,
@@ -203,6 +204,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */,
+				1A21D1572E304542001FC089 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1AF893232E2AB959008342BB /* Products */;
@@ -265,6 +267,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1A21D1592E304560001FC089 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 1A21D1582E304560001FC089 /* SwiftLintBuildToolPlugin */;
+		};
 		1AF893312E2AB95B008342BB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1AF893212E2AB959008342BB /* Peaks KYC */;
@@ -585,6 +591,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1A21D1572E304542001FC089 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
 		1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams";
@@ -596,6 +610,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1A21D1582E304560001FC089 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A21D1572E304542001FC089 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
 		1A9452CB2E2AD141002B4A1B /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1A9452CA2E2AD141002B4A1B /* XCRemoteSwiftPackageReference "Yams" */;

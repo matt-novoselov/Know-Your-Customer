@@ -18,7 +18,7 @@ struct AnimatedMeshGradientView: View {
         .brand, .pink.mix(with: .white, by: 0.3), .pink.mix(with: .white, by: 0.3),
         .pink, .pink, .brand
     ]
-    
+
     // MARK: - Computed Grid Points
     private var points: [SIMD2<Float>] {
         (0..<rows).flatMap { row in
@@ -30,7 +30,7 @@ struct AnimatedMeshGradientView: View {
             }
         }
     }
-    
+
     var body: some View {
         TimelineView(.animation) { timeline in
             MeshGradient(
@@ -45,7 +45,7 @@ struct AnimatedMeshGradientView: View {
         .opacity(0.3)
         .ignoresSafeArea()
     }
-    
+
     // MARK: - Animation
     private func animatedColors(for date: Date) -> [Color] {
         let phase = CGFloat(date.timeIntervalSince1970)
@@ -58,12 +58,20 @@ struct AnimatedMeshGradientView: View {
 
 private extension Color {
     func shiftedHue(by amount: Double) -> Color {
-        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        UIColor(self).getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-        
-        h = (h + CGFloat(amount)).truncatingRemainder(dividingBy: 1)
-        if h < 0 { h += 1 }
-        
-        return Color(hue: Double(h), saturation: Double(s), brightness: Double(b), opacity: Double(a))
+        var hue: CGFloat = 0,
+            saturation: CGFloat = 0,
+            brightness: CGFloat = 0,
+            alpha: CGFloat = 0
+        UIColor(self).getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+
+        hue = (hue + CGFloat(amount)).truncatingRemainder(dividingBy: 1)
+        if hue < 0 { hue += 1 }
+
+        return Color(
+            hue: Double(hue),
+            saturation: Double(saturation),
+            brightness: Double(brightness),
+            opacity: Double(alpha)
+        )
     }
 }

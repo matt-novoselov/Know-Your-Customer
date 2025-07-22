@@ -34,6 +34,12 @@ extension View {
         isDragIndicatorVisible: Bool = true,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
-        modifier(FittedSizeSheet(isPresented: isPresented, sheetContent: content, isDragIndicatorVisible: isDragIndicatorVisible))
+        let fittedSheet = FittedSizeSheet(
+            isPresented: isPresented,
+            sheetContent: content,
+            isDragIndicatorVisible: isDragIndicatorVisible
+        )
+
+        return modifier(fittedSheet)
     }
 }

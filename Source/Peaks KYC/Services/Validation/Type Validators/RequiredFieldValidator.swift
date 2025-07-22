@@ -10,12 +10,11 @@ struct RequiredFieldValidator: Validator {
         if let stringValue = value as? String, !stringValue.isEmpty {
             return
         }
-        
+
         if let anyValue = value, !(anyValue is String) {
             return
         }
-        
+
         throw ValidationError(message: "This field is required.")
     }
 }
-
