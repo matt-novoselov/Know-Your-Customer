@@ -29,7 +29,6 @@ extension InputFieldRepresentable where Self: View {
             labelText
                 .font(.headline)
             
-            #warning("Disable input when read only - visual")
             inputFieldView()
                 .disabled(viewModel.isReadOnly)
 

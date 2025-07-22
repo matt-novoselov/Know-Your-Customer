@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DateInputField: InputFieldRepresentable {
     @Environment(FieldViewModel<DateComponents>.self) var viewModel
+    @Environment(\.isEnabled) private var isEnabled
     @State private var isFocused = false
     
     func inputFieldView() -> some View {
@@ -22,17 +23,27 @@ struct DateInputField: InputFieldRepresentable {
             }
         }()
         
-        let textColor: Color = (viewModel.value == nil ? Color(.placeholderText) : .primary)
-        
+        var textColor: Color {
+            guard isEnabled else {
+                return .secondary
+            }
+            if viewModel.value == nil {
+                return Color(.placeholderText)
+            } else {
+                return .primary
+            }
+        }
+
         Button { isFocused.toggle() } label: {
             HStack {
-                Text(textLabel).foregroundColor(textColor)
+                Text(textLabel)
+                    .foregroundColor(textColor)
                 Spacer()
                 Image(systemName: "calendar")
                     .foregroundStyle(.secondary)
             }
         }
-        .dynamicFormStroke(isFocused: isFocused, isValid: !viewModel.hasErrors, padding: 21)
+        .dynamicFormStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: !viewModel.hasErrors, padding: 21)
         .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
