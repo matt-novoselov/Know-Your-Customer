@@ -27,6 +27,7 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
             }
             .focused($isFocused)
             .dynamicFormStroke(isFocused: isFocused, isValid: isValid)
+            .animation(.spring(duration: 0.4), value: isClearButtonVisible)
     }
     
     private struct ClearButton: View {
