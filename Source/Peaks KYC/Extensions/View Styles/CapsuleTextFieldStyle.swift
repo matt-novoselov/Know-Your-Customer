@@ -18,7 +18,8 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
     @FocusState private var isFocused: Bool
     @Binding var text: String
     var isValid: Bool
-    
+
+    // swiftlint:disable:next identifier_name
     func _body(configuration: TextField<Self._Label>) -> some View {
         let showClear = isFocused && !text.isEmpty
         let foregroundColor: Color = isEnabled ? .primary : .secondary

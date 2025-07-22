@@ -16,7 +16,7 @@ struct RegexValidator: Validator {
         guard let stringValue = value as? String, !stringValue.isEmpty else {
             return
         }
-        
+
         if stringValue.range(of: pattern, options: .regularExpression) == nil {
             throw ValidationError(message: errorMessage)
         }

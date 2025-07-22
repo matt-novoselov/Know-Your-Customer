@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Peaks_KYCApp: App {
+struct PeaksKYCApp: App {
     @State private var signUpViewModel = SignUpViewModel()
 
     var body: some Scene {

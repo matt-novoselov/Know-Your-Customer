@@ -9,17 +9,17 @@ import SwiftUI
 
 struct WelcomeScreenView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         VStack(spacing: 10) {
             HStack {
                 AppIconView()
                     .frame(height: 44)
-                
+
                 Text("Peaks KYC")
                     .font(.dazzed(style: .extraLargeTitle, weight: .black))
             }
-            
+
             Text("Verification Made Simple")
                 .font(.dazzed(size: 19, weight: .medium))
         }
@@ -35,7 +35,7 @@ struct WelcomeScreenView: View {
                     signUpViewModel.isNCPresented(true)
                 }
                 .buttonStyle(.capsule(.brand))
-                
+
                 Button("Login") {}
                     .buttonStyle(.capsule)
                     .disabled(true)

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 // MARK: SheetView
 extension CountryPickerFieldView {
     var countryListSheetView: some View {

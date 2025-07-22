@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextInputField: InputFieldRepresentable {
     @Environment(FieldViewModel<String>.self) var viewModel
-    
+
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
         let isValid = !viewModel.hasErrors
@@ -19,7 +19,7 @@ struct TextInputField: InputFieldRepresentable {
             get: { viewModel.value ?? "" },
             set: { viewModel.value = $0.isEmpty ? nil : $0 }
         )
-        
+
         TextField(
             viewModel.config.label,
             text: binding,

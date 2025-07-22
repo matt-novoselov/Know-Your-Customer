@@ -11,10 +11,10 @@ struct DateInputField: InputFieldRepresentable {
     @Environment(FieldViewModel<DateComponents>.self) var viewModel
     @Environment(\.isEnabled) private var isEnabled
     @State private var isFocused = false
-    
+
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
-        
+
         let textLabel: String = {
             if let formatted = viewModel.sharedFormatter.string(from: viewModel.value) {
                 return formatted
@@ -22,7 +22,7 @@ struct DateInputField: InputFieldRepresentable {
                 return "Select your \(viewModel.config.label)"
             }
         }()
-        
+
         var textColor: Color {
             guard isEnabled else {
                 return .secondary
@@ -54,5 +54,5 @@ struct DateInputField: InputFieldRepresentable {
             viewModel.validate()
         }
     }
-    
+
 }

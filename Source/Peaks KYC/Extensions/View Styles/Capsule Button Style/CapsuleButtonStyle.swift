@@ -23,7 +23,7 @@ struct CapsuleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         let bgColor = isEnabled ? variant.background : Color(.quaternarySystemFill)
         let fgColor = isEnabled ? variant.foreground : Color(.systemGray2)
-        
+
         return configuration.label
             .frame(maxWidth: .infinity)
             .font(.body)

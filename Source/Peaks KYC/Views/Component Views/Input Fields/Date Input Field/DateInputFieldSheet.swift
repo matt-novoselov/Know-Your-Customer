@@ -13,14 +13,14 @@ struct DateInputFieldSheet: View {
     @Binding var selectedComponents: DateComponents?
     @State private var tempComponents: DateComponents =
     Calendar.current.dateComponents([.year, .month, .day], from: Date())
-    
+
     var body: some View {
         VStack {
             ZStack {
                 Text(fieldLabel)
                     .font(.dazzed(style: .title1, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Button("Clear") {
                     selectedComponents = nil
                     dismiss()
@@ -29,7 +29,7 @@ struct DateInputFieldSheet: View {
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
+
             let dateBinding = Binding<Date>(
                 get: {
                     Calendar.current.date(from: tempComponents) ?? Date()
@@ -41,15 +41,15 @@ struct DateInputFieldSheet: View {
                     )
                 }
             )
-            
+
             DatePicker(
                 "Select your \(fieldLabel)",
                 selection: dateBinding,
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
-            
-            Button("Save"){
+
+            Button("Save") {
                 selectedComponents = tempComponents
                 dismiss()
             }

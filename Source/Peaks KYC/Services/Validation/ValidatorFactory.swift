@@ -10,9 +10,9 @@ struct ValidatorFactory {
         guard let config = config else {
             return []
         }
-        
+
         var validators: [Validator] = []
-        
+
         if config.required == true {
             validators.append(RequiredFieldValidator())
         }
@@ -21,23 +21,35 @@ struct ValidatorFactory {
             let regex = #"^\d+$"#
             validators.append(RegexValidator(pattern: regex, errorMessage: "Must be a number."))
         }
-        
+
         guard let validationConfig = config.validation else {
             return validators
         }
-        
+
         if let regex = validationConfig.regex {
-            validators.append(RegexValidator(pattern: regex, errorMessage: validationConfig.message ?? "Invalid format."))
+            let validator = RegexValidator(
+                pattern: regex,
+                errorMessage: validationConfig.message ?? "Invalid format."
+            )
+            validators.append(validator)
         }
-        
+
         if validationConfig.minLength != nil || validationConfig.maxLength != nil {
-            validators.append(LengthValidator(minLength: validationConfig.minLength, maxLength: validationConfig.maxLength))
+            let validator = LengthValidator(
+                minLength: validationConfig.minLength,
+                maxLength: validationConfig.maxLength
+            )
+            validators.append(validator)
         }
 
         if validationConfig.minValue != nil || validationConfig.maxValue != nil {
-            validators.append(ValueRangeValidator(minValue: validationConfig.minValue, maxValue: validationConfig.maxValue))
+            let validator = ValueRangeValidator(
+                minValue: validationConfig.minValue,
+                maxValue: validationConfig.maxValue
+            )
+            validators.append(validator)
         }
-        
+
         return validators
     }
 }

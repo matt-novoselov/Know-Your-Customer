@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    
+
     var body: some View {
         Group {
             if signUpViewModel.selectedConfig != nil {
@@ -22,12 +22,12 @@ struct InputFieldsListView: View {
             await signUpViewModel.loadConfig()
         }
     }
-    
+
     #warning("refactor")
     private struct ListView: View {
         @Environment(SignUpViewModel.self) private var signUpViewModel
         let fieldViews: [AnyView]
-        
+
         var body: some View {
             ScrollViewReader { value in
                 ScrollView {
@@ -37,13 +37,13 @@ struct InputFieldsListView: View {
                                 .padding(5)
                                 .id(index)
                         }
-                        
+
                         Spacer()
                             .frame(height: 100)
-                        
+
                         Button("Continue") {
                             signUpViewModel.validateAll()
-                            
+
                             if let errorId = signUpViewModel.getFirstErrorIndex() {
                                 withAnimation {
                                     value.scrollTo(errorId)

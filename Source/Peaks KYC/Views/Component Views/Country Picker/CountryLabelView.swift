@@ -11,7 +11,7 @@ import SwiftUI
 extension CountryPickerFieldView {
     struct CountryLabelView: View {
         var country: Country
-        
+
         var body: some View {
             HStack {
                 country.data.flag
@@ -19,7 +19,7 @@ extension CountryPickerFieldView {
                     .scaledToFit()
                     .frame(width: 32)
                     .cornerRadius(3)
-                
+
                 Text(country.data.name)
             }
         }
