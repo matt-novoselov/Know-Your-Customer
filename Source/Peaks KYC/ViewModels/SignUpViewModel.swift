@@ -23,8 +23,6 @@ class SignUpViewModel {
         let configData = try? configurationLoader.loadConfig(from: selectedFileName)
         selectedConfig = configData
         
-#warning("handle per country exceptions (NL)")
-        
         self.loadFields()
     }
     
@@ -67,5 +65,4 @@ class SignUpViewModel {
     }
     
 #warning("validate in parallel?")
-#warning("UI/Uni tests")
 }
