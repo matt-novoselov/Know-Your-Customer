@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 struct ConfigModel: Decodable {
     let country: String
@@ -23,18 +24,31 @@ struct FieldConfig: Decodable, Identifiable {
 extension FieldConfig {
     enum ValueType: String, Decodable {
         case text, number, date
+    }
+}
 
-        /// A default “empty” value for each field type
-        var initialValue: Any? {
-            switch self {
-            case .text, .number:
-                return ""
-            case .date:
-                return nil
-            }
+extension FieldConfig.ValueType {
+    private func genericCreator<Value, V: View>(
+        _ valueType: Value.Type,
+        viewProvider: @escaping () -> V
+    ) -> FieldFactory.FieldCreator {
+        { config in
+            let vm = FieldViewModel<Value>(config: config)
+            let view = viewProvider().environment(vm)
+            return (AnyView(view), vm)
+        }
+    }
+    
+    var creator: FieldFactory.FieldCreator {
+        switch self {
+        case .text, .number:
+            return genericCreator(String.self) { TextInputField() }
+        case .date:
+            return genericCreator(DateComponents.self) { DateInputField() }
         }
     }
 }
+
 
 extension FieldConfig {
     struct ValidationConfig: Decodable {

@@ -34,7 +34,7 @@ struct SignUpNavDestinationModifier: ViewModifier {
                 case .fieldsList:
                     InputFieldsListView(fieldViews: signUpViewModel.getViews())
                 case .summary:
-                    SummaryView(fields: signUpViewModel.formData())
+                    SummaryView(fields: signUpViewModel.getResultEntries())
                 }
             }
     }

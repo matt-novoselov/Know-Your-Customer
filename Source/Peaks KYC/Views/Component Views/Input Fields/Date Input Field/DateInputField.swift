@@ -8,21 +8,14 @@
 import SwiftUI
 
 struct DateInputField: InputFieldRepresentable {
-    @Environment(FieldViewModel<DateComponents?>.self) var viewModel
+    @Environment(FieldViewModel<DateComponents>.self) var viewModel
     @State private var isFocused = false
-    
-    // Shared formatter
-    private static let sharedFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateStyle = .medium
-        return f
-    }()
     
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
         
         let textLabel: String = {
-            if let formatted = Self.sharedFormatter.string(from: viewModel.value) {
+            if let formatted = viewModel.sharedFormatter.string(from: viewModel.value) {
                 return formatted
             } else {
                 return "Select your \(viewModel.config.label)"
