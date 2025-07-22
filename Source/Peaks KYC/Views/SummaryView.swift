@@ -15,6 +15,7 @@ struct FieldEntry: Identifiable {
     let value: Any
 }
 
+#warning("Make view display N/A, not nil ot EmptyString")
 // A view to display the summary of collected user data
 struct SummaryView: View {
     let fields:  [FieldEntry]

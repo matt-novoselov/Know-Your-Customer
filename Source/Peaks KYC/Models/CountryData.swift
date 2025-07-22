@@ -17,10 +17,8 @@ enum Country: CaseIterable {
     case netherlands
     case germany
     case usa
-    #if targetEnvironment(simulator)
     case debug
-    #endif
-    
+
     var data: CountryData {
         switch self {
         case .netherlands:
@@ -41,14 +39,12 @@ enum Country: CaseIterable {
                 flag: Image(.usaFlag),
                 yamlFileName: "US.yaml"
             )
-        #if targetEnvironment(simulator)
         case .debug:
             return CountryData(
                 name: "Debug Country",
                 flag: Image(.pirateFlag),
                 yamlFileName: "DEBUG.yaml"
             )
-        #endif
         }
     }
 }
