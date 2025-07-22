@@ -63,6 +63,4 @@ class SignUpViewModel {
         let id = fields.firstIndex(where: { $0.error != nil })
         return id
     }
-    
-#warning("validate in parallel?")
 }
