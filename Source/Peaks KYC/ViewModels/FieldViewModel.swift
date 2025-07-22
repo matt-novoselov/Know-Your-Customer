@@ -14,7 +14,7 @@ protocol AnyFieldViewModel: Observable, Identifiable {
     var hasErrors: Bool { get }
     var isReadOnly: Bool { get }
     var displayValue: String { get }
-    func validate()
+    func validate() async
 }
 
 
@@ -62,9 +62,9 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
     }
     
 #warning("Remove init of ValidationService")
-    func validate() {
+    func validate() async {
         let service = ValidationService()
-        let error = service.validate(field: config, value: value)
+        let error = await service.validate(field: config, value: value)
         self.error = error
     }
 }

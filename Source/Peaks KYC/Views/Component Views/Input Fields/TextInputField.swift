@@ -28,8 +28,10 @@ struct TextInputField: InputFieldRepresentable {
         .keyboardType(keyboardType)
         .textFieldStyle((.capsule(text: binding, isValid: isValid)))
         .onSubmit {
-            self.viewModel.validate()
+            Task { await self.viewModel.validate() }
         }
-        .onDebouncedChange(of: viewModel.value) { _ in viewModel.validate() }
+        .onDebouncedChange(of: viewModel.value) { _ in
+            Task { await viewModel.validate() }
+        }
     }
 }

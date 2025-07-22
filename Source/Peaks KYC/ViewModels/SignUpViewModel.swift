@@ -37,8 +37,14 @@ class SignUpViewModel {
     private var fieldsViews: [AnyView] = []
     
     /// Validate all fields at once
-    public func validateAll() {
-        fields.forEach { $0.validate() }
+    public func validateAll() async {
+        await withTaskGroup(of: Void.self) { group in
+            for field in fields {
+                group.addTask {
+                    await field.validate()
+                }
+            }
+        }
     }
     
     /// Gather up the final JSON payload

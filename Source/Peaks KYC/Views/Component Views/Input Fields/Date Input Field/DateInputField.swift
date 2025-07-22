@@ -40,8 +40,8 @@ struct DateInputField: InputFieldRepresentable {
             )
         }
         .onChange(of: viewModel.value) {
-            viewModel.validate()
+            Task { await viewModel.validate() }
         }
     }
-    
+
 }

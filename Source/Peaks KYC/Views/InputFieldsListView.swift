@@ -25,14 +25,16 @@ struct InputFieldsListView: View {
                         .frame(height: 100)
                     
                     Button("Continue") {
-                        signUpViewModel.validateAll()
-                        
-                        if let errorId = signUpViewModel.getFirstErrorIndex() {
-                            withAnimation {
-                                value.scrollTo(errorId)
+                        Task {
+                            await signUpViewModel.validateAll()
+
+                            if let errorId = signUpViewModel.getFirstErrorIndex() {
+                                withAnimation {
+                                    value.scrollTo(errorId)
+                                }
+                            } else {
+                                signUpViewModel.navigate(to: .summary)
                             }
-                        } else {
-                            signUpViewModel.navigate(to: .summary)
                         }
                     }
                     .buttonStyle(.capsule)
