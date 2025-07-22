@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: –– 1. Your protocol
 protocol AnyFieldViewModel: Observable, Identifiable {
     var config: FieldConfig { get }
-    var valueAsAny: Any { get }
+    var fieldValue: FieldValue { get }
     var error: String? { get }
     var hasErrors: Bool { get }
     var isReadOnly: Bool { get }
@@ -24,7 +24,18 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
     var value: Value
     var error: String? = nil
     var hasErrors: Bool { error != nil }
-    var valueAsAny: Any { value }
+    var fieldValue: FieldValue {
+        switch config.type {
+        case .text, .number:
+            let stringValue = value as? String ?? ""
+            return stringValue.isEmpty ? .empty : .text(stringValue)
+        case .date:
+            if let components = value as? DateComponents, Calendar.current.date(from: components) != nil {
+                return .date(components)
+            }
+            return .empty
+        }
+    }
     var id: String { config.id }
     let isReadOnly: Bool
     

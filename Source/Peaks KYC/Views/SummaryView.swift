@@ -12,7 +12,7 @@ import SwiftUI
 struct FieldEntry: Identifiable {
     let id = UUID()
     let label: String
-    let value: Any
+    let value: FieldValue
 }
 
 #warning("Make view display N/A, not nil ot EmptyString")
@@ -24,7 +24,7 @@ struct SummaryView: View {
         ScrollView {
             Group {
                 ForEach(fields) { field in
-                    FieldSummary(label: field.label, value: (String(describing: field.value)))
+                    FieldSummary(label: field.label, value: field.value.description)
                 }
             }
             .navigationHeader("Collected Information")
