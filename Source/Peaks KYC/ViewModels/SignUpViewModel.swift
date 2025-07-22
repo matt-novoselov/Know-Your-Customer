@@ -69,7 +69,6 @@ class SignUpViewModel {
 #warning("validate in parallel?")
 #warning("make default value nil everywhere")
 #warning("UI/Uni tests")
-#warning("clear field animation")
     public func validateAllFieldsAndSubmit() {
         self.validateAll()
         
