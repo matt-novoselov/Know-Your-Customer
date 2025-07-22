@@ -32,10 +32,13 @@ struct DateInputFieldSheet: View {
             
             let dateBinding = Binding<Date>(
                 get: {
-                    Calendar.current.date(from: tempComponents)!
+                    Calendar.current.date(from: tempComponents) ?? Date()
                 },
                 set: { newDate in
-                    tempComponents = Calendar.current.dateComponents([.year, .month, .day], from: newDate)
+                    tempComponents = Calendar.current.dateComponents(
+                        [.year, .month, .day],
+                        from: newDate
+                    )
                 }
             )
             
