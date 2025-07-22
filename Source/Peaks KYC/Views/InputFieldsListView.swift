@@ -12,7 +12,7 @@ struct InputFieldsListView: View {
     
     var body: some View {
         Group {
-            if let config = signUpViewModel.selectedConfig {
+            if signUpViewModel.selectedConfig != nil {
                 ListView(fieldViews: signUpViewModel.getViews())
             } else {
                 ProgressView()
