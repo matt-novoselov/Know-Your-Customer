@@ -11,12 +11,7 @@ struct RequiredFieldValidator: Validator {
             return
         }
         
-        func isNilOptional(_ any: Any) -> Bool {
-            let mirror = Mirror(reflecting: any)
-            return mirror.displayStyle == .optional && mirror.children.isEmpty
-        }
-        
-        if let anyValue = value, !(anyValue is String), !isNilOptional(anyValue) {
+        if let anyValue = value, !(anyValue is String) {
             return
         }
         
