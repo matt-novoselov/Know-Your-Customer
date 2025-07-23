@@ -27,13 +27,14 @@ class SignUpViewModel {
         self.configurationLoader = CountryConfigLoaderService()
     }
 
-    public func loadConfigForSelectedCountry() async {
+    @MainActor
+    public func loadConfigForSelectedCountry() async -> [AnyView] {
         let fileName = selectedCountry.data.yamlFileName
         do {
             selectedConfig = try configurationLoader.loadConfigForSelectedCountry(from: fileName)
         } catch {
             print("Failed loading config for \(selectedCountry):", error)
-            return
+            return []
         }
 
         var prefilledValues: [APIUserProfile.FieldEntries] = []
@@ -46,7 +47,8 @@ class SignUpViewModel {
             }
         }
 
-        loadFields(prefilledValues: prefilledValues)
+        let fields = loadFields(prefilledValues: prefilledValues)
+        return fields
     }
 
     public var navigationPath = NavigationPath()
@@ -65,15 +67,12 @@ class SignUpViewModel {
         fields.map { SummaryView.Entry(label: $0.config.label, value: $0.displayValue) }
     }
 
-    private func loadFields(prefilledValues: [APIUserProfile.FieldEntries]) {
-        guard let selectedConfig else { return }
+    private func loadFields(prefilledValues: [APIUserProfile.FieldEntries]) -> [AnyView] {
+        guard let selectedConfig else { return [] }
         let result = fieldFactory.makeFields(from: selectedConfig.fields, prefilledValues: prefilledValues)
         self.fields = result.1.compactMap(\.self)
         self.fieldsViews = result.0
-    }
-
-    public func getFieldViews() -> [AnyView] {
-        self.fieldsViews
+        return fieldsViews
     }
 
     public func getFirstErrorIndex() -> Int? {
