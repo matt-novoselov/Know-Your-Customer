@@ -9,7 +9,10 @@ import Foundation
 
 /// Represents the user profile data we fetch for NL clients.
 struct MockAPIUserProfile: Decodable {
-    let firstName: String
-    let lastName: String
-    let birthDate: Date
+    let fields: [FieldEntries]
+}
+
+struct FieldEntries: Decodable, Identifiable {
+    let id: String
+    let value: String
 }

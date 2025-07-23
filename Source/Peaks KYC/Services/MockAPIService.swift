@@ -13,39 +13,23 @@ protocol MockAPIConformable {
     func fetchUserProfile(from url: String) async throws -> MockAPIUserProfile
 }
 
-// 2️⃣ Make your mock concrete type conform
+// Make your mock concrete type conform
 final class NLMockAPIService: MockAPIConformable {
     func fetchUserProfile(from url: String) async throws -> MockAPIUserProfile {
         try await Task.sleep(nanoseconds: 500_000_000)
         // swiftlint:disable:next non_optional_string_data_conversion
         let json = """
         {
-            "firstName": "Jan",
-            "lastName": "Jansen",
-            "birthDate": "1985-04-15T00:00:00Z"
+          "fields": [
+            { "id": "first_name",  "value": "Jan" },
+            { "id": "last_name",   "value": "Jansen" },
+            { "id": "birth_date",  "value": "2025-07-23" }
+          ]
         }
         """.data(using: .utf8)!
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .iso8601
         return try decoder.decode(MockAPIUserProfile.self, from: json)
-    }
-}
-
-// Your ViewModel holds a protocol reference
-@Observable
-class MockAPIViewModel {
-    var profile: MockAPIUserProfile?
-    private let service: MockAPIConformable
-
-    init(service: MockAPIConformable) {
-        self.service = service
-    }
-
-    func loadProfile(from url: String) async {
-        do {
-            profile = try await service.fetchUserProfile(from: url)
-        } catch {
-            print("Fetch error:", error)
-        }
     }
 }

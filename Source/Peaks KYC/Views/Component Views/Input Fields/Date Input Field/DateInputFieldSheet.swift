@@ -11,8 +11,7 @@ struct DateInputFieldSheet: View {
     @Environment(\.dismiss) private var dismiss
     let fieldLabel: String
     @Binding var selectedComponents: DateComponents?
-    @State private var tempComponents: DateComponents =
-    Calendar.current.dateComponents([.year, .month, .day], from: Date())
+    @State private var tempComponents: DateComponents = Date().yearMonthDay
 
     var body: some View {
         VStack {
@@ -35,10 +34,7 @@ struct DateInputFieldSheet: View {
                     Calendar.current.date(from: tempComponents) ?? Date()
                 },
                 set: { newDate in
-                    tempComponents = Calendar.current.dateComponents(
-                        [.year, .month, .day],
-                        from: newDate
-                    )
+                    tempComponents = newDate.yearMonthDay
                 }
             )
 
