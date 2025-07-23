@@ -47,7 +47,7 @@ private extension FieldFactory {
         [
             .text: TextFieldBuilder(),
             .number: TextFieldBuilder(),
-            .date: DateFieldBuilder(),
+            .date: DateFieldBuilder()
         ]
     }
 }
