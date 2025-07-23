@@ -12,8 +12,8 @@ class ValidationService {
     /// Validates a single field and returns an error message if invalid.
     /// - Parameter field: The field to validate.
     /// - Returns: An optional `String` containing the first validation error message.
-    func validate(field: FieldConfig, value: Any?) -> String? {
-        let validators = ValidatorFactory.validators(for: field)
+    func validate(fieldConfig: FieldConfig, value: Any?) -> String? {
+        let validators = ValidatorFactory.validators(for: fieldConfig)
 
         for validator in validators {
             do {

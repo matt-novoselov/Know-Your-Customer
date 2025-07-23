@@ -64,7 +64,7 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
     }
 
     func validate() {
-        let error = validationService.validate(field: config, value: value)
+        let error = validationService.validate(fieldConfig: config, value: value)
         self.error = error
     }
 }

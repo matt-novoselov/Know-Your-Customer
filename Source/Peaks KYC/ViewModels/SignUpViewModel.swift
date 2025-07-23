@@ -35,9 +35,9 @@ class SignUpViewModel {
         self.loadFields()
     }
 
-    public var path = NavigationPath()
+    public var navigationPath = NavigationPath()
     public func navigate(to route: NavigationRoute) {
-        self.path.append(route)
+        self.navigationPath.append(route)
     }
 
     private var fields: [any FieldViewModelProtocol] = []

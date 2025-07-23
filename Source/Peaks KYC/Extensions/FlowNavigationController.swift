@@ -13,7 +13,7 @@ struct FlowNavigationController: View {
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
 
-        NavigationStack(path: $signUpViewModel.path) {
+        NavigationStack(path: $signUpViewModel.navigationPath) {
             CountryListView()
                 .flowNavigationModifier()
         }
