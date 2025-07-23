@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-/// Describes how a country’s KYC fields should be handled.
 enum CountryBehavior {
     /// Default: render all fields manually/editable
     case manual
 
-    /// Fetch a user profile from an API and treat the given field IDs as read-only.
+    /// Fetch a user profile from an API
     case prepopulated(
         endpoint: URL
     )

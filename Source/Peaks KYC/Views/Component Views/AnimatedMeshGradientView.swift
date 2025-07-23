@@ -19,7 +19,6 @@ struct AnimatedMeshGradientView: View {
         .pink, .pink, .brand
     ]
 
-    // MARK: - Computed Grid Points
     private var points: [SIMD2<Float>] {
         (0..<rows).flatMap { row in
             (0..<columns).map { col in

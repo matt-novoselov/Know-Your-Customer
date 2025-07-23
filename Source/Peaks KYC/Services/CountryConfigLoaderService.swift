@@ -18,8 +18,7 @@ final class CountryConfigLoaderService {
     private let bundle: Bundle
     private let decoder: YAMLDecoder
 
-    /// Initialize service with custom bundle and decoder (for testability)
-    init(bundle: Bundle = .main, decoder: YAMLDecoder = YAMLDecoder()) {
+    init(bundle: Bundle = .main, decoder: YAMLDecoder = .init()) {
         self.bundle = bundle
         self.decoder = decoder
     }

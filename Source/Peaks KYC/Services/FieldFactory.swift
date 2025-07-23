@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import SwiftUICore
 
+#warning("Refactor file")
 struct FieldFactory {
     typealias FieldCreator = (FieldConfig, ValidationService) -> (view: AnyView, viewModel: any FieldViewModelProtocol)
     let validationService: ValidationService
@@ -63,7 +63,7 @@ struct FieldFactory {
 
     func makeFields(
         from configs: [FieldConfig],
-        prefilledValues: [FieldEntries]
+        prefilledValues: [APIUserProfile.FieldEntries]
     ) -> ([AnyView], [any FieldViewModelProtocol]) {
         var views: [AnyView] = []
         var viewModels: [any FieldViewModelProtocol] = []
