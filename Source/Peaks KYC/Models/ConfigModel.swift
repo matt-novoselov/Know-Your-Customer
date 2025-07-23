@@ -32,8 +32,8 @@ extension FieldConfig.ValueType {
         _ valueType: Value.Type,
         viewProvider: @escaping () -> V
     ) -> FieldFactory.FieldCreator {
-        { config in
-            let viewModel = FieldViewModel<Value>(config: config)
+        { config, validationService in
+            let viewModel = FieldViewModel<Value>(config: config, validationService: validationService)
             let view = viewProvider().environment(viewModel)
             return (AnyView(view), viewModel)
         }
