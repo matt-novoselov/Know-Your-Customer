@@ -27,28 +27,6 @@ extension FieldConfig {
     }
 }
 
-extension FieldConfig.FieldDataType {
-    private func genericCreator<Value, V: View>(
-        _ valueType: Value.Type,
-        viewProvider: @escaping () -> V
-    ) -> FieldFactory.FieldCreator {
-        { config, validationService in
-            let viewModel = FieldViewModel<Value>(config: config, validationService: validationService)
-            let view = viewProvider().environment(viewModel)
-            return (AnyView(view), viewModel)
-        }
-    }
-
-    var creator: FieldFactory.FieldCreator {
-        switch self {
-        case .text, .number:
-            return genericCreator(String.self) { TextInputField() }
-        case .date:
-            return genericCreator(DateComponents.self) { DateInputField() }
-        }
-    }
-}
-
 extension FieldConfig {
     struct ValidationConfig: Decodable {
         let regex: String?
