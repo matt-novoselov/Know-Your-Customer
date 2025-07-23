@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-#warning("Refactor file")
 protocol FieldViewModelProtocol: Observable, Identifiable {
     var config: FieldConfig { get }
     var error: String? { get }
@@ -25,45 +24,39 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
     var hasErrors: Bool { error != nil }
     var id: String { config.id }
     let isReadOnly: Bool
-    var displayValue: String {
-        guard let unwrapped = value else { return "N/A" }
 
-        switch unwrapped {
-        case let str as String:
-            return str
+    private let validationService: ValidationService
 
-        case let comps as DateComponents:
-            guard let date = Calendar.current.date(from: comps) else {
-                return "Invalid date"
-            }
-            return sharedFormatter.string(from: date)
-
-        default:
-            return "\(unwrapped)"
-        }
-    }
-
-    let sharedFormatter: DateFormatter = {
+    let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }()
 
-    private let validationService: ValidationService
-
-    init(config: FieldConfig, preFilledValue: Value? = nil, validationService: ValidationService) {
+    init(
+        config: FieldConfig,
+        preFilledValue: Value? = nil,
+        validationService: ValidationService,
+    ) {
         self.config = config
+        self.value = preFilledValue
         self.validationService = validationService
-
-        if let preFilledValue {
-            self.value = preFilledValue
-        }
-
         self.isReadOnly = preFilledValue != nil
     }
 
+    var displayValue: String {
+        guard let value = value else { return "N/A" }
+        if let str = value as? String {
+            return str
+        }
+        if let comps = value as? DateComponents,
+           let date = Calendar.current.date(from: comps) {
+            return dateFormatter.string(from: date)
+        }
+        return "\(value)"
+    }
+
     func validate() {
-        let error = validationService.validate(fieldConfig: config, value: value)
-        self.error = error
+        error = validationService.validate(fieldConfig: config, value: value)
     }
 }

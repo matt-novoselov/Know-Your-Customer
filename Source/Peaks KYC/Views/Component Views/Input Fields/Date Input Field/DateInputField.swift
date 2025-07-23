@@ -15,7 +15,7 @@ struct DateInputField: InputFieldView {
         @Bindable var viewModel = viewModel
 
         let textLabel: String = {
-            if let formatted = viewModel.sharedFormatter.string(from: viewModel.value) {
+            if let formatted = viewModel.dateFormatter.string(from: viewModel.value) {
                 return formatted
             } else {
                 return "Select your \(viewModel.config.label)"
