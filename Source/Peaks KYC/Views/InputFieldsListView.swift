@@ -21,6 +21,7 @@ private extension View {
     }
 }
 
+#warning("Refactor to return fields")
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
     @State private var isLoading: Bool = false

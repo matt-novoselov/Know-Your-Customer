@@ -13,7 +13,7 @@ private let jsonConfig =
   "fields": [
     { "id": "first_name",  "value": "Jan" },
     { "id": "last_name",   "value": "Jansen" },
-    { "id": "birth_date",  "value": "2025-07-23" }
+    { "id": "birth_date",  "value": "1990-07-23" }
   ]
 }
 """
