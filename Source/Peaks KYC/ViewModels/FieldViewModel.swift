@@ -50,8 +50,11 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
         return formatter
     }()
 
-    init(config: FieldConfig, preFilledValue: Value? = nil) {
+    private let validationService: ValidationService
+
+    init(config: FieldConfig, preFilledValue: Value? = nil, validationService: ValidationService) {
         self.config = config
+        self.validationService = validationService
 
         if let preFilledValue {
             self.value = preFilledValue
@@ -60,10 +63,8 @@ final class FieldViewModel<Value>: AnyFieldViewModel {
         self.isReadOnly = preFilledValue != nil
     }
 
-#warning("Remove init of ValidationService")
     func validate() {
-        let service = ValidationService()
-        let error = service.validate(field: config, value: value)
+        let error = validationService.validate(field: config, value: value)
         self.error = error
     }
 }

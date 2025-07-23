@@ -16,7 +16,17 @@ class SignUpViewModel {
     public var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
 
-    private let configurationLoader = ConfigurationLoaderService()
+    private let configurationLoader: ConfigurationLoaderService
+    private let validationService: ValidationService
+    private let fieldFactory: FieldFactory
+
+    init() {
+        let validationService = ValidationService()
+        self.validationService = validationService
+        self.fieldFactory = FieldFactory(validationService: validationService)
+        self.configurationLoader = ConfigurationLoaderService()
+    }
+
     public func loadConfig() async {
         let selectedFileName = selectedCountry.data.yamlFileName
         let configData = try? configurationLoader.loadConfig(from: selectedFileName)
@@ -45,7 +55,7 @@ class SignUpViewModel {
 
     private func loadFields() {
         guard let selectedConfig else { return }
-        let result = FieldFactory.makeFields(from: selectedConfig.fields)
+        let result = fieldFactory.makeFields(from: selectedConfig.fields)
         self.fields = result.1.compactMap(\.self)
         self.fieldsViews = result.0
     }

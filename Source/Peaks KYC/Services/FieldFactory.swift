@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct FieldFactory {
-    typealias FieldCreator = (FieldConfig) -> (view: AnyView, viewModel: any AnyFieldViewModel)
+    typealias FieldCreator = (FieldConfig, ValidationService) -> (view: AnyView, viewModel: any AnyFieldViewModel)
 
-    static func makeFields(from configs: [FieldConfig])
+    let validationService: ValidationService
+
+    func makeFields(from configs: [FieldConfig])
     -> ([AnyView], [any AnyFieldViewModel]) {
 
         var views: [AnyView] = []
         var viewModels: [any AnyFieldViewModel] = []
 
         configs.forEach { config in
-            let (view, viewModel) = config.type.creator(config)
+            let (view, viewModel) = config.type.creator(config, validationService)
             views.append(view)
             viewModels.append(viewModel)
         }
