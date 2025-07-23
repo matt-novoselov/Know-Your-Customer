@@ -30,7 +30,7 @@ struct InputFieldsListView: View {
             case .idle, .loading:
                 loadingView
             case .loaded(let fields):
-                ListView(fields: fields.0.map { AnyView($0) })
+                ListView(fields: fields.map { AnyView($0.view) })
             case .error(let errorMessage):
                 ErrorView(errorMessage: errorMessage)
             }

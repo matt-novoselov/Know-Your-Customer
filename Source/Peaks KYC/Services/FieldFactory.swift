@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct FormField {
+    let view: AnyView
+    let viewModel: any FieldViewModelProtocol
+}
+
 struct FieldFactory {
     let validationService: ValidationService
     private let builders: [FieldConfig.FieldDataType: any FieldBuilder]
@@ -22,9 +27,8 @@ struct FieldFactory {
     func makeFields(
         from configs: [FieldConfig],
         prefilledValues: [APIUserProfile.FieldEntries]
-    ) -> ([AnyView], [any FieldViewModelProtocol]) {
-        var views: [AnyView] = []
-        var viewModels: [any FieldViewModelProtocol] = []
+    ) -> [FormField] {
+        var fields: [FormField] = []
 
         for config in configs {
             let value = prefilledValues.first(where: { $0.id == config.id })?.value
@@ -34,11 +38,10 @@ struct FieldFactory {
                 prefilledValue: value,
                 validationService: validationService
             )
-            views.append(result.view)
-            viewModels.append(result.viewModel)
+            fields.append(FormField(view: result.view, viewModel: result.viewModel))
         }
 
-        return (views, viewModels)
+        return fields
     }
 }
 

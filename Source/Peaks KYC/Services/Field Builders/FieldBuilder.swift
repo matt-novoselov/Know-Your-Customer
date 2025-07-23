@@ -5,5 +5,5 @@ protocol FieldBuilder {
         config: FieldConfig,
         prefilledValue: Any?,
         validationService: ValidationService
-    ) -> (view: AnyView, viewModel: any FieldViewModelProtocol)
+    ) -> FormField
 }
