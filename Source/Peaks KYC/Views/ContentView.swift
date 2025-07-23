@@ -22,7 +22,7 @@ struct ContentView: View {
 
         WelcomeScreenView()
             .fullScreenCover(isPresented: isPresented) {
-                SignUpNavigationController()
+                FlowNavigationController()
             }
     }
 }

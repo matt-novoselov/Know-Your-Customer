@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DateInputField: InputFieldRepresentable {
+struct DateInputField: InputFieldView {
     @Environment(FieldViewModel<DateComponents>.self) var viewModel
     @Environment(\.isEnabled) private var isEnabled
     @State private var isFocused = false
