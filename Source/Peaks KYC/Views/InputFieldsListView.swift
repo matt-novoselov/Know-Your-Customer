@@ -7,23 +7,41 @@
 
 import SwiftUI
 
+private struct HeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .navigationHeader("Personal Details")
+            .padding()
+    }
+}
+
+private extension View {
+    func headerModifier() -> some View {
+        modifier(HeaderModifier())
+    }
+}
+
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
+    @State private var isLoading: Bool = false
 
     var body: some View {
         Group {
-            if signUpViewModel.selectedConfig != nil {
-                ListView(fieldViews: signUpViewModel.getFieldViews())
-            } else {
+            if isLoading {
                 ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .headerModifier()
+            } else {
+                ListView(fieldViews: signUpViewModel.getFieldViews())
             }
         }
         .task {
+            self.isLoading = true
             await signUpViewModel.loadConfigForSelectedCountry()
+            self.isLoading = false
         }
     }
 
-    #warning("refactor")
     private struct ListView: View {
         @Environment(SignUpViewModel.self) private var signUpViewModel
         let fieldViews: [AnyView]
@@ -54,8 +72,7 @@ struct InputFieldsListView: View {
                         }
                         .buttonStyle(.capsule)
                     }
-                    .navigationHeader("Personal Details")
-                    .padding()
+                    .headerModifier()
                 }
             }
         }
