@@ -25,6 +25,7 @@ class ValidationService {
             }
         }
 
-        return nil // All validators passed
+        // All validators passed
+        return nil
     }
 }

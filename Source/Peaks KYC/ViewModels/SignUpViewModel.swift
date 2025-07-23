@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#warning("Refactor file")
 @Observable
 class SignUpViewModel {
     public enum NavigationRoute: Hashable { case countryList, fieldsList, summary }
@@ -27,7 +28,6 @@ class SignUpViewModel {
     }
 
     public func loadConfigForSelectedCountry() async {
-        // 1. Load YAML config
         let fileName = selectedCountry.data.yamlFileName
         do {
             selectedConfig = try configurationLoader.loadConfigForSelectedCountry(from: fileName)
@@ -36,10 +36,9 @@ class SignUpViewModel {
             return
         }
 
-        // 2. Prepopulate if needed
-        var prefilledValues: [FieldEntries] = []
+        var prefilledValues: [APIUserProfile.FieldEntries] = []
         if case let .prepopulated(endpoint) = selectedCountry.data.behavior {
-            let apiService: MockAPIConformable = NLMockAPIService()
+            let apiService = APIRequestService()
             do {
                 prefilledValues = try await apiService.fetchUserProfile(from: endpoint.absoluteString).fields
             } catch {
@@ -47,7 +46,6 @@ class SignUpViewModel {
             }
         }
 
-        // 3. Build fields with (possibly) prefilled values
         loadFields(prefilledValues: prefilledValues)
     }
 
@@ -58,17 +56,16 @@ class SignUpViewModel {
 
     private var fields: [any FieldViewModelProtocol] = []
     private var fieldsViews: [AnyView] = []
-    /// Validate all fields at once
+
     public func validateAll() {
         fields.forEach { $0.validate() }
     }
 
-    /// Gather up the final JSON payload
-    public func getSummaryItems() -> [SummaryItem] {
-        fields.map { SummaryItem(label: $0.config.label, value: $0.displayValue) }
+    public func getSummaryItems() -> [SummaryView.Entry] {
+        fields.map { SummaryView.Entry(label: $0.config.label, value: $0.displayValue) }
     }
 
-    private func loadFields(prefilledValues: [FieldEntries]) {
+    private func loadFields(prefilledValues: [APIUserProfile.FieldEntries]) {
         guard let selectedConfig else { return }
         let result = fieldFactory.makeFields(from: selectedConfig.fields, prefilledValues: prefilledValues)
         self.fields = result.1.compactMap(\.self)

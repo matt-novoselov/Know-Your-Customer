@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUICore
 
 struct ConfigModel: Decodable {
     let country: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Represents a validation error with a user-friendly message.
+/// Represents a validation error.
 struct ValidationError: Error {
     let message: String
 }

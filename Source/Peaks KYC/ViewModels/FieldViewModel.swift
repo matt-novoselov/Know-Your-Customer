@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: –– 1. Your protocol
+#warning("Refactor file")
 protocol FieldViewModelProtocol: Observable, Identifiable {
     var config: FieldConfig { get }
     var error: String? { get }
@@ -43,7 +43,6 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
         }
     }
 
-    // Shared formatter
     let sharedFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

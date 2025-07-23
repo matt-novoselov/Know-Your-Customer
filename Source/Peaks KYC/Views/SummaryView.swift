@@ -7,21 +7,15 @@
 
 import SwiftUI
 
-struct SummaryItem: Identifiable {
-    var id = UUID()
-    var label: String
-    var value: String
-}
-
 // A view to display the summary of collected user data
 struct SummaryView: View {
-    let fields: [SummaryItem]
+    let entries: [Entry]
 
     var body: some View {
         ScrollView {
             Group {
-                ForEach(fields) { field in
-                    FieldSummary(label: field.label, value: field.value)
+                ForEach(entries) { entry in
+                    FieldSummary(label: entry.label, value: entry.value)
                 }
             }
             .navigationHeader("Collected Data")
@@ -45,5 +39,13 @@ struct SummaryView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .dynamicStroke(isFocused: false, style: .roundedRect)
         }
+    }
+}
+
+extension SummaryView {
+    struct Entry: Identifiable {
+        var id = UUID()
+        var label: String
+        var value: String
     }
 }

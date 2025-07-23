@@ -30,6 +30,8 @@ struct TextInputField: InputFieldView {
         .onSubmit {
             self.viewModel.validate()
         }
-        .onDebouncedChange(of: viewModel.value) { _ in viewModel.validate() }
+        .onDebouncedChange(of: viewModel.value) { _ in
+            self.viewModel.validate()
+        }
     }
 }
