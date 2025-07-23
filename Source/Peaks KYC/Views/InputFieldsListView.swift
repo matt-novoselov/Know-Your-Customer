@@ -21,25 +21,22 @@ private extension View {
     }
 }
 
-#warning("Refactor to return fields")
 struct InputFieldsListView: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
-    @State private var isLoading: Bool = false
+    @State private var fieldViews: [AnyView]?
 
     var body: some View {
         Group {
-            if isLoading {
+            if let views = fieldViews {
+                ListView(fieldViews: views)
+            } else {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .headerModifier()
-            } else {
-                ListView(fieldViews: signUpViewModel.getFieldViews())
             }
         }
         .task {
-            self.isLoading = true
-            await signUpViewModel.loadConfigForSelectedCountry()
-            self.isLoading = false
+            self.fieldViews = await signUpViewModel.loadConfigForSelectedCountry()
         }
     }
 
