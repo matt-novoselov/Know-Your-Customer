@@ -45,7 +45,7 @@ enum Country: CaseIterable {
                 name: "The Netherlands",
                 flag: Image(.netherlandsFlag),
                 yamlFileName: "NL.yaml",
-                behavior: .prepopulated(endpoint: URL(string: "https://api.yourapp.com/nl-user-profile")!)
+                behavior: .prepopulated(endpoint: URL(string: "https://peaks.com/api/nl-user-profile")!)
             )
         case .germany:
             return CountryData(
