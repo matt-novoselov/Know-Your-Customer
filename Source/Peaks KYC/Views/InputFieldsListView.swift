@@ -22,34 +22,53 @@ private extension View {
 }
 
 struct InputFieldsListView: View {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
-    @State private var fieldViews: [AnyView]?
+    @Environment(FormManagerViewModel.self) private var formManagerViewModel
 
     var body: some View {
         Group {
-            if let views = fieldViews {
-                ListView(fieldViews: views)
-            } else {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .headerModifier()
+            switch formManagerViewModel.state {
+            case .idle, .loading:
+                loadingView
+            case .loaded(let fields):
+                ListView(fields: fields.0.map { AnyView($0) })
+            case .error(let errorMessage):
+                ErrorView(errorMessage: errorMessage)
             }
         }
         .task {
-            self.fieldViews = await signUpViewModel.loadConfigForSelectedCountry()
+            await formManagerViewModel.loadDataForSelectedCountry()
+        }
+    }
+
+    private var loadingView: some View {
+        ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .headerModifier()
+    }
+
+    private struct ErrorView: View {
+        let errorMessage: String
+        var body: some View {
+            ContentUnavailableView(
+                "Error",
+                systemImage: "exclamationmark.triangle",
+                description: Text(errorMessage)
+            )
+            .headerModifier()
         }
     }
 
     private struct ListView: View {
-        @Environment(SignUpViewModel.self) private var signUpViewModel
-        let fieldViews: [AnyView]
+        @Environment(FormManagerViewModel.self) private var formManagerViewModel
+        @Environment(NavigationViewModel.self) private var navigationViewModel
+        let fields: [AnyView]
 
         var body: some View {
             ScrollViewReader { value in
                 ScrollView {
                     Group {
-                        ForEach(fieldViews.indices, id: \.self) { index in
-                            fieldViews[index]
+                        ForEach(fields.indices, id: \.self) { index in
+                            fields[index]
                                 .padding(5)
                                 .id(index)
                         }
@@ -58,14 +77,14 @@ struct InputFieldsListView: View {
                             .frame(height: 100)
 
                         Button("Continue") {
-                            signUpViewModel.validateAll()
+                            formManagerViewModel.validateAll()
 
-                            if let errorId = signUpViewModel.getFirstErrorIndex() {
+                            if let errorId = formManagerViewModel.getFirstErrorIndex() {
                                 withAnimation {
                                     value.scrollTo(errorId)
                                 }
                             } else {
-                                signUpViewModel.navigate(to: .summary)
+                                navigationViewModel.navigate(to: .summary)
                             }
                         }
                         .buttonStyle(.capsule)

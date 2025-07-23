@@ -1,5 +1,5 @@
 //
-//  SignUpNavigationController.swift
+//  FlowNavigationController.swift
 //  Peaks KYC
 //
 //  Created by Matt Novoselov on 20/07/25.
@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct FlowNavigationController: View {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
-        @Bindable var signUpViewModel = signUpViewModel
+        @Bindable var navigationViewModel = navigationViewModel
 
-        NavigationStack(path: $signUpViewModel.navigationPath) {
+        NavigationStack(path: $navigationViewModel.navigationPath) {
             CountryListView()
                 .flowNavigationModifier()
         }
@@ -21,11 +21,11 @@ struct FlowNavigationController: View {
 }
 
 struct FlowNavigationModifier: ViewModifier {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
+    @Environment(FormManagerViewModel.self) private var formManagerViewModel
 
     func body(content: Content) -> some View {
         content
-            .navigationDestination(for: SignUpViewModel.NavigationRoute.self) { route in
+            .navigationDestination(for: NavigationViewModel.NavigationRoute.self) { route in
                 Group {
                     switch route {
                     case .countryList:
@@ -33,7 +33,7 @@ struct FlowNavigationModifier: ViewModifier {
                     case .fieldsList:
                         InputFieldsListView()
                     case .summary:
-                        SummaryView(entries: signUpViewModel.getSummaryItems())
+                        SummaryView(entries: formManagerViewModel.getSummaryItems())
                     }
                 }
                 .gradientOverlay(height: 150, edge: .top)
