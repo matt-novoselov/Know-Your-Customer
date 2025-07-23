@@ -24,7 +24,7 @@ final class CountryConfigLoaderService {
         self.decoder = decoder
     }
 
-    func loadConfig(from fileName: String) throws -> ConfigModel {
+    func loadConfigForSelectedCountry(from fileName: String) throws -> ConfigModel {
         guard let url = bundle.url(forResource: fileName, withExtension: nil) else {
             throw ServiceError.fileNotFound(name: fileName)
         }

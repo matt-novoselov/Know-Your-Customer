@@ -44,7 +44,7 @@ struct DateInputField: InputFieldView {
             }
         }
         .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: !viewModel.hasErrors, padding: 21)
-        .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
+        .contentFittingSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
                 selectedComponents: $viewModel.value
