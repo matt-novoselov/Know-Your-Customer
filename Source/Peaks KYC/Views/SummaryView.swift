@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResultEntries: Identifiable {
+struct SummaryItem: Identifiable {
     var id = UUID()
     var label: String
     var value: String
@@ -15,7 +15,7 @@ struct ResultEntries: Identifiable {
 
 // A view to display the summary of collected user data
 struct SummaryView: View {
-    let fields: [ResultEntries]
+    let fields: [SummaryItem]
 
     var body: some View {
         ScrollView {

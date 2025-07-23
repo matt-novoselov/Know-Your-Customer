@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    func dynamicFormStroke(
+    func dynamicFieldStroke(
         isFocused: Bool,
         isDisabled: Bool = false,
         isValid: Bool,

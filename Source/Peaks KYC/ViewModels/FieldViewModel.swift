@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: –– 1. Your protocol
-protocol AnyFieldViewModel: Observable, Identifiable {
+protocol FieldViewModelProtocol: Observable, Identifiable {
     var config: FieldConfig { get }
     var error: String? { get }
     var hasErrors: Bool { get }
@@ -18,7 +18,7 @@ protocol AnyFieldViewModel: Observable, Identifiable {
 }
 
 @Observable
-final class FieldViewModel<Value>: AnyFieldViewModel {
+final class FieldViewModel<Value>: FieldViewModelProtocol {
     let config: FieldConfig
     var value: Value?
     var error: String?

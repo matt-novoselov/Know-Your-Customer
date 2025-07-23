@@ -16,7 +16,7 @@ class SignUpViewModel {
     public var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
 
-    private let configurationLoader: ConfigurationLoaderService
+    private let configurationLoader: CountryConfigLoaderService
     private let validationService: ValidationService
     private let fieldFactory: FieldFactory
 
@@ -24,7 +24,7 @@ class SignUpViewModel {
         let validationService = ValidationService()
         self.validationService = validationService
         self.fieldFactory = FieldFactory(validationService: validationService)
-        self.configurationLoader = ConfigurationLoaderService()
+        self.configurationLoader = CountryConfigLoaderService()
     }
 
     public func loadConfig() async {
@@ -40,7 +40,7 @@ class SignUpViewModel {
         self.path.append(route)
     }
 
-    private var fields: [any AnyFieldViewModel] = []
+    private var fields: [any FieldViewModelProtocol] = []
     private var fieldsViews: [AnyView] = []
 
     /// Validate all fields at once
@@ -49,8 +49,8 @@ class SignUpViewModel {
     }
 
     /// Gather up the final JSON payload
-    public func getResultEntries() -> [ResultEntries] {
-        fields.map { ResultEntries(label: $0.config.label, value: $0.displayValue) }
+    public func getSummaryItems() -> [SummaryItem] {
+        fields.map { SummaryItem(label: $0.config.label, value: $0.displayValue) }
     }
 
     private func loadFields() {
