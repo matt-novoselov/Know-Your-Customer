@@ -43,7 +43,7 @@ struct DateInputField: InputFieldView {
                     .foregroundStyle(.secondary)
             }
         }
-        .dynamicFormStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: !viewModel.hasErrors, padding: 21)
+        .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: !viewModel.hasErrors, padding: 21)
         .fittedSizeSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,

@@ -9,7 +9,7 @@ import Yams
 import Foundation
 
 /// Service responsible for loading YAML-based KYC configuration
-final class ConfigurationLoaderService {
+final class CountryConfigLoaderService {
     enum ServiceError: Error {
         case fileNotFound(name: String)
         case decodingFailed(underlying: Error)

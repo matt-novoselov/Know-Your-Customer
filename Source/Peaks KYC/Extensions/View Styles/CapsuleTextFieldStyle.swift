@@ -32,7 +32,7 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
                 }
             }
             .focused($isFocused)
-            .dynamicFormStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: isValid)
+            .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: isValid)
             .animation(.spring(duration: 0.4), value: showClear)
     }
 

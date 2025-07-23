@@ -33,7 +33,7 @@ struct FlowNavigationModifier: ViewModifier {
                     case .fieldsList:
                         InputFieldsListView()
                     case .summary:
-                        SummaryView(fields: signUpViewModel.getResultEntries())
+                        SummaryView(fields: signUpViewModel.getSummaryItems())
                     }
                 }
                 .gradientOverlay(height: 150, edge: .top)
