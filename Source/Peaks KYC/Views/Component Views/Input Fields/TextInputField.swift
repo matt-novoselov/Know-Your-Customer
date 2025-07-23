@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TextInputField: InputFieldRepresentable {
+struct TextInputField: InputFieldView {
     @Environment(FieldViewModel<String>.self) var viewModel
 
     func inputFieldView() -> some View {

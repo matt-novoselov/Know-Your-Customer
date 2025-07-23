@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-protocol InputFieldRepresentable: View {
+protocol InputFieldView: View {
     associatedtype InputField: View
     associatedtype Value
     var viewModel: FieldViewModel<Value> { get }
     @ViewBuilder func inputFieldView() -> InputField
 }
 
-extension InputFieldRepresentable where Self: View {
+extension InputFieldView where Self: View {
     var body: some View {
         let labelText: Text = {
             var text = Text(viewModel.config.label)

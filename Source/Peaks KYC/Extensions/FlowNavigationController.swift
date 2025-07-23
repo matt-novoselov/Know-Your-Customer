@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignUpNavigationController: View {
+struct FlowNavigationController: View {
     @Environment(SignUpViewModel.self) private var signUpViewModel
 
     var body: some View {
@@ -15,12 +15,12 @@ struct SignUpNavigationController: View {
 
         NavigationStack(path: $signUpViewModel.path) {
             CountryListView()
-                .signUpNavDestinations()
+                .flowNavigationModifier()
         }
     }
 }
 
-struct SignUpNavDestinationModifier: ViewModifier {
+struct FlowNavigationModifier: ViewModifier {
     @Environment(SignUpViewModel.self) private var signUpViewModel
 
     func body(content: Content) -> some View {
@@ -42,7 +42,7 @@ struct SignUpNavDestinationModifier: ViewModifier {
 }
 
 extension View {
-    func signUpNavDestinations() -> some View {
-        modifier(SignUpNavDestinationModifier())
+    func flowNavigationModifier() -> some View {
+        modifier(FlowNavigationModifier())
     }
 }
