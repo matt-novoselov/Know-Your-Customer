@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DateInputField: InputFieldView {
     @Environment(FieldViewModel<DateComponents>.self) var viewModel
-    @Environment(\.isEnabled) private var isEnabled
     @State private var isFocused = false
 
     func inputFieldView() -> some View {
@@ -24,7 +23,7 @@ struct DateInputField: InputFieldView {
         }()
 
         var textColor: Color {
-            guard isEnabled else {
+            guard !viewModel.isReadOnly else {
                 return .secondary
             }
             if viewModel.value == nil {
@@ -43,7 +42,12 @@ struct DateInputField: InputFieldView {
                     .foregroundStyle(.secondary)
             }
         }
-        .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: !viewModel.hasErrors, padding: 21)
+        .dynamicFieldStroke(
+            isFocused: isFocused,
+            isDisabled: viewModel.isReadOnly,
+            isValid: !viewModel.hasErrors,
+            padding: 21
+        )
         .contentFittingSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
