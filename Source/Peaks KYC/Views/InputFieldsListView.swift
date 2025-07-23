@@ -13,13 +13,13 @@ struct InputFieldsListView: View {
     var body: some View {
         Group {
             if signUpViewModel.selectedConfig != nil {
-                ListView(fieldViews: signUpViewModel.getViews())
+                ListView(fieldViews: signUpViewModel.getFieldViews())
             } else {
                 ProgressView()
             }
         }
         .task {
-            await signUpViewModel.loadConfig()
+            await signUpViewModel.loadConfigForSelectedCountry()
         }
     }
 

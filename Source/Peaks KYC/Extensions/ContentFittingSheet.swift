@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FittedSizeSheet<SheetContent: View>: ViewModifier {
+struct ContentFittingSheet<SheetContent: View>: ViewModifier {
     @Binding var isPresented: Bool
     @State private var contentHeight: CGFloat = 400
     let sheetContent: () -> SheetContent
@@ -29,12 +29,12 @@ struct FittedSizeSheet<SheetContent: View>: ViewModifier {
 }
 
 extension View {
-    func fittedSizeSheet<Content: View>(
+    func contentFittingSheet<Content: View>(
         isPresented: Binding<Bool>,
         isDragIndicatorVisible: Bool = true,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
-        let fittedSheet = FittedSizeSheet(
+        let fittedSheet = ContentFittingSheet(
             isPresented: isPresented,
             sheetContent: content,
             isDragIndicatorVisible: isDragIndicatorVisible

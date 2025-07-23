@@ -13,15 +13,8 @@ struct ContentView: View {
     var body: some View {
         @Bindable var signUpViewModel = signUpViewModel
 
-        var isPresented: Binding<Bool> {
-            Binding(
-                get: { signUpViewModel.isNCPresented },
-                set: { signUpViewModel.isNCPresented($0) }
-            )
-        }
-
         WelcomeScreenView()
-            .fullScreenCover(isPresented: isPresented) {
+            .fullScreenCover(isPresented: $signUpViewModel.isSignUpFlowPresented) {
                 FlowNavigationController()
             }
     }

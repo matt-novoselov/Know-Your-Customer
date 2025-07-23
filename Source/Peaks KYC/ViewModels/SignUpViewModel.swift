@@ -12,7 +12,7 @@ import SwiftUI
 class SignUpViewModel {
     public enum NavigationRoute: Hashable { case countryList, fieldsList, summary }
 
-    public private(set) var isNCPresented = false
+    public var isSignUpFlowPresented = false
     public var selectedCountry: Country = .netherlands
     public private(set) var selectedConfig: ConfigModel?
 
@@ -27,9 +27,9 @@ class SignUpViewModel {
         self.configurationLoader = CountryConfigLoaderService()
     }
 
-    public func loadConfig() async {
+    public func loadConfigForSelectedCountry() async {
         let selectedFileName = selectedCountry.data.yamlFileName
-        let configData = try? configurationLoader.loadConfig(from: selectedFileName)
+        let configData = try? configurationLoader.loadConfigForSelectedCountry(from: selectedFileName)
         selectedConfig = configData
 
         self.loadFields()
@@ -60,11 +60,7 @@ class SignUpViewModel {
         self.fieldsViews = result.0
     }
 
-    public func isNCPresented(_ isPresented: Bool) {
-        self.isNCPresented = isPresented
-    }
-
-    public func getViews() -> [AnyView] {
+    public func getFieldViews() -> [AnyView] {
         self.fieldsViews
     }
 

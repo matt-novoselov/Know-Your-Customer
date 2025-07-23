@@ -17,7 +17,7 @@ struct CountryPickerFieldView: View {
             action: { isSheetPresented.toggle() },
             isInFocus: isSheetPresented
         )
-        .fittedSizeSheet(isPresented: $isSheetPresented) {
+        .contentFittingSheet(isPresented: $isSheetPresented) {
             countryListSheetView
         }
     }

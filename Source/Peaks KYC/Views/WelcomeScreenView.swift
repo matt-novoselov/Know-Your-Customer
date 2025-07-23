@@ -32,7 +32,7 @@ struct WelcomeScreenView: View {
         .overlay(alignment: .bottom) {
             VStack {
                 Button("I am new to Peaks") {
-                    signUpViewModel.isNCPresented(true)
+                    signUpViewModel.isSignUpFlowPresented = true
                 }
                 .buttonStyle(.capsule(.brand))
 

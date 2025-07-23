@@ -17,17 +17,17 @@ struct FieldConfig: Decodable, Identifiable {
     let id: String
     let label: String
     let required: Bool
-    let type: ValueType
+    let type: FieldDataType
     let validation: ValidationConfig?
 }
 
 extension FieldConfig {
-    enum ValueType: String, Decodable {
+    enum FieldDataType: String, Decodable {
         case text, number, date
     }
 }
 
-extension FieldConfig.ValueType {
+extension FieldConfig.FieldDataType {
     private func genericCreator<Value, V: View>(
         _ valueType: Value.Type,
         viewProvider: @escaping () -> V
