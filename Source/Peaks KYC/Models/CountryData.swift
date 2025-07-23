@@ -7,10 +7,29 @@
 
 import SwiftUI
 
+/// Describes how a country’s KYC fields should be handled.
+enum CountryBehavior {
+    /// Default: render all fields manually/editable
+    case manual
+
+    /// Fetch a user profile from an API and treat the given field IDs as read-only.
+    case prepopulated(
+        endpoint: URL
+    )
+}
+
 struct CountryData {
     let name: String
     let flag: Image
     let yamlFileName: String
+    let behavior: CountryBehavior
+
+    init(name: String, flag: Image, yamlFileName: String, behavior: CountryBehavior = .manual) {
+        self.name = name
+        self.flag = flag
+        self.yamlFileName = yamlFileName
+        self.behavior = behavior
+    }
 }
 
 enum Country: CaseIterable {
@@ -25,7 +44,8 @@ enum Country: CaseIterable {
             return CountryData(
                 name: "The Netherlands",
                 flag: Image(.netherlandsFlag),
-                yamlFileName: "NL.yaml"
+                yamlFileName: "NL.yaml",
+                behavior: .prepopulated(endpoint: URL(string: "https://api.yourapp.com/nl-user-profile")!)
             )
         case .germany:
             return CountryData(
