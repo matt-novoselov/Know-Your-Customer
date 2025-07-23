@@ -5,7 +5,7 @@ struct TextFieldBuilder: FieldBuilder {
         config: FieldConfig,
         prefilledValue: Any?,
         validationService: ValidationService
-    ) -> (view: AnyView, viewModel: any FieldViewModelProtocol) {
+    ) -> FormField {
         let value = prefilledValue as? String
         let viewModel = FieldViewModel<String>(
             config: config,
@@ -13,6 +13,6 @@ struct TextFieldBuilder: FieldBuilder {
             validationService: validationService
         )
         let view = TextInputField().environment(viewModel)
-        return (AnyView(view), viewModel)
+        return FormField(view: AnyView(view), viewModel: viewModel)
     }
 }

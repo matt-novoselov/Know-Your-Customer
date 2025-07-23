@@ -25,10 +25,10 @@ class FormManagerViewModel {
         state = .loading
 
         do {
-            let (config, prefilledValues) = try await configLoader.loadData(for: selectedCountry)
+            let result = try await configLoader.loadData(for: selectedCountry)
             let fields = fieldFactory.makeFields(
-                from: config.fields,
-                prefilledValues: prefilledValues
+                from: result.config.fields,
+                prefilledValues: result.prefilledValues
             )
             state = .loaded(fields)
         } catch {
@@ -36,23 +36,22 @@ class FormManagerViewModel {
         }
     }
 
-    #warning("remove tuple")
     func validateAll() {
         if case .loaded(let fields) = state {
-            fields.1.forEach { $0.validate() }
+            fields.forEach { $0.viewModel.validate() }
         }
     }
 
     func getSummaryItems() -> [SummaryView.Entry] {
         if case .loaded(let fields) = state {
-            return fields.1.map { SummaryView.Entry(label: $0.config.label, value: $0.displayValue) }
+            return fields.map { SummaryView.Entry(label: $0.viewModel.config.label, value: $0.viewModel.displayValue) }
         }
         return []
     }
 
     func getFirstErrorIndex() -> Int? {
         if case .loaded(let fields) = state {
-            return fields.1.firstIndex(where: { $0.error != nil })
+            return fields.firstIndex(where: { $0.viewModel.error != nil })
         }
         return nil
     }
@@ -62,7 +61,7 @@ extension FormManagerViewModel {
     enum State {
         case idle
         case loading
-        case loaded(([AnyView], [any FieldViewModelProtocol]))
+        case loaded([FormField])
         case error(String)
     }
 }

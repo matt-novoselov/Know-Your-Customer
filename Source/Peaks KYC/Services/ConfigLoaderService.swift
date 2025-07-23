@@ -8,10 +8,15 @@
 import Foundation
 
 struct ConfigLoaderService {
+    struct LoadResult {
+        let config: ConfigModel
+        let prefilledValues: [APIUserProfile.FieldEntries]
+    }
+
     private let configurationLoader = CountryConfigLoaderService()
     private let apiRequestService = APIRequestService()
 
-    func loadData(for country: Country) async throws -> (ConfigModel, [APIUserProfile.FieldEntries]) {
+    func loadData(for country: Country) async throws -> LoadResult {
         let config = try configurationLoader.loadConfigForSelectedCountry(from: country.data.yamlFileName)
 
         var prefilledValues: [APIUserProfile.FieldEntries] = []
@@ -23,6 +28,6 @@ struct ConfigLoaderService {
             }
         }
 
-        return (config, prefilledValues)
+        return LoadResult(config: config, prefilledValues: prefilledValues)
     }
 }
