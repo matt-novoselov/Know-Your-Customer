@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeScreenView: View {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
         VStack(spacing: 10) {
@@ -32,7 +32,7 @@ struct WelcomeScreenView: View {
         .overlay(alignment: .bottom) {
             VStack {
                 Button("I am new to Peaks") {
-                    signUpViewModel.isSignUpFlowPresented = true
+                    navigationViewModel.isViewControllerPresented = true
                 }
                 .buttonStyle(.capsule(.brand))
 

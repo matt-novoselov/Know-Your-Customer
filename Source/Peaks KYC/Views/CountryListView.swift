@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct CountryListView: View {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
+    @Environment(FormManagerViewModel.self) private var formManagerViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
-        @Bindable var signUpViewModel = signUpViewModel
+        @Bindable var formManagerViewModel = formManagerViewModel
 
         VStack {
-            CountryPickerFieldView(selectedCountry: $signUpViewModel.selectedCountry)
+            CountryPickerFieldView(selectedCountry: $formManagerViewModel.selectedCountry)
 
             Spacer()
 
             Button("Continue") {
-                signUpViewModel.navigate(to: .fieldsList)
+                navigationViewModel.navigate(to: .fieldsList)
             }
             .buttonStyle(.capsule)
         }

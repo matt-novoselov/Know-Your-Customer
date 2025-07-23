@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(SignUpViewModel.self) private var signUpViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
-        @Bindable var signUpViewModel = signUpViewModel
+        @Bindable var navigationViewModel = navigationViewModel
 
         WelcomeScreenView()
-            .fullScreenCover(isPresented: $signUpViewModel.isSignUpFlowPresented) {
+            .fullScreenCover(isPresented: $navigationViewModel.isViewControllerPresented) {
                 FlowNavigationController()
             }
     }
