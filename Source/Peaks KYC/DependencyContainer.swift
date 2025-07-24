@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 final class DependencyContainer {
-    let formManagerViewModel: FormManagerViewModel
+    let formManagerViewModel: FormViewModel
     let navigationViewModel: NavigationViewModel
     let accessibilityViewModel: AccessibilityViewModel
 
@@ -17,11 +17,11 @@ final class DependencyContainer {
         let validationService = ValidationService()
         let fieldFactory = FieldFactory(validationService: validationService)
         let configLoaderService = ConfigLoaderService()
+        let formBuildingService = FormFactoryService(configLoader: configLoaderService, fieldFactory: fieldFactory)
 
-        self.formManagerViewModel = FormManagerViewModel(
-            configLoader: configLoaderService,
+        self.formManagerViewModel = FormViewModel(
             validationService: validationService,
-            fieldFactory: fieldFactory
+            formBuildingService: formBuildingService
         )
         self.navigationViewModel = NavigationViewModel()
         self.accessibilityViewModel = AccessibilityViewModel()
