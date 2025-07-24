@@ -13,10 +13,10 @@ struct ConfigLoaderService {
         let prefilledValues: [APIUserProfile.FieldEntries]
     }
 
-    private let configurationLoader: YAMLConfigLoader
+    private let configurationLoader: YAMLFileDecoder
     private let apiRequestService: APIRequestService
 
-    init(configurationLoader: YAMLConfigLoader = .init(), apiRequestService: APIRequestService = .init()) {
+    init(configurationLoader: YAMLFileDecoder = .init(), apiRequestService: APIRequestService = .init()) {
         self.configurationLoader = configurationLoader
         self.apiRequestService = apiRequestService
     }

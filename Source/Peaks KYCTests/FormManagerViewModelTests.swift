@@ -33,7 +33,7 @@ fields:
     required: false
 """
         let bundle = try makeBundle(yaml: yaml)
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let spy = SpyBuilder()
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: spy])
         let service = ConfigLoaderService(configurationLoader: loader)
@@ -51,7 +51,7 @@ fields:
     @Test("state becomes error on failure")
     func testLoadError() async throws {
         let bundle = try makeBundle(yaml: "invalid:")
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
         let service = ConfigLoaderService(configurationLoader: loader)
         let vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
@@ -74,7 +74,7 @@ fields:
             required: false
         """
         let bundle = try makeBundle(yaml: yaml)
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
             var error: String?
@@ -116,7 +116,7 @@ fields:
             required: false
         """
         let bundle = try makeBundle(yaml: yaml)
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
             var error: String?
