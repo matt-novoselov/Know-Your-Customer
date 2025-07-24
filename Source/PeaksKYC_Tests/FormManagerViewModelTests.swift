@@ -38,10 +38,10 @@ fields:
             "NL.yaml": yaml,
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
         let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vm.loadDataForSelectedCountry()
 
@@ -58,10 +58,10 @@ fields:
             "NL.yaml": "invalid:",
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
         let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vm.loadDataForSelectedCountry()
         if case .error(let msg) = vm.state {
@@ -85,7 +85,7 @@ fields:
             "NL.yaml": yaml,
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
             var error: String?
@@ -98,8 +98,8 @@ fields:
         }
         let customVM = VM(config: FieldConfig(id: "first_name", label: "", required: false, type: .text, validation: nil))
         let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
         let vmManager = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vmManager.loadDataForSelectedCountry()
         vmManager.validateAll()
@@ -124,7 +124,7 @@ fields:
             "NL.yaml": yaml,
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
             var error: String?
@@ -143,8 +143,8 @@ fields:
         let factory = FieldFactory(validationService: ValidationService())
         let factory2 = FieldFactory(validationService: ValidationService())
         // We'll run manually, building 2 fields sequentially
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
         var vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vm.loadDataForSelectedCountry()
         // After first call, state loaded with first field

@@ -19,7 +19,7 @@ struct APIRequestServiceTests {
     func testFetch() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: ["MockUserProfile.yaml": profileYAML])
         let loader = YAMLFileDecoder(bundle: bundle)
-        let service = APIRequestService(loader: loader)
+        let service = APIRequestService(fileDecoder: loader)
         let profile = try await service.fetchUserProfile(from: "")
         #expect(profile.fields.count == 3)
         #expect(profile.fields[0].id == "first_name")

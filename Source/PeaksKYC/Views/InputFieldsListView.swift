@@ -57,45 +57,49 @@ struct InputFieldsListView: View {
             .headerModifier()
         }
     }
+}
 
-    private struct ListView: View {
-        @Environment(FormViewModel.self) private var formManagerViewModel
-        @Environment(NavigationViewModel.self) private var navigationViewModel
-        @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
-        let fields: [AnyView]
+private struct ListView: View {
+    @Environment(FormViewModel.self) private var formManagerViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
+    @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
+    let fields: [AnyView]
 
-        var body: some View {
-            ScrollViewReader { value in
-                ScrollView {
-                    Group {
-                        ForEach(fields.indices, id: \.self) { index in
-                            fields[index]
-                                .padding(5)
-                                .id(index)
-                        }
-
-                        Spacer()
-                            .frame(height: 100)
-
-                        Button("Continue") {
-                            formManagerViewModel.validateAll()
-
-                            if let errorId = formManagerViewModel.getFirstErrorIndex() {
-                                withAnimation {
-                                    value.scrollTo(errorId)
-                                }
-
-                                let message = "There are errors in the form. Please correct the highlighted fields."
-                                accessibilityViewModel.announce(message)
-                            } else {
-                                navigationViewModel.navigate(to: .summary)
-                            }
-                        }
-                        .buttonStyle(.capsule)
+    var body: some View {
+        ScrollViewReader { value in
+            ScrollView {
+                Group {
+                    ForEach(fields.indices, id: \.self) { index in
+                        fields[index]
+                            .padding(5)
+                            .id(index)
                     }
-                    .headerModifier()
+
+                    Spacer()
+                        .frame(height: 100)
+
+                    Button("Continue") {
+                        self.verifyInputFields(value: value)
+                    }
+                    .buttonStyle(.capsule)
                 }
+                .headerModifier()
             }
+        }
+    }
+
+    private func verifyInputFields(value: ScrollViewProxy) {
+        formManagerViewModel.validateAll()
+
+        if let errorId = formManagerViewModel.getFirstErrorIndex() {
+            withAnimation {
+                value.scrollTo(errorId)
+            }
+
+            let message = "There are errors in the form. Please correct the highlighted fields."
+            accessibilityViewModel.announce(message)
+        } else {
+            navigationViewModel.navigate(to: .summary)
         }
     }
 }
