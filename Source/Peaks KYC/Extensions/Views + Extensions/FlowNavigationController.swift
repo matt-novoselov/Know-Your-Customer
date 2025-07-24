@@ -21,7 +21,7 @@ struct FlowNavigationController: View {
 }
 
 struct FlowNavigationModifier: ViewModifier {
-    @Environment(FormManagerViewModel.self) private var formManagerViewModel
+    @Environment(FormViewModel.self) private var formManagerViewModel
 
     func body(content: Content) -> some View {
         content

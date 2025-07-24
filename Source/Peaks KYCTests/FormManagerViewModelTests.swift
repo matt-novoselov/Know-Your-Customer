@@ -37,7 +37,7 @@ fields:
         let spy = SpyBuilder()
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: spy])
         let service = ConfigLoaderService(configurationLoader: loader)
-        let vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
+        let vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
 
         if case .loaded(let fields) = vm.state {
@@ -54,7 +54,7 @@ fields:
         let loader = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
         let service = ConfigLoaderService(configurationLoader: loader)
-        let vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
+        let vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
         if case .error(let msg) = vm.state {
             #expect(msg.contains("Failed to load configuration"))
@@ -95,7 +95,7 @@ fields:
         let builder = Builder(vm: customVM)
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: builder])
         let service = ConfigLoaderService(configurationLoader: loader)
-        let vmManager = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
+        let vmManager = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vmManager.loadDataForSelectedCountry()
         vmManager.validateAll()
         #expect(customVM.validated)
@@ -142,14 +142,14 @@ fields:
         let factory2 = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm2)])
         // We'll run manually, building 2 fields sequentially
         let service = ConfigLoaderService(configurationLoader: loader)
-        var vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
+        var vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
         // After first call, state loaded with first field
         if case .loaded(let fields1) = vm.state {
             #expect(fields1.count == 2)
         }
         // Now we use second factory to load again with two fields
-        vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory2)
+        vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory2)
         await vm.loadDataForSelectedCountry()
         if case .loaded(let fields) = vm.state {
             let items = vm.getSummaryItems()

@@ -8,32 +8,25 @@
 import SwiftUI
 
 @Observable
-class FormManagerViewModel {
+class FormViewModel {
     var selectedCountry: SupportedCountry = .netherlands
     private(set) var state: State = .idle
-    private let configLoader: ConfigLoaderService
     private let validationService: ValidationService
-    private let fieldFactory: FieldFactory
+    private let formBuildingService: FormFactoryService
 
     init(
-        configLoader: ConfigLoaderService,
         validationService: ValidationService,
-        fieldFactory: FieldFactory
+        formBuildingService: FormFactoryService
     ) {
-        self.configLoader = configLoader
         self.validationService = validationService
-        self.fieldFactory = fieldFactory
+        self.formBuildingService = formBuildingService
     }
 
     func loadDataForSelectedCountry() async {
         state = .loading
 
         do {
-            let result = try await configLoader.loadData(for: selectedCountry)
-            let fields = fieldFactory.makeFields(
-                from: result.config.fields,
-                prefilledValues: result.prefilledValues
-            )
+            let fields = try await formBuildingService.buildForm(for: selectedCountry)
             state = .loaded(fields)
         } catch {
             state = .error("Failed to load configuration: \(error.localizedDescription)")
@@ -61,7 +54,7 @@ class FormManagerViewModel {
     }
 }
 
-extension FormManagerViewModel {
+extension FormViewModel {
     enum State {
         case idle
         case loading

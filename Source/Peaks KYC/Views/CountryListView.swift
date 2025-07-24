@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountryListView: View {
-    @Environment(FormManagerViewModel.self) private var formManagerViewModel
+    @Environment(FormViewModel.self) private var formManagerViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {

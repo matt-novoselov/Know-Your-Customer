@@ -22,7 +22,7 @@ private extension View {
 }
 
 struct InputFieldsListView: View {
-    @Environment(FormManagerViewModel.self) private var formManagerViewModel
+    @Environment(FormViewModel.self) private var formManagerViewModel
 
     var body: some View {
         Group {
@@ -59,7 +59,7 @@ struct InputFieldsListView: View {
     }
 
     private struct ListView: View {
-        @Environment(FormManagerViewModel.self) private var formManagerViewModel
+        @Environment(FormViewModel.self) private var formManagerViewModel
         @Environment(NavigationViewModel.self) private var navigationViewModel
         @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
         let fields: [AnyView]
