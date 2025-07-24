@@ -16,12 +16,16 @@ struct FormFactoryService {
         self.fieldFactory = fieldFactory
     }
 
-    func buildForm(for country: SupportedCountry) async throws -> [FormField] {
+    func buildForm(for country: SupportedCountry) async throws -> LoadedForm {
         let result = try await configLoader.loadData(for: country)
         let fields = fieldFactory.makeFields(
             from: result.config.fields,
             prefilledValues: result.prefilledValues
         )
-        return fields
+        let form = LoadedForm(
+            fields: fields,
+            country: country
+        )
+        return form
     }
 }
