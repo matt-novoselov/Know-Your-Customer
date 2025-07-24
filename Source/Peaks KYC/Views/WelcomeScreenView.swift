@@ -15,13 +15,16 @@ struct WelcomeScreenView: View {
             HStack {
                 AppIconView()
                     .frame(height: 44)
+                    .accessibilityHidden(true)
 
                 Text("Peaks KYC")
                     .font(.dazzed(style: .extraLargeTitle, weight: .black))
+                    .accessibilityHint("App name")
             }
 
             Text("Verification Made Simple")
                 .font(.dazzed(size: 19, weight: .medium))
+                .accessibilityHint("Tagline")
         }
         .padding(.top, 100)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

@@ -61,6 +61,7 @@ struct InputFieldsListView: View {
     private struct ListView: View {
         @Environment(FormManagerViewModel.self) private var formManagerViewModel
         @Environment(NavigationViewModel.self) private var navigationViewModel
+        @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
         let fields: [AnyView]
 
         var body: some View {
@@ -83,6 +84,9 @@ struct InputFieldsListView: View {
                                 withAnimation {
                                     value.scrollTo(errorId)
                                 }
+
+                                let message = "There are errors in the form. Please correct the highlighted fields."
+                                accessibilityViewModel.announce(message)
                             } else {
                                 navigationViewModel.navigate(to: .summary)
                             }

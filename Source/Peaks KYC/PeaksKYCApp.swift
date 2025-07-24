@@ -18,6 +18,7 @@ struct PeaksKYCApp: App {
                 .environment(dependencyContainer)
                 .environment(dependencyContainer.formManagerViewModel)
                 .environment(dependencyContainer.navigationViewModel)
+                .environment(dependencyContainer.accessibilityViewModel)
         }
     }
 }
