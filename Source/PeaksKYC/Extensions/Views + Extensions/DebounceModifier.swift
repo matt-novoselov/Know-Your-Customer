@@ -22,6 +22,10 @@ struct DebounceModifier<Value: Equatable>: ViewModifier {
                 workItem = item
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
             }
+            .onDisappear {
+                workItem?.cancel()
+                workItem = nil
+            }
     }
 }
 
