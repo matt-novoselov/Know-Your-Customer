@@ -5,12 +5,23 @@ import Foundation
 
 @Suite("FormManagerViewModel")
 struct FormManagerViewModelTests {
+    private let profileYAML = """
+    fields:
+      - id: first_name
+        value: Jan
+      - id: last_name
+        value: Jansen
+      - id: birth_date
+        value: "1990-07-23"
+    """
+
     private func makeBundle(yaml: String) throws -> Bundle {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let plist = dir.appendingPathComponent("Info.plist")
         try Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict></dict></plist>".utf8).write(to: plist)
         try Data(yaml.utf8).write(to: dir.appendingPathComponent("NL.yaml"))
+        try Data(profileYAML.utf8).write(to: dir.appendingPathComponent("MockUserProfile.yaml"))
         return Bundle(url: dir)!
     }
 
@@ -36,7 +47,8 @@ fields:
         let loader = YAMLFileDecoder(bundle: bundle)
         let spy = SpyBuilder()
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: spy])
-        let service = ConfigLoaderService(configurationLoader: loader)
+        let apiService = APIRequestService(loader: loader)
+        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         let vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
 
@@ -53,7 +65,8 @@ fields:
         let bundle = try makeBundle(yaml: "invalid:")
         let loader = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
-        let service = ConfigLoaderService(configurationLoader: loader)
+        let apiService = APIRequestService(loader: loader)
+        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         let vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
         if case .error(let msg) = vm.state {
@@ -94,7 +107,8 @@ fields:
         }
         let builder = Builder(vm: customVM)
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: builder])
-        let service = ConfigLoaderService(configurationLoader: loader)
+        let apiService = APIRequestService(loader: loader)
+        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         let vmManager = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vmManager.loadDataForSelectedCountry()
         vmManager.validateAll()
@@ -141,7 +155,8 @@ fields:
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm1)])
         let factory2 = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm2)])
         // We'll run manually, building 2 fields sequentially
-        let service = ConfigLoaderService(configurationLoader: loader)
+        let apiService = APIRequestService(loader: loader)
+        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         var vm = FormViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
         // After first call, state loaded with first field
