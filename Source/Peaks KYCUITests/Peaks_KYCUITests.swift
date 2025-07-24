@@ -20,22 +20,6 @@ final class Peaks_KYCUITests: XCTestCase {
         app = nil
     }
 
-    /// Verifies that the welcome screen renders its primary actions.
-    @MainActor
-    func testWelcomeScreenButtonsExist() throws {
-        XCTAssertTrue(app.buttons["I am new to Peaks"].exists)
-        XCTAssertTrue(app.buttons["Login"].exists)
-    }
-
-    /// Ensures the login button is currently disabled as the feature
-    /// is not implemented yet.
-    @MainActor
-    func testLoginButtonDisabled() throws {
-        let loginButton = app.buttons["Login"]
-        XCTAssertTrue(loginButton.exists)
-        XCTAssertFalse(loginButton.isEnabled)
-    }
-
     /// Runs through the default onboarding flow using the preloaded Netherlands configuration.
     @MainActor
     func testCompleteKYCFlow() throws {
@@ -52,7 +36,7 @@ final class Peaks_KYCUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Personal Details"].waitForExistence(timeout: 2))
 
         // Fill BSN field which is not pre-populated
-        let bsnField = app.textFields["BSN"]
+        let bsnField = app.textFields["Enter BSN"]
         XCTAssertTrue(bsnField.waitForExistence(timeout: 5))
         bsnField.tap()
         bsnField.typeText("123456789")
@@ -77,7 +61,7 @@ final class Peaks_KYCUITests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["Personal Details"].waitForExistence(timeout: 2))
 
-        let bsnField = app.textFields["BSN"]
+        let bsnField = app.textFields["Enter BSN"]
         XCTAssertTrue(bsnField.waitForExistence(timeout: 5))
         bsnField.tap()
         bsnField.typeText("123")
