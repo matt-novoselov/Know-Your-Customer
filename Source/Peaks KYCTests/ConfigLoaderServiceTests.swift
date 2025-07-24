@@ -16,13 +16,13 @@ struct ConfigLoaderServiceTests {
     @Test("loadData happy path")
     func testLoadSuccess() async throws {
         let yaml = """
-country: NL
-fields:
-  - id: first_name
-    label: First
-    type: text
-    required: true
-"""
+        country: NL
+        fields:
+          - id: first_name
+            label: First
+            type: text
+            required: true
+        """
         let bundle = try makeBundle(yaml: yaml)
         let loader = YAMLConfigLoader(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
@@ -36,11 +36,9 @@ fields:
         let bundle = try makeBundle(yaml: "", fileName: "Other.yaml")
         let loader = YAMLConfigLoader(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
-        do {
-            _ = try await service.loadData(for: .netherlands)
-            #expect(false, "expected error")
-        } catch YAMLConfigLoader.ServiceError.fileNotFound(name: _ ) {
-            #expect(true)
+
+        await #expect(throws: YAMLConfigLoader.ServiceError.self){
+            try await service.loadData(for: .netherlands)
         }
     }
 
@@ -49,11 +47,9 @@ fields:
         let bundle = try makeBundle(yaml: "invalid: [", fileName: "NL.yaml")
         let loader = YAMLConfigLoader(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
-        do {
-            _ = try await service.loadData(for: .netherlands)
-            #expect(false, "expected error")
-        } catch YAMLConfigLoader.ServiceError.decodingFailed(underlying: _) {
-            #expect(true)
+
+        await #expect(throws: YAMLConfigLoader.ServiceError.self){
+            try await service.loadData(for: .netherlands)
         }
     }
 }

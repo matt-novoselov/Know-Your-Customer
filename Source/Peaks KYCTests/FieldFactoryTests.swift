@@ -17,8 +17,9 @@ struct FieldFactoryTests {
     }
 
     struct DummyFieldVM: FieldViewModelProtocol {
+        var id = UUID()
         var config: FieldConfig
-        var error: String? = nil
+        var error: String?
         var hasErrors: Bool { error != nil }
         var isReadOnly: Bool = false
         var displayValue: String = ""
