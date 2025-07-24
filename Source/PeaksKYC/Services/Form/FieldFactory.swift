@@ -19,46 +19,34 @@ struct FormField {
 
 struct FieldFactory {
     let validationService: ValidationService
-    private let builders: [FieldConfig.FieldDataType: any FieldBuilder]
-
-    init(
-        validationService: ValidationService,
-        builders: [FieldConfig.FieldDataType: any FieldBuilder] = FieldFactory.defaultBuilders
-    ) {
-        self.validationService = validationService
-        self.builders = builders
-    }
 
     func makeFields(
         from configs: [FieldConfig],
         prefilledValues: [APIUserProfile.FieldEntries]
     ) -> [FormField] {
-        let prefilledDictionary = Dictionary(
+        let prefilledDict = Dictionary(
             uniqueKeysWithValues: prefilledValues.map { ($0.id, $0.value) }
         )
-        var fields: [FormField] = []
-
-        for config in configs {
-            let value = prefilledDictionary[config.id]
-            guard let builder = builders[config.type] else { continue }
+        return configs.compactMap { config in
+            let value = prefilledDict[config.id]
+            let builder = builder(for: config.type)
             let result = builder.build(
                 config: config,
                 prefilledValue: value,
                 validationService: validationService
             )
-            fields.append(FormField(view: result.view, viewModel: result.viewModel))
+            return FormField(view: result.view, viewModel: result.viewModel)
         }
-
-        return fields
     }
 }
 
 private extension FieldFactory {
-    static var defaultBuilders: [FieldConfig.FieldDataType: any FieldBuilder] {
-        [
-            .text: TextFieldBuilder(),
-            .number: TextFieldBuilder(),
-            .date: DateFieldBuilder()
-        ]
+    private func builder(for type: FieldConfig.FieldDataType) -> any FieldBuilder {
+        switch type {
+        case .text, .number:
+            return TextFieldBuilder()
+        case .date:
+            return DateFieldBuilder()
+        }
     }
 }
