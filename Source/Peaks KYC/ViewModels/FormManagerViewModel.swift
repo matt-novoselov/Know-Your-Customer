@@ -9,7 +9,7 @@ import SwiftUI
 
 @Observable
 class FormManagerViewModel {
-    var selectedCountry: Country = .netherlands
+    var selectedCountry: SupportedCountry = .netherlands
     private(set) var state: State = .idle
     private let configLoader: ConfigLoaderService
     private let validationService: ValidationService

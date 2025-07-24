@@ -17,7 +17,7 @@ enum CountryBehavior {
     )
 }
 
-struct CountryData {
+struct CountryMetadata {
     let name: String
     let flag: Image
     let yamlFileName: String
@@ -31,35 +31,35 @@ struct CountryData {
     }
 }
 
-enum Country: CaseIterable {
+enum SupportedCountry: CaseIterable {
     case netherlands
     case germany
     case usa
     case debug
 
-    var data: CountryData {
+    var data: CountryMetadata {
         switch self {
         case .netherlands:
-            return CountryData(
+            return CountryMetadata(
                 name: "The Netherlands",
                 flag: Image(.netherlandsFlag),
                 yamlFileName: "NL.yaml",
                 behavior: .prepopulated(endpoint: URL(string: "https://peaks.com/api/nl-user-profile")!)
             )
         case .germany:
-            return CountryData(
+            return CountryMetadata(
                 name: "Germany",
                 flag: Image(.germanyFlag),
                 yamlFileName: "DE.yaml"
             )
         case .usa:
-            return CountryData(
+            return CountryMetadata(
                 name: "United States of America",
                 flag: Image(.usaFlag),
                 yamlFileName: "US.yaml"
             )
         case .debug:
-            return CountryData(
+            return CountryMetadata(
                 name: "Debug Country",
                 flag: Image(.pirateFlag),
                 yamlFileName: "DEBUG.yaml"

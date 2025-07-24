@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountryPickerFieldView: View {
-    @Binding var selectedCountry: Country
+    @Binding var selectedCountry: SupportedCountry
     @State var isSheetPresented = false
 
     var body: some View {

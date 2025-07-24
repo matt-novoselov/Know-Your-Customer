@@ -9,14 +9,14 @@ import Foundation
 
 struct ConfigLoaderService {
     struct LoadResult {
-        let config: ConfigModel
+        let config: CountryKYCConfig
         let prefilledValues: [APIUserProfile.FieldEntries]
     }
 
     private let configurationLoader = CountryConfigLoaderService()
     private let apiRequestService = APIRequestService()
 
-    func loadData(for country: Country) async throws -> LoadResult {
+    func loadData(for country: SupportedCountry) async throws -> LoadResult {
         let config = try configurationLoader.loadConfigForSelectedCountry(from: country.data.yamlFileName)
 
         var prefilledValues: [APIUserProfile.FieldEntries] = []

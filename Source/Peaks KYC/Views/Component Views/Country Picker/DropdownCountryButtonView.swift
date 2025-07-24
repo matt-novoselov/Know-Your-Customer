@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: DropdownCountryButtonView
 extension CountryPickerFieldView {
     struct DropdownCountryButtonView: View {
-        var country: Country
+        var country: SupportedCountry
         var action: () -> Void = {}
         var isInFocus: Bool
 

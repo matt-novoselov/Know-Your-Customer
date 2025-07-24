@@ -23,14 +23,14 @@ final class CountryConfigLoaderService {
         self.decoder = decoder
     }
 
-    func loadConfigForSelectedCountry(from fileName: String) throws -> ConfigModel {
+    func loadConfigForSelectedCountry(from fileName: String) throws -> CountryKYCConfig {
         guard let url = bundle.url(forResource: fileName, withExtension: nil) else {
             throw ServiceError.fileNotFound(name: fileName)
         }
 
         do {
             let yamlString = try String(contentsOf: url, encoding: .utf8)
-            return try decoder.decode(ConfigModel.self, from: yamlString)
+            return try decoder.decode(CountryKYCConfig.self, from: yamlString)
         } catch {
             throw ServiceError.decodingFailed(underlying: error)
         }
