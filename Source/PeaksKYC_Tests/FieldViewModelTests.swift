@@ -39,7 +39,7 @@ struct FieldViewModelTests {
         let service = ValidationService()
         let comps = DateComponents(year: 2024, month: 7, day: 25)
         let vm = FieldViewModel<DateComponents>(config: config, preFilledValue: comps, validationService: service)
-        let expected = vm.dateFormatter.string(from: Calendar.current.date(from: comps)!)
+        let expected = DateFormatterHolder.medium.string(from: Calendar.current.date(from: comps)!)
         #expect(vm.displayValue == expected)
     }
 

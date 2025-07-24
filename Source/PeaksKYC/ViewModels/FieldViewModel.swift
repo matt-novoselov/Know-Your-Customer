@@ -27,12 +27,6 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
 
     private let validationService: ValidationService
 
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }()
-
     init(
         config: FieldConfig,
         preFilledValue: Value? = nil,
@@ -51,7 +45,7 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
         }
         if let comps = value as? DateComponents,
            let date = Calendar.current.date(from: comps) {
-            return dateFormatter.string(from: date)
+            return DateFormatterHolder.medium.string(from: date)
         }
         return "\(value)"
     }
