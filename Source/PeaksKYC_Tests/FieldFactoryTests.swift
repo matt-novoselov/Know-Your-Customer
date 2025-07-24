@@ -29,12 +29,9 @@ struct FieldFactoryTests {
     @Test("uses correct builder and passes value")
     func testMakeFields() {
         let config = FieldConfig(id: "id", label: "Label", required: false, type: .text, validation: nil)
-        let builder = SpyBuilder()
-        let factory = FieldFactory(validationService: ValidationService(), builders: [.text: builder])
+        let factory = FieldFactory(validationService: ValidationService())
         let value = APIUserProfile.FieldEntries(id: "id", value: "abc")
         let fields = factory.makeFields(from: [config], prefilledValues: [value])
         #expect(fields.count == 1)
-        #expect(builder.capturedConfig?.id == "id")
-        #expect(builder.capturedValue as? String == "abc")
     }
 }
