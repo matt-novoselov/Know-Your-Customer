@@ -33,10 +33,13 @@ struct FieldFactory {
         from configs: [FieldConfig],
         prefilledValues: [APIUserProfile.FieldEntries]
     ) -> [FormField] {
+        let prefilledDictionary = Dictionary(
+            uniqueKeysWithValues: prefilledValues.map { ($0.id, $0.value) }
+        )
         var fields: [FormField] = []
 
         for config in configs {
-            let value = prefilledValues.first(where: { $0.id == config.id })?.value
+            let value = prefilledDictionary[config.id]
             guard let builder = builders[config.type] else { continue }
             let result = builder.build(
                 config: config,
