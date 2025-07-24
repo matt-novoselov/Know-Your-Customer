@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension Font {
+    /// Provides helpers to load the custom "Dazzed" font with different styles.
     /// Custom “Dazzed” font from bundle using text styles
     /// - Parameters:
     ///   - style: UIFont.TextStyle like .body, .title1, etc.

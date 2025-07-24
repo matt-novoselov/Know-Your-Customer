@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DateInputField: InputFieldView {
+    // Wraps a button opening a date picker sheet.
     @Environment(FieldViewModel<DateComponents>.self) var viewModel
     @State private var isFocused = false
 

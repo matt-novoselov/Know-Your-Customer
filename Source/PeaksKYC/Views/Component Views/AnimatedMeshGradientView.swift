@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AnimatedMeshGradientView: View {
+    // Displays an animated, colorful background mesh.
     // MARK: - Configuration
     private let rows: Int = 5
     private let columns: Int = 3

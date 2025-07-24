@@ -4,6 +4,7 @@ import Foundation
 
 @Suite("ConfigLoaderService")
 struct ConfigLoaderServiceTests {
+    // Ensures YAML config and prepopulated data are loaded correctly.
     private let profileYAML = """
     fields:
       - id: first_name

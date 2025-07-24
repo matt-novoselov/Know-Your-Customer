@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct PeaksKYCApp: App {
+    // Entry point of the SwiftUI application.
     @State private var dependencyContainer = DependencyContainer()
 
     var body: some Scene {

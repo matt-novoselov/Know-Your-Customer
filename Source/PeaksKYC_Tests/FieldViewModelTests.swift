@@ -4,6 +4,7 @@ import Foundation
 
 @Suite("FieldViewModel")
 struct FieldViewModelTests {
+    // Unit tests for the FieldViewModel behaviour.
 
     private func makeConfig(required: Bool = false, type: FieldConfig.FieldDataType = .text) -> FieldConfig {
         FieldConfig(

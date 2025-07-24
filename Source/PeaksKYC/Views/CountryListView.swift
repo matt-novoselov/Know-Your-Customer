@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CountryListView: View {
+    // First step where user picks a supported country.
     @Environment(FormViewModel.self) private var formManagerViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
 

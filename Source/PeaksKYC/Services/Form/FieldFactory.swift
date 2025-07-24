@@ -18,9 +18,11 @@ struct FormField {
 }
 
 struct FieldFactory {
+    // Converts field configs and values into concrete SwiftUI views.
     let validationService: ValidationService
 
     func makeFields(
+        // Creates view models for each configured field.
         from configs: [FieldConfig],
         prefilledValues: [APIUserProfile.FieldEntries]
     ) -> [FormField] {

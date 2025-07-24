@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TextFieldBuilder: FieldBuilder {
+    // Builds a simple text input field.
     func build(
         config: FieldConfig,
         prefilledValue: Any?,

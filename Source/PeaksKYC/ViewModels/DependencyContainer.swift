@@ -9,6 +9,7 @@ import Foundation
 
 @Observable
 final class DependencyContainer {
+    // Creates and shares view models across the app.
     let formManagerViewModel: FormViewModel
     let navigationViewModel: NavigationViewModel
     let accessibilityViewModel: AccessibilityViewModel

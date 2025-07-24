@@ -6,6 +6,7 @@
 //
 
 struct ValidatorFactory {
+    // Creates validators from field configuration.
     static func validators(for config: FieldConfig?) -> [Validator] {
         guard let config = config else {
             return []

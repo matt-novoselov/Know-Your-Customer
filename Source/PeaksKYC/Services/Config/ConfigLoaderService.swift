@@ -8,6 +8,7 @@
 import Foundation
 
 struct ConfigLoaderService {
+    // Loads KYC form configuration and any prepopulated user data.
     struct LoadResult {
         let config: CountryKYCConfig
         let prefilledValues: [APIUserProfile.FieldEntries]

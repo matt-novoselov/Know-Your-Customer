@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: SheetView
 extension CountryPickerFieldView {
     var countryListSheetView: some View {
+        // Sheet presenting available countries for selection.
         VStack(spacing: 20) {
             Text("Select region")
                 .font(.dazzed(style: .title1, weight: .bold))

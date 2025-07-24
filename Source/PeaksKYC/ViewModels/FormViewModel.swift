@@ -9,6 +9,7 @@ import SwiftUI
 
 @Observable
 class FormViewModel {
+    // Manages form state and orchestrates validation.
     var selectedCountry: SupportedCountry = .netherlands
     private(set) var state: State = .idle
     private let validationService: ValidationService

@@ -4,6 +4,7 @@ import Foundation
 
 @Suite("Extensions")
 struct ExtensionsTests {
+    // Tests helper extensions for date handling.
 
     @Test("yearMonthDay components")
     func testYearMonthDay() {

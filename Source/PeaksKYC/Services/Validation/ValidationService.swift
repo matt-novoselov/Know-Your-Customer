@@ -8,6 +8,7 @@
 import Foundation
 
 class ValidationService {
+    // Runs validators for each field and surfaces the first error.
 
     /// Validates a single field and returns an error message if invalid.
     /// - Parameter field: The field to validate.

@@ -9,6 +9,7 @@ import Foundation
 
 /// Represents a validation error.
 struct ValidationError: Error {
+    // Error produced by a failed validator.
     let message: String
 }
 
