@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConfigModel: Decodable {
+struct CountryKYCConfig: Decodable {
     let country: String
     let fields: [FieldConfig]
 }

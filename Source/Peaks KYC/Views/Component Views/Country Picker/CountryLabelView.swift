@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: CountryLabelView
 extension CountryPickerFieldView {
     struct CountryLabelView: View {
-        var country: Country
+        var country: SupportedCountry
 
         var body: some View {
             HStack {

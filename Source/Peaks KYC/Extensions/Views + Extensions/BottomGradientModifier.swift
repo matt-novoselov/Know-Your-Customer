@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GradientOverlay: ViewModifier {
+struct GradientOverlayModifier: ViewModifier {
     let color: Color
     let height: CGFloat
     let edge: Edge
@@ -44,6 +44,6 @@ extension View {
         height: CGFloat = 200,
         edge: Edge = .bottom
     ) -> some View {
-        modifier(GradientOverlay(color: color, height: height, edge: edge))
+        modifier(GradientOverlayModifier(color: color, height: height, edge: edge))
     }
 }

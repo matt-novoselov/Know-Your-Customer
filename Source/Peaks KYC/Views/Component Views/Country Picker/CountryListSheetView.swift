@@ -15,7 +15,7 @@ extension CountryPickerFieldView {
                 .font(.dazzed(style: .title1, weight: .bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            ForEach(Country.allCases, id: \.self) { country in
+            ForEach(SupportedCountry.allCases, id: \.self) { country in
                 CountryButtonView(
                     selectedCountry: selectedCountry,
                     country: country,
