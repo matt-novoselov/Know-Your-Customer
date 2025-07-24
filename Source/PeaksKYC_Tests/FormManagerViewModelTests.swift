@@ -29,7 +29,7 @@ struct FormManagerViewModelTests {
         var called = false
         func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
             called = true
-            return FormField(view: AnyView(EmptyView()), viewModel: FieldViewModel<String>(config: config, validationService: validationService))
+            return FormField(view: FieldView(EmptyView()), viewModel: FieldViewModel<String>(config: config, validationService: validationService))
         }
     }
 
@@ -102,7 +102,7 @@ fields:
         struct Builder: FieldBuilder {
             var vm: VM
             func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
-                FormField(view: AnyView(EmptyView()), viewModel: vm)
+                FormField(view: FieldView(EmptyView()), viewModel: vm)
             }
         }
         let builder = Builder(vm: customVM)
@@ -149,7 +149,7 @@ fields:
         struct B1: FieldBuilder {
             let vm: VM
             func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
-                FormField(view: AnyView(EmptyView()), viewModel: vm)
+                FormField(view: FieldView(EmptyView()), viewModel: vm)
             }
         }
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm1)])

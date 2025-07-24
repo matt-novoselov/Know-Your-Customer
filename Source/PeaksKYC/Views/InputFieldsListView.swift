@@ -30,7 +30,7 @@ struct InputFieldsListView: View {
             case .idle, .loading:
                 loadingView
             case .loaded(let form):
-                ListView(fields: form.fields.map { AnyView($0.view) })
+                ListView(fields: form.fields.map { $0.view })
             case .error(let errorMessage):
                 ErrorView(errorMessage: errorMessage)
             }
@@ -62,7 +62,7 @@ struct InputFieldsListView: View {
         @Environment(FormViewModel.self) private var formManagerViewModel
         @Environment(NavigationViewModel.self) private var navigationViewModel
         @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
-        let fields: [AnyView]
+        let fields: [FieldView]
 
         var body: some View {
             ScrollViewReader { value in

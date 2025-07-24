@@ -13,7 +13,7 @@ struct LoadedForm {
 }
 
 struct FormField {
-    let view: AnyView
+    let view: FieldView
     let viewModel: any FieldViewModelProtocol
 }
 

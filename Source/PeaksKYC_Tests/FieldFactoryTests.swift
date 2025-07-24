@@ -12,7 +12,7 @@ struct FieldFactoryTests {
             capturedConfig = config
             capturedValue = prefilledValue
             let vm = DummyFieldVM(config: config)
-            return FormField(view: AnyView(EmptyView()), viewModel: vm)
+            return FormField(view: FieldView(EmptyView()), viewModel: vm)
         }
     }
 

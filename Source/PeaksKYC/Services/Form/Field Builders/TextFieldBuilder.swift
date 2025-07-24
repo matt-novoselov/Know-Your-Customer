@@ -13,6 +13,6 @@ struct TextFieldBuilder: FieldBuilder {
             validationService: validationService
         )
         let view = TextInputField().environment(viewModel)
-        return FormField(view: AnyView(view), viewModel: viewModel)
+        return FormField(view: FieldView(view), viewModel: viewModel)
     }
 }

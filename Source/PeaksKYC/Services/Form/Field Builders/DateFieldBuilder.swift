@@ -21,6 +21,6 @@ struct DateFieldBuilder: FieldBuilder {
             validationService: validationService
         )
         let view = DateInputField().environment(viewModel)
-        return FormField(view: AnyView(view), viewModel: viewModel)
+        return FormField(view: FieldView(view), viewModel: viewModel)
     }
 }
