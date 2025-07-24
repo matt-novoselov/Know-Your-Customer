@@ -39,6 +39,7 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
         self.isReadOnly = preFilledValue != nil
     }
 
+    // Unified translator for form values from Any? -> String
     var displayValue: String {
         guard let value = value else { return "N/A" }
         if let str = value as? String {
@@ -51,6 +52,7 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
         return "\(value)"
     }
 
+    // Validate itself
     func validate() {
         error = validationService.validate(fieldConfig: config, value: value)
     }

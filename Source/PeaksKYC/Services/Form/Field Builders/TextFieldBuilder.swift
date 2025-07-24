@@ -1,7 +1,14 @@
+//
+//  TextFieldBuilder.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
+
 import SwiftUI
 
+// Builds a text input field.
 struct TextFieldBuilder: FieldBuilder {
-    // Builds a simple text input field.
     func build(
         config: FieldConfig,
         prefilledValue: Any?,

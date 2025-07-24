@@ -7,14 +7,14 @@
 
 import Foundation
 
+// Describes the fields required for a country's KYC process.
 struct CountryKYCConfig: Decodable {
-    // Describes the fields required for a country's KYC process.
     let country: String
     let fields: [FieldConfig]
 }
 
+// Configuration for a single input field.
 struct FieldConfig: Decodable, Identifiable {
-    // Configuration for a single input field.
     let id: String
     let label: String
     let required: Bool

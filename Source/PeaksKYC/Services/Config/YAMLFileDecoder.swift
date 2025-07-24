@@ -24,6 +24,7 @@ final class YAMLFileDecoder {
         self.decoder = decoder
     }
 
+    // Main function to decode YAML file
     func load<T: Decodable>(_ type: T.Type, from fileName: String) async throws -> T {
         guard let url = bundle.url(forResource: fileName, withExtension: nil) else {
             throw ServiceError.fileNotFound(name: fileName)

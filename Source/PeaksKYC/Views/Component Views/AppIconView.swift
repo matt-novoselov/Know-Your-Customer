@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Shows the application's icon with perfect Apple rounded corners.
 struct AppIconView: View {
-    // Shows the application's icon with rounded corners.
     @State private var size: CGSize = .zero
 
     var body: some View {

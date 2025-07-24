@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Custom style navigation controller wrapper.
 struct NavigationHeaderModifier: ViewModifier {
-    // Places a large title and back button at the top of a screen.
     @Environment(\.dismiss) private var dismiss
     let title: String
 

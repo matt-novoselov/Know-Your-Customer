@@ -7,8 +7,8 @@
 
 import Foundation
 
+/// Convenient access to a medium style date formatter reused across the app.
 public struct DateFormatterHolder {
-    /// Convenient access to a medium style date formatter reused across the app.
     public static let medium: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -17,7 +17,7 @@ public struct DateFormatterHolder {
 }
 
 extension DateFormatter {
-    /// Convenience helper to format optional date components.
+    /// Convenience helper to format date into a string.
     func string(from components: DateComponents?) -> String? {
         guard
             let comps = components,

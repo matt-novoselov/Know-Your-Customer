@@ -13,8 +13,8 @@ extension TextFieldStyle where Self == CapsuleTextFieldStyle {
     }
 }
 
+// Custom text field style with dynamic border and clear button.
 struct CapsuleTextFieldStyle: TextFieldStyle {
-    // Custom text field style with dynamic border and clear button.
     @Environment(\.isEnabled) private var isEnabled
     @FocusState private var isFocused: Bool
     @Binding var text: String

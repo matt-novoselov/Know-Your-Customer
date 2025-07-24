@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Custom modifier to handle unified navigation header on multiple child views.
 private struct HeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -21,8 +22,8 @@ private extension View {
     }
 }
 
+// Shows form fields for the selected country and handles validation.
 struct InputFieldsListView: View {
-    // Shows form fields for the selected country and handles validation.
     @Environment(FormViewModel.self) private var formManagerViewModel
 
     var body: some View {
@@ -60,8 +61,8 @@ struct InputFieldsListView: View {
     }
 }
 
+// Presents all form fields and continue button inside a scroll view.
 private struct ListView: View {
-    // Presents all form fields and continue button inside a scroll view.
     @Environment(FormViewModel.self) private var formManagerViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
     @Environment(AccessibilityViewModel.self) private var accessibilityViewModel
@@ -90,6 +91,9 @@ private struct ListView: View {
         }
     }
 
+    /// Button to verify all fields.
+    /// Scrolls to the first error if present.
+    /// Navigates to the next screen if all fields are correct.
     private func verifyInputFields(value: ScrollViewProxy) {
         formManagerViewModel.validateAll()
 

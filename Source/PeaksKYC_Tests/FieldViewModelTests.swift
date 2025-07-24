@@ -1,3 +1,10 @@
+//
+//  FieldViewModelTests.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 23/07/25.
+//
+
 import Testing
 import Foundation
 @testable import PeaksKYC

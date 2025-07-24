@@ -14,6 +14,7 @@ class NavigationViewModel {
     var isViewControllerPresented = false
     var navigationPath = NavigationPath()
 
+    // Function to navigate to a selected path in the route.
     func navigate(to route: NavigationRoute) {
         navigationPath.append(route)
     }

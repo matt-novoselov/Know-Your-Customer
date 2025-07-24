@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-// MARK: CountryButtonView
+// Button used within the country picker sheet.
 extension CountryPickerFieldView {
     struct CountryButtonView: View {
-            // Button used within the country picker sheet.
         var selectedCountry: SupportedCountry
         var country: SupportedCountry
         var action: () -> Void = {}

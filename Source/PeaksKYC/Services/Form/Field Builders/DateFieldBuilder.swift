@@ -1,7 +1,14 @@
+//
+//  DateFieldBuilder.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
+
 import SwiftUI
 
+// Builds a date input field.
 struct DateFieldBuilder: FieldBuilder {
-    // Builds a date input field with ISO8601 parsing.
     private static let isoFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]

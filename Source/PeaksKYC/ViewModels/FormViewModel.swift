@@ -23,6 +23,7 @@ class FormViewModel {
         self.formBuildingService = formBuildingService
     }
 
+    // Loads Field Views / View Model based on the selected country.
     func loadDataForSelectedCountry() async {
         // Do not load country again if it is already selected
         if case .loaded(let form) = state, form.country == selectedCountry {
@@ -39,12 +40,14 @@ class FormViewModel {
         }
     }
 
+    // Validates all form's fields.
     func validateAll() {
         if case .loaded(let form) = state {
             form.fields.forEach { $0.viewModel.validate() }
         }
     }
 
+    // Collects user input from all of the fields.
     func getSummaryItems() -> [SummaryView.Entry] {
         if case .loaded(let form) = state {
             return form.fields.map {
@@ -57,6 +60,8 @@ class FormViewModel {
         return []
     }
 
+    // Returns index of the first incorrect field.
+    // Used in the ScrollView
     func getFirstErrorIndex() -> Int? {
         if case .loaded(let form) = state {
             return form.fields.firstIndex(where: { $0.viewModel.error != nil })

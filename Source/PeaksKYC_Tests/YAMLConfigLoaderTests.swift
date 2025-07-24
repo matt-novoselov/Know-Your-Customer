@@ -1,3 +1,10 @@
+//
+//  YAMLConfigLoaderTests.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 23/07/25.
+//
+
 import Testing
 @testable import PeaksKYC
 import Foundation

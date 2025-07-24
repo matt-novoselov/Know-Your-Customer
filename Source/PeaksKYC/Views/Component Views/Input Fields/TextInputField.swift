@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Text entry field with validation hooks.
 struct TextInputField: InputFieldView {
-    // Simple text entry field with validation hooks.
     @Environment(FieldViewModel<String>.self) var viewModel
 
     func inputFieldView() -> some View {

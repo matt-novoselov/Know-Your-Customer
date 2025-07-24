@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-// MARK: CountryLabelView
+// Displays flag image and localized country name.
 extension CountryPickerFieldView {
     struct CountryLabelView: View {
-            // Displays flag image and localized country name.
         var country: SupportedCountry
 
         var body: some View {

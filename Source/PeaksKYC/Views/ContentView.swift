@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Hosts the welcome screen and starts the onboarding flow.
 struct ContentView: View {
-    // Hosts the welcome screen and starts the onboarding flow.
     @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
