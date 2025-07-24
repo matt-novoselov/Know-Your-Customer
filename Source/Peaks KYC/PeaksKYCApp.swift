@@ -9,15 +9,15 @@ import SwiftUI
 
 @main
 struct PeaksKYCApp: App {
-    @State private var formManagerViewModel = FormManagerViewModel()
-    @State private var navigationViewModel = NavigationViewModel()
+    @State private var dependencyContainer = DependencyContainer()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
-                .environment(formManagerViewModel)
-                .environment(navigationViewModel)
+                .environment(dependencyContainer)
+                .environment(dependencyContainer.formManagerViewModel)
+                .environment(dependencyContainer.navigationViewModel)
         }
     }
 }
