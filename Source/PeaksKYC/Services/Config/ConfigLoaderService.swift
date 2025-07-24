@@ -13,6 +13,10 @@ struct ConfigLoaderService {
         let prefilledValues: [APIUserProfile.FieldEntries]
     }
 
+    enum ServiceError: Error {
+        case prepopulatedDataFetchFailed(underlying: Error)
+    }
+
     private let configurationLoader: YAMLFileDecoder
     private let apiRequestService: APIRequestService
 
@@ -29,7 +33,7 @@ struct ConfigLoaderService {
             do {
                 prefilledValues = try await apiRequestService.fetchUserProfile(from: endpoint.absoluteString).fields
             } catch {
-                print("Error fetching prepopulated data: \(error)")
+                throw ServiceError.prepopulatedDataFetchFailed(underlying: error)
             }
         }
 
