@@ -1,5 +1,5 @@
 import Testing
-@testable import Peaks_KYC
+@testable import PeaksKYC
 import Foundation
 
 @Suite("YAMLConfigLoader")
