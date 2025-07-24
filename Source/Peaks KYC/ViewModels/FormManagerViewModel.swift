@@ -15,10 +15,14 @@ class FormManagerViewModel {
     private let validationService: ValidationService
     private let fieldFactory: FieldFactory
 
-    init() {
-        self.configLoader = .init()
-        self.validationService = .init()
-        self.fieldFactory = .init(validationService: validationService)
+    init(
+        configLoader: ConfigLoaderService,
+        validationService: ValidationService,
+        fieldFactory: FieldFactory
+    ) {
+        self.configLoader = configLoader
+        self.validationService = validationService
+        self.fieldFactory = fieldFactory
     }
 
     func loadDataForSelectedCountry() async {

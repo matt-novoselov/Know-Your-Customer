@@ -13,11 +13,16 @@ struct ConfigLoaderService {
         let prefilledValues: [APIUserProfile.FieldEntries]
     }
 
-    private let configurationLoader = CountryConfigLoaderService()
-    private let apiRequestService = APIRequestService()
+    private let configurationLoader: YAMLConfigLoader
+    private let apiRequestService: APIRequestService
+
+    init(configurationLoader: YAMLConfigLoader = .init(), apiRequestService: APIRequestService = .init()) {
+        self.configurationLoader = configurationLoader
+        self.apiRequestService = apiRequestService
+    }
 
     func loadData(for country: SupportedCountry) async throws -> LoadResult {
-        let config = try configurationLoader.loadConfigForSelectedCountry(from: country.data.yamlFileName)
+        let config = try configurationLoader.load(CountryKYCConfig.self, from: country.data.yamlFileName)
 
         var prefilledValues: [APIUserProfile.FieldEntries] = []
         if case let .prepopulated(endpoint) = country.data.dataInputStrategy {
