@@ -20,7 +20,7 @@ struct ConfigLoaderService {
         let config = try configurationLoader.loadConfigForSelectedCountry(from: country.data.yamlFileName)
 
         var prefilledValues: [APIUserProfile.FieldEntries] = []
-        if case let .prepopulated(endpoint) = country.data.behavior {
+        if case let .prepopulated(endpoint) = country.data.dataInputStrategy {
             do {
                 prefilledValues = try await apiRequestService.fetchUserProfile(from: endpoint.absoluteString).fields
             } catch {

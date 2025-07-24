@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum CountryBehavior {
+enum CountryDataInputStrategy {
     /// Default: render all fields manually/editable
     case manual
 
@@ -21,13 +21,13 @@ struct CountryMetadata {
     let name: String
     let flag: Image
     let yamlFileName: String
-    let behavior: CountryBehavior
+    let dataInputStrategy: CountryDataInputStrategy
 
-    init(name: String, flag: Image, yamlFileName: String, behavior: CountryBehavior = .manual) {
+    init(name: String, flag: Image, yamlFileName: String, dataInputStrategy: CountryDataInputStrategy = .manual) {
         self.name = name
         self.flag = flag
         self.yamlFileName = yamlFileName
-        self.behavior = behavior
+        self.dataInputStrategy = dataInputStrategy
     }
 }
 
@@ -44,7 +44,7 @@ enum SupportedCountry: CaseIterable {
                 name: "The Netherlands",
                 flag: Image(.netherlandsFlag),
                 yamlFileName: "NL.yaml",
-                behavior: .prepopulated(endpoint: URL(string: "https://peaks.com/api/nl-user-profile")!)
+                dataInputStrategy: .prepopulated(endpoint: URL(string: "https://peaks.com/api/nl-user-profile")!)
             )
         case .germany:
             return CountryMetadata(
