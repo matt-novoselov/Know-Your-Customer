@@ -23,13 +23,15 @@ final class YAMLFileDecoder {
         self.decoder = decoder
     }
 
-    func load<T: Decodable>(_ type: T.Type, from fileName: String) throws -> T {
+    func load<T: Decodable>(_ type: T.Type, from fileName: String) async throws -> T {
         guard let url = bundle.url(forResource: fileName, withExtension: nil) else {
             throw ServiceError.fileNotFound(name: fileName)
         }
 
         do {
-            let yamlString = try String(contentsOf: url, encoding: .utf8)
+            let yamlString = try await Task.detached { () throws -> String in
+                try String(contentsOf: url, encoding: .utf8)
+            }.value
             return try decoder.decode(T.self, from: yamlString)
         } catch {
             throw ServiceError.decodingFailed(underlying: error)
