@@ -29,8 +29,8 @@ struct InputFieldsListView: View {
             switch formManagerViewModel.state {
             case .idle, .loading:
                 loadingView
-            case .loaded(let fields):
-                ListView(fields: fields.map { AnyView($0.view) })
+            case .loaded(let form):
+                ListView(fields: form.fields.map { AnyView($0.view) })
             case .error(let errorMessage):
                 ErrorView(errorMessage: errorMessage)
             }

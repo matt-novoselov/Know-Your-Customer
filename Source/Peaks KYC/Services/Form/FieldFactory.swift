@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct LoadedForm {
+    let fields: [FormField]
+    let country: SupportedCountry
+}
+
 struct FormField {
     let view: AnyView
     let viewModel: any FieldViewModelProtocol

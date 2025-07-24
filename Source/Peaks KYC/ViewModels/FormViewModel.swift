@@ -23,6 +23,11 @@ class FormViewModel {
     }
 
     func loadDataForSelectedCountry() async {
+        // Do not load country again if it is already selected
+        if case .loaded(let form) = state, form.country == selectedCountry {
+            return
+        }
+
         state = .loading
 
         do {
@@ -34,21 +39,26 @@ class FormViewModel {
     }
 
     func validateAll() {
-        if case .loaded(let fields) = state {
-            fields.forEach { $0.viewModel.validate() }
+        if case .loaded(let form) = state {
+            form.fields.forEach { $0.viewModel.validate() }
         }
     }
 
     func getSummaryItems() -> [SummaryView.Entry] {
-        if case .loaded(let fields) = state {
-            return fields.map { SummaryView.Entry(label: $0.viewModel.config.label, value: $0.viewModel.displayValue) }
+        if case .loaded(let form) = state {
+            return form.fields.map {
+                SummaryView.Entry(
+                    label: $0.viewModel.config.label,
+                    value: $0.viewModel.displayValue
+                )
+            }
         }
         return []
     }
 
     func getFirstErrorIndex() -> Int? {
-        if case .loaded(let fields) = state {
-            return fields.firstIndex(where: { $0.viewModel.error != nil })
+        if case .loaded(let form) = state {
+            return form.fields.firstIndex(where: { $0.viewModel.error != nil })
         }
         return nil
     }
@@ -58,7 +68,7 @@ extension FormViewModel {
     enum State {
         case idle
         case loading
-        case loaded([FormField])
+        case loaded(LoadedForm)
         case error(String)
     }
 }
