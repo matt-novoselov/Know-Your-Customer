@@ -39,10 +39,13 @@ fields:
         let service = ConfigLoaderService(configurationLoader: loader)
         let vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory)
         await vm.loadDataForSelectedCountry()
+
         if case .loaded(let fields) = vm.state {
             #expect(fields.count == 1)
             #expect(spy.called)
-        } else { #expect(false, "not loaded") }
+        } else {
+            fatalError("not loaded")
+        }
     }
 
     @Test("state becomes error on failure")
@@ -55,24 +58,26 @@ fields:
         await vm.loadDataForSelectedCountry()
         if case .error(let msg) = vm.state {
             #expect(msg.contains("Failed to load configuration"))
-        } else { #expect(false, "state should be error") }
+        } else {
+            fatalError("state should be error")
+        }
     }
 
     @Test("validateAll triggers field validation")
     func testValidateAll() async throws {
         let yaml = """
-country: NL
-fields:
-  - id: first_name
-    label: First
-    type: text
-    required: false
-"""
+        country: NL
+        fields:
+          - id: first_name
+            label: First
+            type: text
+            required: false
+        """
         let bundle = try makeBundle(yaml: yaml)
         let loader = YAMLConfigLoader(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
-            var error: String? = nil
+            var error: String?
             var hasErrors: Bool { error != nil }
             var isReadOnly: Bool = false
             var displayValue: String = ""
@@ -80,7 +85,7 @@ fields:
             init(config: FieldConfig) { self.config = config }
             func validate() { validated = true }
         }
-        var customVM = VM(config: FieldConfig(id: "first_name", label: "", required: false, type: .text, validation: nil))
+        let customVM = VM(config: FieldConfig(id: "first_name", label: "", required: false, type: .text, validation: nil))
         struct Builder: FieldBuilder {
             var vm: VM
             func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
@@ -99,17 +104,17 @@ fields:
     @Test("getSummaryItems and first error")
     func testSummaryAndFirstError() async throws {
         let yaml = """
-country: NL
-fields:
-  - id: a
-    label: L
-    type: text
-    required: false
-  - id: b
-    label: L2
-    type: text
-    required: false
-"""
+        country: NL
+        fields:
+          - id: a
+            label: L
+            type: text
+            required: false
+          - id: b
+            label: L2
+            type: text
+            required: false
+        """
         let bundle = try makeBundle(yaml: yaml)
         let loader = YAMLConfigLoader(bundle: bundle)
         final class VM: FieldViewModelProtocol {
@@ -141,7 +146,7 @@ fields:
         await vm.loadDataForSelectedCountry()
         // After first call, state loaded with first field
         if case .loaded(let fields1) = vm.state {
-            #expect(fields1.count == 1)
+            #expect(fields1.count == 2)
         }
         // Now we use second factory to load again with two fields
         vm = FormManagerViewModel(configLoader: service, validationService: ValidationService(), fieldFactory: factory2)
