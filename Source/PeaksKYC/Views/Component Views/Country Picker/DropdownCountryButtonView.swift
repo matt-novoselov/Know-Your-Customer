@@ -9,8 +9,9 @@ import SwiftUI
 
 // MARK: DropdownCountryButtonView
 extension CountryPickerFieldView {
+
+    // Styled button that toggles the picker sheet.
     struct DropdownCountryButtonView: View {
-            // Styled button that toggles the picker sheet.
         var country: SupportedCountry
         var action: () -> Void = {}
         var isInFocus: Bool
@@ -28,4 +29,5 @@ extension CountryPickerFieldView {
             .dynamicStroke(isFocused: isInFocus)
         }
     }
+
 }

@@ -5,8 +5,8 @@
 //  Created by Matt Novoselov on 21/07/25.
 //
 
+// Validates numeric input falls within optional bounds.
 struct ValueRangeValidator: Validator {
-    // Validates numeric input falls within optional bounds.
     let minValue: Int?
     let maxValue: Int?
 

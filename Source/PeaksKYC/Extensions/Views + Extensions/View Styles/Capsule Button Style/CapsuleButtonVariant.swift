@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Color schemes used by `CapsuleButtonStyle`.
 enum CapsuleButtonVariant {
-    // Color schemes used by `CapsuleButtonStyle`.
     case normal, brand
 
     var background: Color {

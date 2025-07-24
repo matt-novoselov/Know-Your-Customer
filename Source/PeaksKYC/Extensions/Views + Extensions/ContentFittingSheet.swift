@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Fits a sheet's height to the content it presents.
 struct ContentFittingSheet<SheetContent: View>: ViewModifier {
-    // Fits a sheet's height to the content it presents.
     @Binding var isPresented: Bool
     @State private var contentHeight: CGFloat = 400
     let sheetContent: () -> SheetContent

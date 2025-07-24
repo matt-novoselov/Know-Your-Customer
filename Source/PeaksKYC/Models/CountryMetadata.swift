@@ -17,8 +17,8 @@ enum CountryDataInputStrategy {
     )
 }
 
+// Basic display info and data source for a supported country.
 struct CountryMetadata {
-    // Basic display info and data source for a supported country.
     let name: String
     let flag: Image
     let yamlFileName: String
@@ -32,8 +32,8 @@ struct CountryMetadata {
     }
 }
 
+// Convenience list of available app regions.
 enum SupportedCountry: CaseIterable {
-    // Convenience list of available app regions.
     case netherlands
     case germany
     case usa

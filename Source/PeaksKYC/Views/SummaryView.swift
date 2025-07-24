@@ -24,8 +24,8 @@ struct SummaryView: View {
         }
     }
 
+    // Displays a single label/value pair.
     private struct FieldSummary: View {
-        // Displays a single label/value pair.
         let label: String
         let value: String
 

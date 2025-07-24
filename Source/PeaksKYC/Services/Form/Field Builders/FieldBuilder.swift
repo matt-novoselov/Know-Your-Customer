@@ -1,7 +1,14 @@
+//
+//  FieldBuilder.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 21/07/25.
+//
+
 import SwiftUI
 
+// Factory interface used to create concrete form fields.
 protocol FieldBuilder {
-    // Factory interface used to create concrete form fields.
     func build(
         config: FieldConfig,
         prefilledValue: Any?,

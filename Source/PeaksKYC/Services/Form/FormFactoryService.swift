@@ -7,8 +7,8 @@
 
 import Foundation
 
+// Orchestrates loading YAML config and building field views.
 struct FormFactoryService {
-    // Orchestrates loading YAML config and building field views.
     private let configLoader: ConfigLoaderService
     private let fieldFactory: FieldFactory
 
@@ -17,6 +17,8 @@ struct FormFactoryService {
         self.fieldFactory = fieldFactory
     }
 
+    /// Constructs Field Views / ViewModels for a selected country.
+    /// Selected country is stored for checks later.
     func buildForm(for country: SupportedCountry) async throws -> LoadedForm {
         let result = try await configLoader.loadData(for: country)
         let fields = fieldFactory.makeFields(

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Initial screen showing the app branding and start buttons.
 struct WelcomeScreenView: View {
-    // Initial screen showing the app branding and start buttons.
     @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {

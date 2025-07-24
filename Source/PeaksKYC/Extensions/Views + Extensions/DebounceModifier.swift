@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Delays executing an action until the value stops changing for a moment.
 struct DebounceModifier<Value: Equatable>: ViewModifier {
-    // Delays executing an action until the value stops changing for a moment.
     let value: Value
     let delay: TimeInterval
     let action: (Value) -> Void

@@ -12,8 +12,8 @@ extension ButtonStyle where Self == CapsuleButtonStyle {
     static func capsule(_ variant: CapsuleButtonVariant) -> Self { .init(variant) }
 }
 
+// Styles buttons as pill-shaped controls with variants.
 struct CapsuleButtonStyle: ButtonStyle {
-    // Styles buttons as pill-shaped controls with variants.
     @Environment(\.isEnabled) private var isEnabled
     private let variant: CapsuleButtonVariant
 

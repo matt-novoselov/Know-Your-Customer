@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Shapes used for the dynamic stroke decoration.
 enum CornerStyle {
-    // Shapes used for the dynamic stroke decoration.
     case capsule, roundedRect
 
     var cornerRadius: CGFloat {
@@ -19,8 +19,8 @@ enum CornerStyle {
     }
 }
 
+// Draws an animated border when a view becomes focused.
 struct DynamicStroke: ViewModifier {
-    // Draws an animated border when a view becomes focused.
     let isFocused: Bool
     let isDisabled: Bool
     let style: CornerStyle

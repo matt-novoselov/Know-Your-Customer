@@ -1,3 +1,10 @@
+//
+//  TestBundleBuilder.swift
+//  Peaks KYC
+//
+//  Created by Matt Novoselov on 23/07/25.
+//
+
 import Foundation
 
 // Creates a temporary bundle containing given YAML strings.

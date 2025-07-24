@@ -7,8 +7,8 @@
 
 import Foundation
 
+// Loads KYC form configuration and any prepopulated user data.
 struct ConfigLoaderService {
-    // Loads KYC form configuration and any prepopulated user data.
     struct LoadResult {
         let config: CountryKYCConfig
         let prefilledValues: [APIUserProfile.FieldEntries]
@@ -26,6 +26,7 @@ struct ConfigLoaderService {
         self.apiRequestService = apiRequestService
     }
 
+    // Load config and prefilled values (if any) for the selected country
     func loadData(for country: SupportedCountry) async throws -> LoadResult {
         let config = try await fileDecoder.load(CountryKYCConfig.self, from: country.data.yamlFileName)
 

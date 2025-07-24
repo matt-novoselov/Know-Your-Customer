@@ -7,8 +7,8 @@
 
 import Foundation
 
+// Ensures a string matches the provided regular expression.
 struct RegexValidator: Validator {
-    // Ensures a string matches the provided regular expression.
     let pattern: String
     let errorMessage: String
 

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AnimatedMeshGradientView.swift
 //  Peaks KYC
 //
 //  Created by Matt Novoselov on 19/07/25.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// Displays an animated, colorful background mesh.
 struct AnimatedMeshGradientView: View {
-    // Displays an animated, colorful background mesh.
     // MARK: - Configuration
     private let rows: Int = 5
     private let columns: Int = 3
