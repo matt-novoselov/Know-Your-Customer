@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import Peaks_KYC
 
 @Suite("APIRequestService")
