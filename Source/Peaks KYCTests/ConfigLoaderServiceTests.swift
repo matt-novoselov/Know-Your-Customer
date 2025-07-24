@@ -24,7 +24,7 @@ struct ConfigLoaderServiceTests {
             required: true
         """
         let bundle = try makeBundle(yaml: yaml)
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
         let result = try await service.loadData(for: .netherlands)
         #expect(result.config.country == "NL")
@@ -34,10 +34,10 @@ struct ConfigLoaderServiceTests {
     @Test("throws for missing file")
     func testMissingFile() async throws {
         let bundle = try makeBundle(yaml: "", fileName: "Other.yaml")
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
 
-        await #expect(throws: YAMLConfigLoader.ServiceError.self){
+        await #expect(throws: YAMLFileDecoder.ServiceError.self){
             try await service.loadData(for: .netherlands)
         }
     }
@@ -45,10 +45,10 @@ struct ConfigLoaderServiceTests {
     @Test("throws for invalid yaml")
     func testInvalidYAML() async throws {
         let bundle = try makeBundle(yaml: "invalid: [", fileName: "NL.yaml")
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let service = ConfigLoaderService(configurationLoader: loader)
 
-        await #expect(throws: YAMLConfigLoader.ServiceError.self){
+        await #expect(throws: YAMLFileDecoder.ServiceError.self){
             try await service.loadData(for: .netherlands)
         }
     }

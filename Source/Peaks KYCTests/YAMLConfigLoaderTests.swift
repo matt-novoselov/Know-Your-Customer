@@ -20,7 +20,7 @@ struct YAMLConfigLoaderTests {
         fields: []
         """
         let bundle = try makeBundle(with: yaml)
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
         let cfg: CountryKYCConfig = try loader.load(CountryKYCConfig.self, from: "test.yaml")
         #expect(cfg.country == "US")
     }
@@ -28,9 +28,9 @@ struct YAMLConfigLoaderTests {
     @Test("file not found")
     func testFileNotFound() throws {
         let bundle = try makeBundle(with: "")
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
 
-        #expect(throws: YAMLConfigLoader.ServiceError.self){
+        #expect(throws: YAMLFileDecoder.ServiceError.self){
             try loader.load(CountryKYCConfig.self, from: "missing.yaml")
         }
     }
@@ -38,9 +38,9 @@ struct YAMLConfigLoaderTests {
     @Test("decoding failure")
     func testDecodingFailure() throws {
         let bundle = try makeBundle(with: "invalid:")
-        let loader = YAMLConfigLoader(bundle: bundle)
+        let loader = YAMLFileDecoder(bundle: bundle)
 
-        #expect(throws: YAMLConfigLoader.ServiceError.self){
+        #expect(throws: YAMLFileDecoder.ServiceError.self){
             try loader.load(CountryKYCConfig.self, from: "test.yaml")
         }
     }
