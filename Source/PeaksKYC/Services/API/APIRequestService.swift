@@ -21,6 +21,6 @@ final class APIRequestService {
 
     func fetchUserProfile(from url: String) async throws -> APIUserProfile {
         try await Task.sleep(nanoseconds: 500_000_000)
-        return try loader.load(APIUserProfile.self, from: fileName)
+        return try await loader.load(APIUserProfile.self, from: fileName)
     }
 }
