@@ -6,25 +6,21 @@
 //
 
 import SwiftUI
+import Foundation
 
-private let jsonConfig =
-"""
-{
-  "fields": [
-    { "id": "first_name",  "value": "Jan" },
-    { "id": "last_name",   "value": "Jansen" },
-    { "id": "birth_date",  "value": "1990-07-23" }
-  ]
-}
-"""
+private let mockProfileFileName = "MockUserProfile.yaml"
 
 final class APIRequestService {
+    private let loader: YAMLFileDecoder
+    private let fileName: String
+
+    init(loader: YAMLFileDecoder = .init(), fileName: String = mockProfileFileName) {
+        self.loader = loader
+        self.fileName = fileName
+    }
+
     func fetchUserProfile(from url: String) async throws -> APIUserProfile {
         try await Task.sleep(nanoseconds: 500_000_000)
-        let json = jsonConfig.data(using: .utf8)!
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
-        return try decoder.decode(APIUserProfile.self, from: json)
+        return try loader.load(APIUserProfile.self, from: fileName)
     }
 }
