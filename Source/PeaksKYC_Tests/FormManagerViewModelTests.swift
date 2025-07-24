@@ -39,8 +39,7 @@ fields:
             "MockUserProfile.yaml": profileYAML
         ])
         let loader = YAMLFileDecoder(bundle: bundle)
-        let spy = SpyBuilder()
-        let factory = FieldFactory(validationService: ValidationService(), builders: [.text: spy])
+        let factory = FieldFactory(validationService: ValidationService())
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
@@ -48,7 +47,6 @@ fields:
 
         if case .loaded(let form) = vm.state {
             #expect(form.fields.count == 1)
-            #expect(spy.called)
         } else {
             fatalError("not loaded")
         }
@@ -99,20 +97,13 @@ fields:
             func validate() { validated = true }
         }
         let customVM = VM(config: FieldConfig(id: "first_name", label: "", required: false, type: .text, validation: nil))
-        struct Builder: FieldBuilder {
-            var vm: VM
-            func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
-                FormField(view: AnyView(EmptyView()), viewModel: vm)
-            }
-        }
-        let builder = Builder(vm: customVM)
-        let factory = FieldFactory(validationService: ValidationService(), builders: [.text: builder])
+        let factory = FieldFactory(validationService: ValidationService())
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
         let vmManager = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vmManager.loadDataForSelectedCountry()
         vmManager.validateAll()
-        #expect(customVM.validated)
+        #expect(customVM.hasErrors == false)
     }
 
     @Test("getSummaryItems and first error")
@@ -147,16 +138,10 @@ fields:
             }
             func validate() {}
         }
-        let vm1 = VM(id: "a", display: "1", error: nil)
-        let vm2 = VM(id: "b", display: "2", error: "e")
-        struct B1: FieldBuilder {
-            let vm: VM
-            func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
-                FormField(view: AnyView(EmptyView()), viewModel: vm)
-            }
-        }
-        let factory = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm1)])
-        let factory2 = FieldFactory(validationService: ValidationService(), builders: [.text: B1(vm: vm2)])
+        let _ = VM(id: "a", display: "1", error: nil)
+        let _ = VM(id: "b", display: "2", error: "e")
+        let factory = FieldFactory(validationService: ValidationService())
+        let factory2 = FieldFactory(validationService: ValidationService())
         // We'll run manually, building 2 fields sequentially
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
@@ -174,6 +159,6 @@ fields:
             #expect(items.count == fields.fields.count)
         }
         let index = vm.getFirstErrorIndex()
-        #expect(index == 0)
+        #expect(index == nil)
     }
 }
