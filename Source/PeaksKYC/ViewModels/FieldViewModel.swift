@@ -18,6 +18,7 @@ protocol FieldViewModelProtocol: Observable, Identifiable {
 
 @Observable
 final class FieldViewModel<Value>: FieldViewModelProtocol {
+    // Holds the state and validation logic for a single form field.
     let config: FieldConfig
     var value: Value?
     var error: String?

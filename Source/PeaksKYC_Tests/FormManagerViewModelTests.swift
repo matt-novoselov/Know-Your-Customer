@@ -5,6 +5,7 @@ import Foundation
 
 @Suite("FormManagerViewModel")
 struct FormManagerViewModelTests {
+    // Tests the main form view model flow and validation helpers.
     private let profileYAML = """
     fields:
       - id: first_name

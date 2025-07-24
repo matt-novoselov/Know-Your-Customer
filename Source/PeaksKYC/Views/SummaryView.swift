@@ -9,6 +9,7 @@ import SwiftUI
 
 // A view to display the summary of collected user data
 struct SummaryView: View {
+    // Displays a list of all entered values for review.
     let entries: [Entry]
 
     var body: some View {
@@ -24,6 +25,7 @@ struct SummaryView: View {
     }
 
     private struct FieldSummary: View {
+        // Displays a single label/value pair.
         let label: String
         let value: String
 

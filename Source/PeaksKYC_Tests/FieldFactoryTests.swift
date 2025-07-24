@@ -4,6 +4,7 @@ import SwiftUI
 
 @Suite("FieldFactory")
 struct FieldFactoryTests {
+    // Covers logic that turns configs into field views.
 
     final class SpyBuilder: FieldBuilder {
         var capturedConfig: FieldConfig?

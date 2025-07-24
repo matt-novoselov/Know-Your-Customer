@@ -9,6 +9,7 @@ import SwiftUI
 
 @Observable
 class NavigationViewModel {
+    // Controls stack-based navigation inside the flow.
     enum NavigationRoute: Hashable { case countryList, fieldsList, summary }
     var isViewControllerPresented = false
     var navigationPath = NavigationPath()

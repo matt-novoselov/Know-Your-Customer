@@ -3,6 +3,7 @@ import Testing
 
 @Suite("ValidationService")
 struct ValidationServiceTests {
+    // Tests the field validation helper methods.
 
     private func config(required: Bool = true, validation: FieldConfig.ValidationConfig? = nil, type: FieldConfig.FieldDataType = .text) -> FieldConfig {
         FieldConfig(id: "id", label: "Label", required: required, type: type, validation: validation)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension UIApplication {
-    // Fetch the App Icon from the asset catalog
+    /// Fetches the primary app icon from the asset catalog.
     var appIcon: UIImage? {
         guard let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
               let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],

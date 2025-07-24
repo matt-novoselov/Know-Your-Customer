@@ -8,11 +8,13 @@
 import Foundation
 
 struct APIUserProfile: Decodable {
+    // Representation of a user profile returned by the API.
     let fields: [FieldEntries]
 }
 
 extension APIUserProfile {
     struct FieldEntries: Decodable, Identifiable {
+        // Individual field/value pair.
         let id: String
         let value: String
     }

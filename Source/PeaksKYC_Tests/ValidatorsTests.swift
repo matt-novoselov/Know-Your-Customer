@@ -3,6 +3,7 @@ import Testing
 
 @Suite("Validators")
 struct ValidatorsTests {
+    // Unit tests for individual validator implementations.
     @Test("LengthValidator")
     func testLength() {
         let v = LengthValidator(minLength: 2, maxLength: 4)

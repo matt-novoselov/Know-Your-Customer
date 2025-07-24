@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DateInputFieldSheet: View {
+    // Sheet used to pick and save a calendar date.
     @Environment(\.dismiss) private var dismiss
     let fieldLabel: String
     @Binding var selectedComponents: DateComponents?

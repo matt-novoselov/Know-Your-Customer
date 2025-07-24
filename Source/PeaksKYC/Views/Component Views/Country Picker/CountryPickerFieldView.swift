@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CountryPickerFieldView: View {
+    // Form field allowing the user to choose a country.
     @Binding var selectedCountry: SupportedCountry
     @State var isSheetPresented = false
 

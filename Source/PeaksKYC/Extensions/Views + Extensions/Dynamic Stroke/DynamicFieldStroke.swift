@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+    // Adds conditional styling based on field focus and validation state.
     func dynamicFieldStroke(
         isFocused: Bool,
         isDisabled: Bool = false,

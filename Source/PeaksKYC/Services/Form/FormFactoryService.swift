@@ -8,6 +8,7 @@
 import Foundation
 
 struct FormFactoryService {
+    // Orchestrates loading YAML config and building field views.
     private let configLoader: ConfigLoaderService
     private let fieldFactory: FieldFactory
 

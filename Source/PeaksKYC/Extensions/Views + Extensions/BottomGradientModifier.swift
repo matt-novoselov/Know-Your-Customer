@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GradientOverlayModifier: ViewModifier {
+    /// Overlays a fading gradient at the specified edge of a view.
     let color: Color
     let height: CGFloat
     let edge: Edge

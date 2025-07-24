@@ -6,6 +6,7 @@
 //
 
 struct RequiredFieldValidator: Validator {
+    // Checks that a value is present and not empty.
     func validate(value: Any?) throws {
         if let stringValue = value as? String, !stringValue.isEmpty {
             return

@@ -4,6 +4,7 @@ import Foundation
 
 @Suite("YAMLConfigLoader")
 struct YAMLConfigLoaderTests {
+    // Exercises the YAML file decoding helper.
 
     @Test("load success")
     func testLoad() async throws {

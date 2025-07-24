@@ -1,5 +1,6 @@
 import Foundation
 
+// Creates a temporary bundle containing given YAML strings.
 func makeTemporaryBundle(yamlFiles: [String: String]) throws -> Bundle {
     let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)

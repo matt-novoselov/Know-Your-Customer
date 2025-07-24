@@ -11,6 +11,7 @@ import Foundation
 private let mockProfileFileName = "MockUserProfile.yaml"
 
 final class APIRequestService {
+    // Simulates fetching user profile data from a remote endpoint.
     private let loader: YAMLFileDecoder
     private let fileName: String
 

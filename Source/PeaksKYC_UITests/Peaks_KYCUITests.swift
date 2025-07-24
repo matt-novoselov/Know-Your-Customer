@@ -8,6 +8,7 @@
 import XCTest
 
 final class Peaks_KYCUITests: XCTestCase {
+    // UI tests covering the main onboarding flow.
     var app: XCUIApplication!
 
     override func setUpWithError() throws {

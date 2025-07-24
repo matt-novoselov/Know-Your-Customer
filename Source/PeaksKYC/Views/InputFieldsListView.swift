@@ -22,6 +22,7 @@ private extension View {
 }
 
 struct InputFieldsListView: View {
+    // Shows form fields for the selected country and handles validation.
     @Environment(FormViewModel.self) private var formManagerViewModel
 
     var body: some View {
@@ -60,6 +61,7 @@ struct InputFieldsListView: View {
 }
 
 private struct ListView: View {
+    // Presents all form fields and continue button inside a scroll view.
     @Environment(FormViewModel.self) private var formManagerViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
     @Environment(AccessibilityViewModel.self) private var accessibilityViewModel

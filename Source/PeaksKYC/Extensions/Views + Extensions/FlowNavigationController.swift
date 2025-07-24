@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FlowNavigationController: View {
+    // Hosts the main navigation stack for the onboarding flow.
     @Environment(NavigationViewModel.self) private var navigationViewModel
 
     var body: some View {
@@ -21,6 +22,7 @@ struct FlowNavigationController: View {
 }
 
 struct FlowNavigationModifier: ViewModifier {
+    // Injects navigation destinations into views.
     @Environment(FormViewModel.self) private var formManagerViewModel
 
     func body(content: Content) -> some View {

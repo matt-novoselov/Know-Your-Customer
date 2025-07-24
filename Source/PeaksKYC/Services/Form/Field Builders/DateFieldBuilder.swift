@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DateFieldBuilder: FieldBuilder {
+    // Builds a date input field with ISO8601 parsing.
     private static let isoFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]

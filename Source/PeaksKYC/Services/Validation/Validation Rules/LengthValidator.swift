@@ -6,6 +6,7 @@
 //
 
 struct LengthValidator: Validator {
+    // Validates a string's length against optional bounds.
     let minLength: Int?
     let maxLength: Int?
 

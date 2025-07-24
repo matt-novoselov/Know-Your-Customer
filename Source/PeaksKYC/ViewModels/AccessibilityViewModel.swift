@@ -9,6 +9,7 @@ import SwiftUI
 
 @Observable
 class AccessibilityViewModel {
+    // Posts voice over announcements for accessibility users.
     func announce(_ message: String) {
         var announcement = AttributedString(message)
         announcement.accessibilitySpeechAnnouncementPriority = .high

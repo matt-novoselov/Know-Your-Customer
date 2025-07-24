@@ -4,6 +4,7 @@ import Foundation
 
 @Suite("APIRequestService")
 struct APIRequestServiceTests {
+    // Tests loading of mocked API profile data.
     private let profileYAML = """
     fields:
       - id: first_name

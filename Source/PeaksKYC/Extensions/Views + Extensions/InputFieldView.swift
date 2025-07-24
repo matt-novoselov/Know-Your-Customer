@@ -8,6 +8,7 @@
 import SwiftUI
 
 protocol InputFieldView: View {
+    // Common interface for all input field components.
     associatedtype InputField: View
     associatedtype Value
     var viewModel: FieldViewModel<Value> { get }
@@ -15,6 +16,7 @@ protocol InputFieldView: View {
 }
 
 extension InputFieldView where Self: View {
+    // Provides shared layout for field label, input and error.
     var body: some View {
         let labelText: Text = {
             var text = Text(viewModel.config.label)
