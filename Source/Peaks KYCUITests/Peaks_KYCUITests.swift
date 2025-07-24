@@ -8,34 +8,82 @@
 import XCTest
 
 final class Peaks_KYCUITests: XCTestCase {
+    var app: XCUIApplication!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        app = nil
     }
 
+    /// Verifies that the welcome screen renders its primary actions.
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testWelcomeScreenButtonsExist() throws {
+        XCTAssertTrue(app.buttons["I am new to Peaks"].exists)
+        XCTAssertTrue(app.buttons["Login"].exists)
     }
 
+    /// Ensures the login button is currently disabled as the feature
+    /// is not implemented yet.
     @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
-        }
+    func testLoginButtonDisabled() throws {
+        let loginButton = app.buttons["Login"]
+        XCTAssertTrue(loginButton.exists)
+        XCTAssertFalse(loginButton.isEnabled)
+    }
+
+    /// Runs through the default onboarding flow using the preloaded Netherlands configuration.
+    @MainActor
+    func testCompleteKYCFlow() throws {
+        // Welcome screen -> tap start button
+        let newUserButton = app.buttons["I am new to Peaks"]
+        XCTAssertTrue(newUserButton.waitForExistence(timeout: 2))
+        newUserButton.tap()
+
+        // Country selection
+        XCTAssertTrue(app.staticTexts["Choose your country"].waitForExistence(timeout: 2))
+        app.buttons["Continue"].tap()
+
+        // Personal details list
+        XCTAssertTrue(app.staticTexts["Personal Details"].waitForExistence(timeout: 2))
+
+        // Fill BSN field which is not pre-populated
+        let bsnField = app.textFields["BSN"]
+        XCTAssertTrue(bsnField.waitForExistence(timeout: 5))
+        bsnField.tap()
+        bsnField.typeText("123456789")
+
+        // Proceed to summary
+        app.buttons["Continue"].tap()
+
+        // Summary screen
+        XCTAssertTrue(app.staticTexts["Collected Data"].waitForExistence(timeout: 2))
+    }
+
+    /// Enters an invalid BSN value and verifies that the validation
+    /// message is displayed.
+    @MainActor
+    func testInvalidBSNShowsError() throws {
+        let newUserButton = app.buttons["I am new to Peaks"]
+        XCTAssertTrue(newUserButton.waitForExistence(timeout: 2))
+        newUserButton.tap()
+
+        XCTAssertTrue(app.staticTexts["Choose your country"].waitForExistence(timeout: 2))
+        app.buttons["Continue"].tap()
+
+        XCTAssertTrue(app.staticTexts["Personal Details"].waitForExistence(timeout: 2))
+
+        let bsnField = app.textFields["BSN"]
+        XCTAssertTrue(bsnField.waitForExistence(timeout: 5))
+        bsnField.tap()
+        bsnField.typeText("123")
+
+        app.buttons["Continue"].tap()
+
+        XCTAssertTrue(app.staticTexts["BSN must be 9 digits"].waitForExistence(timeout: 1))
     }
 }
