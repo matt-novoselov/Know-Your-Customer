@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-  var yearMonthDay: DateComponents {
-    Calendar.current.dateComponents([.year, .month, .day], from: self)
-  }
+    var yearMonthDay: DateComponents {
+        Calendar.current.dateComponents([.year, .month, .day], from: self)
+    }
 }

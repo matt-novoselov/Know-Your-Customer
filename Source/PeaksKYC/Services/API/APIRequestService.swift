@@ -14,8 +14,8 @@ final class APIRequestService {
     private let loader: YAMLFileDecoder
     private let fileName: String
 
-    init(loader: YAMLFileDecoder = .init(), fileName: String = mockProfileFileName) {
-        self.loader = loader
+    init(fileDecoder: YAMLFileDecoder = .init(), fileName: String = mockProfileFileName) {
+        self.loader = fileDecoder
         self.fileName = fileName
     }
 

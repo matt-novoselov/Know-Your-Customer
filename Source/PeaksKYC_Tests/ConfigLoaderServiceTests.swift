@@ -29,9 +29,9 @@ struct ConfigLoaderServiceTests {
             "NL.yaml": yaml,
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
         let result = try await service.loadData(for: .netherlands)
         #expect(result.config.country == "NL")
         #expect(result.prefilledValues.count == 3)
@@ -43,9 +43,9 @@ struct ConfigLoaderServiceTests {
             "Other.yaml": "",
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
 
         await #expect(throws: YAMLFileDecoder.ServiceError.self){
             try await service.loadData(for: .netherlands)
@@ -58,9 +58,9 @@ struct ConfigLoaderServiceTests {
             "NL.yaml": "invalid: [",
             "MockUserProfile.yaml": profileYAML
         ])
-        let loader = YAMLFileDecoder(bundle: bundle)
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
 
         await #expect(throws: YAMLFileDecoder.ServiceError.self){
             try await service.loadData(for: .netherlands)
@@ -75,9 +75,9 @@ struct ConfigLoaderServiceTests {
         """
         // Intentionally omit MockUserProfile.yaml to trigger API failure
         let bundle = try makeTemporaryBundle(yamlFiles: ["NL.yaml": yaml])
-        let loader = YAMLFileDecoder(bundle: bundle)
-        let apiService = APIRequestService(loader: loader)
-        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+        let fileDecoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: fileDecoder)
+        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
 
         await #expect(throws: ConfigLoaderService.ServiceError.self) {
             try await service.loadData(for: .netherlands)
