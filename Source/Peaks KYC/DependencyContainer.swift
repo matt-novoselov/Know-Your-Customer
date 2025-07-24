@@ -11,6 +11,7 @@ import Foundation
 final class DependencyContainer {
     let formManagerViewModel: FormManagerViewModel
     let navigationViewModel: NavigationViewModel
+    let accessibilityViewModel: AccessibilityViewModel
 
     init() {
         let validationService = ValidationService()
@@ -23,5 +24,6 @@ final class DependencyContainer {
             fieldFactory: fieldFactory
         )
         self.navigationViewModel = NavigationViewModel()
+        self.accessibilityViewModel = AccessibilityViewModel()
     }
 }
