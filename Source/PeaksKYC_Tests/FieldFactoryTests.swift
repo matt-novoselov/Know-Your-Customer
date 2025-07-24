@@ -9,7 +9,7 @@ import Testing
 @testable import PeaksKYC
 import SwiftUI
 
-@Suite("FieldFactory")
+@Suite("Field Factory")
 struct FieldFactoryTests {
     // Covers logic that turns configs into field views.
 
@@ -19,8 +19,8 @@ struct FieldFactoryTests {
         func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
             capturedConfig = config
             capturedValue = prefilledValue
-            let vm = DummyFieldVM(config: config)
-            return FormField(view: AnyView(EmptyView()), viewModel: vm)
+            let viewModel = DummyFieldVM(config: config)
+            return FormField(view: AnyView(EmptyView()), viewModel: viewModel)
         }
     }
 
@@ -34,7 +34,7 @@ struct FieldFactoryTests {
         func validate() {}
     }
 
-    @Test("uses correct builder and passes value")
+    @Test("Uses Correct Builder and Passes Vales")
     func testMakeFields() {
         let config = FieldConfig(id: "id", label: "Label", required: false, type: .text, validation: nil)
         let factory = FieldFactory(validationService: ValidationService())

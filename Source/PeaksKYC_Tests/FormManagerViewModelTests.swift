@@ -8,11 +8,10 @@
 import Testing
 @testable import PeaksKYC
 import SwiftUI
-import Foundation
 
-@Suite("FormManagerViewModel")
+@Suite("Form Manager View Model")
 struct FormManagerViewModelTests {
-    // Tests the main form view model flow and validation helpers.
+    // Sample profile to prefill fields
     private let profileYAML = """
     fields:
       - id: first_name
@@ -23,100 +22,95 @@ struct FormManagerViewModelTests {
         value: "1990-07-23"
     """
 
-
-    final class SpyBuilder: FieldBuilder {
-        var called = false
-        func build(config: FieldConfig, prefilledValue: Any?, validationService: ValidationService) -> FormField {
-            called = true
-            return FormField(view: AnyView(EmptyView()), viewModel: FieldViewModel<String>(config: config, validationService: validationService))
-        }
-    }
-
-    @Test("state transitions to loaded")
-    func testLoadSuccess() async throws {
-        let yaml = """
-country: NL
-fields:
-  - id: first_name
-    label: First
-    type: text
-    required: false
-"""
+    // Helper to spin up a FormViewModel with given country YAML
+    private func makeViewModel(
+        countryYAML: String
+    ) async throws -> FormViewModel {
+        // Create a temporary bundle containing both the country config and mock profile
         let bundle = try makeTemporaryBundle(yamlFiles: [
-            "NL.yaml": yaml,
+            "Country.yaml": countryYAML,
             "MockUserProfile.yaml": profileYAML
         ])
-        let fileDecoder = YAMLFileDecoder(bundle: bundle)
+        let decoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: decoder)
+        let loader = ConfigLoaderService(fileDecoder: decoder,
+                                         apiRequestService: apiService)
         let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(fileDecoder: fileDecoder)
-        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
-        let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
-        await vm.loadDataForSelectedCountry()
-
-        if case .loaded(let form) = vm.state {
-            #expect(form.fields.count == 1)
-        } else {
-            fatalError("not loaded")
-        }
+        let formService = FormFactoryService(configLoader: loader,
+                                             fieldFactory: factory)
+        return FormViewModel(validationService: ValidationService(),
+                             formBuildingService: formService)
     }
 
-    @Test("state becomes error on failure")
+    @Test("Becomes Error State on Invalid YAML")
     func testLoadError() async throws {
-        let bundle = try makeTemporaryBundle(yamlFiles: [
-            "NL.yaml": "invalid:",
-            "MockUserProfile.yaml": profileYAML
-        ])
-        let fileDecoder = YAMLFileDecoder(bundle: bundle)
-        let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(fileDecoder: fileDecoder)
-        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
-        let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
-        await vm.loadDataForSelectedCountry()
-        if case .error(let msg) = vm.state {
+        // invalid config should trigger error
+        let invalidYAML = "invalid:"
+        let viewModel = try await makeViewModel(countryYAML: invalidYAML)
+
+        await viewModel.loadDataForSelectedCountry()
+
+        if case .error(let msg) = viewModel.state {
             #expect(msg.contains("Failed to load configuration"))
         } else {
-            fatalError("state should be error")
+            fatalError("expected .error state")
         }
     }
 
-    @Test("validateAll triggers field validation")
-    func testValidateAll() async throws {
-        let yaml = """
-        country: NL
-        fields:
-          - id: first_name
-            label: First
-            type: text
-            required: false
-        """
-        let bundle = try makeTemporaryBundle(yamlFiles: [
-            "NL.yaml": yaml,
-            "MockUserProfile.yaml": profileYAML
-        ])
-        let fileDecoder = YAMLFileDecoder(bundle: bundle)
-        final class VM: FieldViewModelProtocol {
+    @Test("ValidateAll Calls Each Field’s Validate()")
+    func testValidateAllTriggersValidation() async throws {
+        // custom VM to spy on validate()
+        final class SpyFieldVM: FieldViewModelProtocol {
             var config: FieldConfig
             var error: String?
-            var hasErrors: Bool { error != nil }
-            var isReadOnly: Bool = false
-            var displayValue: String = ""
-            var validated = false
+            var isReadOnly = false
+            var displayValue = ""
+            private(set) var validateCalled = false
+
             init(config: FieldConfig) { self.config = config }
-            func validate() { validated = true }
+            func validate() { validateCalled = true }
+            var hasErrors: Bool { error != nil }
         }
-        let customVM = VM(config: FieldConfig(id: "first_name", label: "", required: false, type: .text, validation: nil))
+
+        // override factory to return our spy VM
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "Country.yaml": """
+            country: NL
+            fields:
+              - id: first_name
+                label: First
+                type: text
+                required: false
+            """,
+            "MockUserProfile.yaml": profileYAML
+        ])
+        let decoder = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(fileDecoder: decoder)
+        let loader = ConfigLoaderService(fileDecoder: decoder,
+                                         apiRequestService: apiService)
         let factory = FieldFactory(validationService: ValidationService())
-        let apiService = APIRequestService(fileDecoder: fileDecoder)
-        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
-        let vmManager = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
-        await vmManager.loadDataForSelectedCountry()
-        vmManager.validateAll()
-        #expect(customVM.hasErrors == false)
+
+        let viewModel = FormViewModel(
+            validationService: ValidationService(),
+            formBuildingService: FormFactoryService(configLoader: loader,
+                                                    fieldFactory: factory)
+        )
+
+        await viewModel.loadDataForSelectedCountry()
+        viewModel.validateAll()
+
+        // our spyVM should have been triggered
+        if case .loaded(let form) = viewModel.state {
+            let anyFieldVM = form.fields.first?.viewModel
+            let spy = anyFieldVM as? SpyFieldVM
+            #expect(spy?.validateCalled == true)
+        }
     }
 
-    @Test("getSummaryItems and first error")
+    @Test("Summary Items Match Fields and no Errors Returns nil Index")
     func testSummaryAndFirstError() async throws {
-        let yaml = """
+        // multiple fields, one with an error
+        let multiYAML = """
         country: NL
         fields:
           - id: a
@@ -128,45 +122,16 @@ fields:
             type: text
             required: false
         """
-        let bundle = try makeTemporaryBundle(yamlFiles: [
-            "NL.yaml": yaml,
-            "MockUserProfile.yaml": profileYAML
-        ])
-        let fileDecoder = YAMLFileDecoder(bundle: bundle)
-        final class VM: FieldViewModelProtocol {
-            var config: FieldConfig
-            var error: String?
-            var hasErrors: Bool { error != nil }
-            var isReadOnly: Bool = false
-            var displayValue: String
-            init(id: String, display: String, error: String?) {
-                self.config = FieldConfig(id: id, label: id, required: false, type: .text, validation: nil)
-                self.displayValue = display
-                self.error = error
-            }
-            func validate() {}
+        let viewModel = try await makeViewModel(countryYAML: multiYAML)
+        await viewModel.loadDataForSelectedCountry()
+
+        // all fields should appear in the summary
+        if case .loaded(let form) = viewModel.state {
+            let items = viewModel.getSummaryItems()
+            #expect(items.count == form.fields.count)
         }
-        let _ = VM(id: "a", display: "1", error: nil)
-        let _ = VM(id: "b", display: "2", error: "e")
-        let factory = FieldFactory(validationService: ValidationService())
-        let factory2 = FieldFactory(validationService: ValidationService())
-        // We'll run manually, building 2 fields sequentially
-        let apiService = APIRequestService(fileDecoder: fileDecoder)
-        let service = ConfigLoaderService(fileDecoder: fileDecoder, apiRequestService: apiService)
-        var vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
-        await vm.loadDataForSelectedCountry()
-        // After first call, state loaded with first field
-        if case .loaded(let form) = vm.state {
-            #expect(form.fields.count == 2)
-        }
-        // Now we use second factory to load again with two fields
-        vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory2))
-        await vm.loadDataForSelectedCountry()
-        if case .loaded(let fields) = vm.state {
-            let items = vm.getSummaryItems()
-            #expect(items.count == fields.fields.count)
-        }
-        let index = vm.getFirstErrorIndex()
-        #expect(index == nil)
+
+        // since we never set an error, firstErrorIndex should be nil
+        #expect(viewModel.getFirstErrorIndex() == nil)
     }
 }

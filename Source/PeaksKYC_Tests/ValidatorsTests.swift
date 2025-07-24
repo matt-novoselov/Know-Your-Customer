@@ -11,62 +11,62 @@ import Testing
 @Suite("Validators")
 struct ValidatorsTests {
     // Unit tests for individual validator implementations.
-    @Test("LengthValidator")
+    @Test("Length Validator")
     func testLength() {
-        let v = LengthValidator(minLength: 2, maxLength: 4)
+        let validator = LengthValidator(minLength: 2, maxLength: 4)
         #expect(throws: Never.self) {
-          try v.validate(value: "aa")
+          try validator.validate(value: "aa")
         }
 
         #expect(throws: ValidationError.self) {
-            try v.validate(value: "a")
+            try validator.validate(value: "a")
         }
 
         #expect(throws: ValidationError.self) {
-          try v.validate(value: "aaaaa")
+          try validator.validate(value: "aaaaa")
         }
     }
 
-    @Test("RegexValidator")
+    @Test("Regex Validator")
     func testRegex() {
-        let v = RegexValidator(pattern: "^[0-9]+$", errorMessage: "num")
+        let validator = RegexValidator(pattern: "^[0-9]+$", errorMessage: "num")
 
         #expect(throws: Never.self) {
-            try v.validate(value: "123")
+            try validator.validate(value: "123")
         }
 
         #expect(throws: ValidationError.self) {
-            try v.validate(value: "abc")
+            try validator.validate(value: "abc")
         }
     }
 
-    @Test("RequiredFieldValidator")
+    @Test("Required Field Validator")
     func testRequired() {
-        let v = RequiredFieldValidator()
+        let validator = RequiredFieldValidator()
 
         #expect(throws: ValidationError.self) {
-            try v.validate(value: "")
+            try validator.validate(value: "")
         }
 
         #expect(throws: Never.self) {
-            try v.validate(value: "a")
+            try validator.validate(value: "a")
         }
     }
 
-    @Test("ValueRangeValidator")
+    @Test("Value Range Validator")
     func testRange() {
-        let v = ValueRangeValidator(minValue: 1, maxValue: 3)
+        let validator = ValueRangeValidator(minValue: 1, maxValue: 3)
 
         #expect(throws: Never.self) {
-            try v.validate(value: "2")
+            try validator.validate(value: "2")
         }
 
         #expect(throws: ValidationError.self) {
-            try v.validate(value: "0")
+            try validator.validate(value: "0")
         }
 
         #expect(throws: ValidationError.self) {
-            try v.validate(value: "5")
+            try validator.validate(value: "5")
         }
     }
 }

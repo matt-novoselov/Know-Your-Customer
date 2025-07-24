@@ -9,7 +9,7 @@ import Testing
 import Foundation
 @testable import PeaksKYC
 
-@Suite("FieldViewModel")
+@Suite("Field View Model")
 struct FieldViewModelTests {
     // Unit tests for the FieldViewModel behaviour.
 
@@ -23,45 +23,56 @@ struct FieldViewModelTests {
         )
     }
 
-    @Test("isReadOnly when value provided")
+    @Test("Is ReadOnly When Value Provided")
     func testIsReadOnly() {
         let config = makeConfig()
         let service = ValidationService()
-        let vm = FieldViewModel<String>(config: config, preFilledValue: "A", validationService: service)
-        #expect(vm.isReadOnly == true)
+        let viewModel = FieldViewModel<String>(config: config, preFilledValue: "A", validationService: service)
+        #expect(viewModel.isReadOnly == true)
     }
 
-    @Test("displayValue for string and nil")
+    @Test("Display Value For String And Nil")
     func testDisplayValueString() {
         let config = makeConfig()
         let service = ValidationService()
-        let vm = FieldViewModel<String>(config: config, validationService: service)
-        #expect(vm.displayValue == "N/A")
-        vm.value = "John"
-        #expect(vm.displayValue == "John")
+        let viewModel = FieldViewModel<String>(config: config, validationService: service)
+        #expect(viewModel.displayValue == "N/A")
+        viewModel.value = "John"
+        #expect(viewModel.displayValue == "John")
     }
 
-    @Test("displayValue for date components")
+    @Test("Display Value For Date Components")
     func testDisplayValueDate() {
         let config = makeConfig(type: .date)
         let service = ValidationService()
         let comps = DateComponents(year: 2024, month: 7, day: 25)
-        let vm = FieldViewModel<DateComponents>(config: config, preFilledValue: comps, validationService: service)
+        let viewModel = FieldViewModel<DateComponents>(
+            config: config,
+            preFilledValue: comps,
+            validationService: service
+        )
         let expected = DateFormatterHolder.medium.string(from: Calendar.current.date(from: comps)!)
-        #expect(vm.displayValue == expected)
+        #expect(viewModel.displayValue == expected)
     }
 
-    @Test("validate sets error")
+    @Test("Validate Sets Error")
     func testValidate() {
-        let validation = FieldConfig.ValidationConfig(regex: "^[A-Z]+$", message: "Only capital letters", minLength: nil, maxLength: nil, minValue: nil, maxValue: nil)
+        let validation = FieldConfig.ValidationConfig(
+            regex: "^[A-Z]+$",
+            message: "Only capital letters",
+            minLength: nil,
+            maxLength: nil,
+            minValue: nil,
+            maxValue: nil
+        )
         let config = FieldConfig(id: "id", label: "Label", required: true, type: .text, validation: validation)
         let service = ValidationService()
-        let vm = FieldViewModel<String>(config: config, validationService: service)
-        vm.value = "abc"
-        vm.validate()
-        #expect(vm.error == "Only capital letters")
-        vm.value = "ABC"
-        vm.validate()
-        #expect(vm.error == nil)
+        let viewModel = FieldViewModel<String>(config: config, validationService: service)
+        viewModel.value = "abc"
+        viewModel.validate()
+        #expect(viewModel.error == "Only capital letters")
+        viewModel.value = "ABC"
+        viewModel.validate()
+        #expect(viewModel.error == nil)
     }
 }

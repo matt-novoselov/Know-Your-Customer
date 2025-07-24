@@ -9,7 +9,7 @@ import Testing
 @testable import PeaksKYC
 import Foundation
 
-@Suite("ConfigLoaderService")
+@Suite("Config Loader Service")
 struct ConfigLoaderServiceTests {
     // Ensures YAML config and prepopulated data are loaded correctly.
     private let profileYAML = """
@@ -22,8 +22,7 @@ struct ConfigLoaderServiceTests {
         value: "1990-07-23"
     """
 
-
-    @Test("loadData happy path")
+    @Test("Load Data Happy Path")
     func testLoadSuccess() async throws {
         let yaml = """
         country: NL
@@ -45,7 +44,7 @@ struct ConfigLoaderServiceTests {
         #expect(result.prefilledValues.count == 3)
     }
 
-    @Test("throws for missing file")
+    @Test("Throws For Missing File")
     func testMissingFile() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: [
             "Other.yaml": "",
@@ -60,7 +59,7 @@ struct ConfigLoaderServiceTests {
         }
     }
 
-    @Test("throws for invalid yaml")
+    @Test("Throws for Invalid YAML")
     func testInvalidYAML() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: [
             "NL.yaml": "invalid: [",
@@ -75,7 +74,7 @@ struct ConfigLoaderServiceTests {
         }
     }
 
-    @Test("surfaces api fetch failure")
+    @Test("Surfaces API Fetch Failure")
     func testAPIFetchFailure() async throws {
         let yaml = """
         country: NL

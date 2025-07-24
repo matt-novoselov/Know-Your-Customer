@@ -9,11 +9,11 @@ import Testing
 @testable import PeaksKYC
 import Foundation
 
-@Suite("YAMLConfigLoader")
+@Suite("YAML Config Loader")
 struct YAMLConfigLoaderTests {
     // Exercises the YAML file decoding helper.
 
-    @Test("load success")
+    @Test("Load Success")
     func testLoad() async throws {
         let yaml = """
         country: US
@@ -25,7 +25,7 @@ struct YAMLConfigLoaderTests {
         #expect(cfg.country == "US")
     }
 
-    @Test("file not found")
+    @Test("File Not Found")
     func testFileNotFound() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: ["test.yaml": ""])
         let loader = YAMLFileDecoder(bundle: bundle)
@@ -35,7 +35,7 @@ struct YAMLConfigLoaderTests {
         }
     }
 
-    @Test("decoding failure")
+    @Test("Decoding Failure")
     func testDecodingFailure() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: ["test.yaml": "invalid:"])
         let loader = YAMLFileDecoder(bundle: bundle)

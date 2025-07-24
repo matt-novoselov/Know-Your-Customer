@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class Peaks_KYCUITests: XCTestCase {
+final class PeaksKYCUITests: XCTestCase {
     // UI tests covering the main onboarding flow.
     var app: XCUIApplication!
 
@@ -47,6 +47,7 @@ final class Peaks_KYCUITests: XCTestCase {
 
         // Summary screen
         XCTAssertTrue(app.staticTexts["Collected Data"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["123456789"].waitForExistence(timeout: 2))
     }
 
     /// Enters an invalid BSN value and verifies that the validation

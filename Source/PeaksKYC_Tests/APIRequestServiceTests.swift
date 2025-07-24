@@ -22,8 +22,7 @@ struct APIRequestServiceTests {
         value: "1990-07-23"
     """
 
-
-    @Test("decodes mock yaml")
+    @Test("Decodes Mock YAML")
     func testFetch() async throws {
         let bundle = try makeTemporaryBundle(yamlFiles: ["MockUserProfile.yaml": profileYAML])
         let loader = YAMLFileDecoder(bundle: bundle)

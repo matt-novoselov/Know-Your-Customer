@@ -13,13 +13,13 @@ import Foundation
 struct ExtensionsTests {
     // Tests helper extensions for date handling.
 
-    @Test("yearMonthDay components")
+    @Test("Year Month Day Components")
     func testYearMonthDay() {
         let comps = Date(timeIntervalSince1970: 0).yearMonthDay
         #expect(comps.year == 1970 && comps.month == 1 && comps.day == 1)
     }
 
-    @Test("DateFormatter string from components")
+    @Test("DateFormatter String From Components")
     func testFormatter() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
