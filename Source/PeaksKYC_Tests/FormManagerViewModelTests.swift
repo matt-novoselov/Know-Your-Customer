@@ -15,15 +15,6 @@ struct FormManagerViewModelTests {
         value: "1990-07-23"
     """
 
-    private func makeBundle(yaml: String) throws -> Bundle {
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        let plist = dir.appendingPathComponent("Info.plist")
-        try Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict></dict></plist>".utf8).write(to: plist)
-        try Data(yaml.utf8).write(to: dir.appendingPathComponent("NL.yaml"))
-        try Data(profileYAML.utf8).write(to: dir.appendingPathComponent("MockUserProfile.yaml"))
-        return Bundle(url: dir)!
-    }
 
     final class SpyBuilder: FieldBuilder {
         var called = false
@@ -43,7 +34,10 @@ fields:
     type: text
     required: false
 """
-        let bundle = try makeBundle(yaml: yaml)
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": yaml,
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         let spy = SpyBuilder()
         let factory = FieldFactory(validationService: ValidationService(), builders: [.text: spy])
@@ -62,7 +56,10 @@ fields:
 
     @Test("state becomes error on failure")
     func testLoadError() async throws {
-        let bundle = try makeBundle(yaml: "invalid:")
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": "invalid:",
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         let factory = FieldFactory(validationService: ValidationService())
         let apiService = APIRequestService(loader: loader)
@@ -86,7 +83,10 @@ fields:
             type: text
             required: false
         """
-        let bundle = try makeBundle(yaml: yaml)
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": yaml,
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig
@@ -129,7 +129,10 @@ fields:
             type: text
             required: false
         """
-        let bundle = try makeBundle(yaml: yaml)
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": yaml,
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         final class VM: FieldViewModelProtocol {
             var config: FieldConfig

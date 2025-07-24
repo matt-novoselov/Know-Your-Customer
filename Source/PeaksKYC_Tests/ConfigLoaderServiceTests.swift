@@ -14,15 +14,6 @@ struct ConfigLoaderServiceTests {
         value: "1990-07-23"
     """
 
-    private func makeBundle(yaml: String, fileName: String = "NL.yaml") throws -> Bundle {
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        let plist = dir.appendingPathComponent("Info.plist")
-        try Data("<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict></dict></plist>".utf8).write(to: plist)
-        try Data(yaml.utf8).write(to: dir.appendingPathComponent(fileName))
-        try Data(profileYAML.utf8).write(to: dir.appendingPathComponent("MockUserProfile.yaml"))
-        return Bundle(url: dir)!
-    }
 
     @Test("loadData happy path")
     func testLoadSuccess() async throws {
@@ -34,7 +25,10 @@ struct ConfigLoaderServiceTests {
             type: text
             required: true
         """
-        let bundle = try makeBundle(yaml: yaml)
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": yaml,
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
@@ -45,7 +39,10 @@ struct ConfigLoaderServiceTests {
 
     @Test("throws for missing file")
     func testMissingFile() async throws {
-        let bundle = try makeBundle(yaml: "", fileName: "Other.yaml")
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "Other.yaml": "",
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
@@ -57,7 +54,10 @@ struct ConfigLoaderServiceTests {
 
     @Test("throws for invalid yaml")
     func testInvalidYAML() async throws {
-        let bundle = try makeBundle(yaml: "invalid: [", fileName: "NL.yaml")
+        let bundle = try makeTemporaryBundle(yamlFiles: [
+            "NL.yaml": "invalid: [",
+            "MockUserProfile.yaml": profileYAML
+        ])
         let loader = YAMLFileDecoder(bundle: bundle)
         let apiService = APIRequestService(loader: loader)
         let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
