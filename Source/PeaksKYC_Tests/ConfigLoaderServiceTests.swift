@@ -66,4 +66,21 @@ struct ConfigLoaderServiceTests {
             try await service.loadData(for: .netherlands)
         }
     }
+
+    @Test("surfaces api fetch failure")
+    func testAPIFetchFailure() async throws {
+        let yaml = """
+        country: NL
+        fields: []
+        """
+        // Intentionally omit MockUserProfile.yaml to trigger API failure
+        let bundle = try makeTemporaryBundle(yamlFiles: ["NL.yaml": yaml])
+        let loader = YAMLFileDecoder(bundle: bundle)
+        let apiService = APIRequestService(loader: loader)
+        let service = ConfigLoaderService(configurationLoader: loader, apiRequestService: apiService)
+
+        await #expect(throws: ConfigLoaderService.ServiceError.self) {
+            try await service.loadData(for: .netherlands)
+        }
+    }
 }
