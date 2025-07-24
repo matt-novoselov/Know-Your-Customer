@@ -1,5 +1,5 @@
 import Testing
-@testable import Peaks_KYC
+@testable import PeaksKYC
 import SwiftUI
 import Foundation
 
@@ -52,8 +52,8 @@ fields:
         let vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vm.loadDataForSelectedCountry()
 
-        if case .loaded(let fields) = vm.state {
-            #expect(fields.count == 1)
+        if case .loaded(let form) = vm.state {
+            #expect(form.fields.count == 1)
             #expect(spy.called)
         } else {
             fatalError("not loaded")
@@ -160,15 +160,15 @@ fields:
         var vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory))
         await vm.loadDataForSelectedCountry()
         // After first call, state loaded with first field
-        if case .loaded(let fields1) = vm.state {
-            #expect(fields1.count == 2)
+        if case .loaded(let form) = vm.state {
+            #expect(form.fields.count == 2)
         }
         // Now we use second factory to load again with two fields
         vm = FormViewModel(validationService: ValidationService(), formBuildingService: FormFactoryService(configLoader: service, fieldFactory: factory2))
         await vm.loadDataForSelectedCountry()
         if case .loaded(let fields) = vm.state {
             let items = vm.getSummaryItems()
-            #expect(items.count == fields.count)
+            #expect(items.count == fields.fields.count)
         }
         let index = vm.getFirstErrorIndex()
         #expect(index == 0)

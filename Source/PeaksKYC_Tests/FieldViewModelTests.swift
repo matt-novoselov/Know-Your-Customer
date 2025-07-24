@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import Peaks_KYC
+@testable import PeaksKYC
 
 @Suite("FieldViewModel")
 struct FieldViewModelTests {
