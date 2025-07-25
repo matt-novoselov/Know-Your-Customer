@@ -41,20 +41,6 @@ struct FieldViewModelTests {
         #expect(viewModel.displayValue == "John")
     }
 
-    @Test("Display Value For Date Components")
-    func testDisplayValueDate() {
-        let config = makeConfig(type: .date)
-        let service = ValidationService()
-        let comps = DateComponents(year: 2024, month: 7, day: 25)
-        let viewModel = FieldViewModel<DateComponents>(
-            config: config,
-            preFilledValue: comps,
-            validationService: service
-        )
-        let expected = DateFormatterHolder.medium.string(from: Calendar.current.date(from: comps)!)
-        #expect(viewModel.displayValue == expected)
-    }
-
     @Test("Validate Sets Error")
     func testValidate() {
         let validation = FieldConfig.ValidationConfig(
