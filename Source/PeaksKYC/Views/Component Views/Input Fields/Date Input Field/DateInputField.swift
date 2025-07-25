@@ -9,14 +9,15 @@ import SwiftUI
 
 // Wraps a button opening a date picker sheet.
 struct DateInputField: InputFieldView {
-    @Environment(FieldViewModel<DateComponents>.self) var viewModel
+    @Environment(FieldViewModel<Date>.self) var viewModel
     @State private var isFocused = false
 
     func inputFieldView() -> some View {
         @Bindable var viewModel = viewModel
 
         let textLabel: String = {
-            if let formatted = DateFormatterHolder.medium.string(from: viewModel.value) {
+            if let date = viewModel.value {
+                let formatted = DateFormatterHolder.medium.string(from: date)
                 return formatted
             } else {
                 return "Select your \(viewModel.config.label)"
@@ -52,7 +53,7 @@ struct DateInputField: InputFieldView {
         .contentFittingSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
-                selectedComponents: $viewModel.value
+                selectedDate: $viewModel.value
             )
         }
         .onChange(of: viewModel.value) {

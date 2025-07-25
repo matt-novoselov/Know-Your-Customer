@@ -11,8 +11,8 @@ import SwiftUI
 struct DateInputFieldSheet: View {
     @Environment(\.dismiss) private var dismiss
     let fieldLabel: String
-    @Binding var selectedComponents: DateComponents?
-    @State private var tempComponents: DateComponents = Date().yearMonthDay
+    @Binding var selectedDate: Date?
+    @State private var tempDate: Date = Date().yearMonthDay
 
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct DateInputFieldSheet: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Button("Clear") {
-                    selectedComponents = nil
+                    selectedDate = nil
                     dismiss()
                 }
                 .foregroundStyle(.secondary)
@@ -32,10 +32,10 @@ struct DateInputFieldSheet: View {
 
             let dateBinding = Binding<Date>(
                 get: {
-                    Calendar.current.date(from: tempComponents) ?? Date()
+                    tempDate
                 },
                 set: { newDate in
-                    tempComponents = newDate.yearMonthDay
+                    tempDate = newDate.yearMonthDay
                 }
             )
 
@@ -47,7 +47,7 @@ struct DateInputFieldSheet: View {
             .datePickerStyle(.graphical)
 
             Button("Save") {
-                selectedComponents = tempComponents
+                selectedDate = tempDate
                 dismiss()
             }
             .buttonStyle(.capsule)
@@ -55,8 +55,8 @@ struct DateInputFieldSheet: View {
         .padding()
         .padding(.top, 5)
         .onAppear {
-            if let existing = selectedComponents {
-                tempComponents = existing
+            if let existing = selectedDate {
+                tempDate = existing
             }
         }
     }

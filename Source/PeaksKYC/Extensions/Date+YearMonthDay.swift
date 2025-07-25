@@ -8,8 +8,8 @@
 import Foundation
 
 extension Date {
-    /// Extracts only the year, month and day components of the date.
-    var yearMonthDay: DateComponents {
-        Calendar.current.dateComponents([.year, .month, .day], from: self)
+    var yearMonthDay: Date {
+        let comps = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        return Calendar.current.date(from: comps)!
     }
 }

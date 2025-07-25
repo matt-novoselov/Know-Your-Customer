@@ -15,14 +15,3 @@ public struct DateFormatterHolder {
         return formatter
     }()
 }
-
-extension DateFormatter {
-    /// Convenience helper to format date into a string.
-    func string(from components: DateComponents?) -> String? {
-        guard
-            let comps = components,
-            let date = Calendar.current.date(from: comps)
-        else { return nil }
-        return string(from: date)
-    }
-}

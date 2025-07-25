@@ -4,4 +4,4 @@ fields:
   - id: last_name
     value: Jansen
   - id: birth_date
-    value: "1990-07-23"
+    value: 1990-07-23

@@ -45,8 +45,7 @@ final class FieldViewModel<Value>: FieldViewModelProtocol {
         if let str = value as? String {
             return str
         }
-        if let comps = value as? DateComponents,
-           let date = Calendar.current.date(from: comps) {
+        if let date = value as? Date {
             return DateFormatterHolder.medium.string(from: date)
         }
         return "\(value)"

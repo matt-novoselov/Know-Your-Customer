@@ -20,12 +20,12 @@ struct DateFieldBuilder: FieldBuilder {
         prefilledValue: Any?,
         validationService: ValidationService
     ) -> FormField {
-        let components = (prefilledValue as? String)
+        let date = (prefilledValue as? String)
             .flatMap { Self.isoFormatter.date(from: $0) }
             .map { $0.yearMonthDay }
-        let viewModel = FieldViewModel<DateComponents>(
+        let viewModel = FieldViewModel<Date>(
             config: config,
-            preFilledValue: components,
+            preFilledValue: date,
             validationService: validationService
         )
         let view = DateInputField().environment(viewModel)
