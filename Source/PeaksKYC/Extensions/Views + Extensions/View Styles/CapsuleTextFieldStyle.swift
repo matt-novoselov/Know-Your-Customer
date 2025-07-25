@@ -25,16 +25,16 @@ struct CapsuleTextFieldStyle: TextFieldStyle {
         let showClear = isFocused && !text.isEmpty
         let foregroundColor: Color = isEnabled ? .primary : .secondary
 
-        configuration
-            .foregroundStyle(foregroundColor)
-            .overlay(alignment: .trailing) {
-                if showClear {
-                    ClearButton { text = "" }
-                }
-            }
-            .focused($isFocused)
-            .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: isValid)
-            .animation(.spring(duration: 0.4), value: showClear)
+        HStack {
+            configuration
+
+            ClearButton { text = "" }
+                .opacity(showClear ? 1 : 0)
+        }
+        .foregroundStyle(foregroundColor)
+        .focused($isFocused)
+        .dynamicFieldStroke(isFocused: isFocused, isDisabled: !isEnabled, isValid: isValid)
+        .animation(.spring(duration: 0.4), value: showClear)
     }
 
     private struct ClearButton: View {
