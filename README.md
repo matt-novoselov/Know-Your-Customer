@@ -11,9 +11,7 @@
 A demo of a Know Your Customer (KYC) onboarding flow that adapts to country-specific rules defined in YAML. The goal is to
 demonstrate dynamic form rendering and validation in a clean, test-driven codebase.
 
-<a href="https://example.com" target="_blank">
-  <img src="https://i.ibb.co/3h3kWh9/image-processing20210830-21891-1313qn-ezgif-com-resize.gif" alt="GIF">
-</a>
+![Peaks-GIF-_afvkslxXR6g_](https://github.com/user-attachments/assets/070c353e-af8b-443b-a467-bdd1c49567fd)
 
 
 ## Features
