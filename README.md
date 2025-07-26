@@ -1,7 +1,7 @@
 <p align="center">
   <img src="Media/Icon.png" alt="Logo" width="80" height="80">
   <h2 align="center">
-    Peaks KYC
+    Know Your Customer
   </h2>
 </p>
 
@@ -53,7 +53,7 @@ The app incorporates accessibility features to assist our users, including suppo
 ## Installation
 1. Open Xcode.
 2. Click on **"Clone Git Repository"**.
-3. Paste the following URL: `https://github.com/matt-novoselov/Peaks-KYC.git`
+3. Paste the following URL: `https://github.com/matt-novoselov/Know-Your-Customer`
 4. Click **"Clone"**.
 5. Build and run the project in Xcode.
 
