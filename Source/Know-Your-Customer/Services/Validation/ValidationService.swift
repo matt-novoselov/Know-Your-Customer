@@ -8,7 +8,7 @@
 import Foundation
 
 // Runs validators for each field and surfaces the first error.
-class ValidationService {
+struct ValidationService {
 
     /// Validates a single field and returns an error message if invalid.
     /// - Parameter field: The field to validate.

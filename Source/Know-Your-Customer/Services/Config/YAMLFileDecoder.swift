@@ -9,7 +9,7 @@ import Yams
 import Foundation
 
 /// Service responsible for loading YAML-based KYC configuration
-final class YAMLFileDecoder {
+struct YAMLFileDecoder {
     // Decodes YAML files bundled with the application.
     enum ServiceError: Error {
         case fileNotFound(name: String)
