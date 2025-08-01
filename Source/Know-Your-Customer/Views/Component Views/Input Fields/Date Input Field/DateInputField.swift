@@ -50,11 +50,13 @@ struct DateInputField: InputFieldView {
             isValid: !viewModel.hasErrors,
             padding: 21
         )
-        .contentFittingSheet(isPresented: $isFocused, isDragIndicatorVisible: false) {
+        .sheet(isPresented: $isFocused) {
             DateInputFieldSheet(
                 fieldLabel: viewModel.config.label,
                 selectedDate: $viewModel.value
             )
+            .fittedPresentationDetents()
+            .presentationDragIndicator(.hidden)
         }
         .onChange(of: viewModel.value) {
             viewModel.validate()
