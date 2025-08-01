@@ -21,7 +21,7 @@ struct CountryPickerFieldView: View {
         .sheet(isPresented: $isSheetPresented) {
             countryListSheetView
                 .fittedPresentationDetents()
-                .presentationDragIndicator(.hidden)
+                .presentationDragIndicator(.visible)
         }
     }
 }
